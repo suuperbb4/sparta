@@ -79,6 +79,9 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .phase{border-left:3px solid var(--line);padding-left:14px;display:flex;flex-direction:column;gap:6px}
 .phase.cur{border-left-color:var(--pen)}
 #sync{font-size:12px;color:var(--sub)}
+ul.routine li{grid-template-columns:24px 1fr auto}
+.prog{height:8px;background:var(--track);border-radius:3px;position:relative;overflow:hidden}
+.prog span{position:absolute;inset:0 auto 0 0;background:var(--bar);border-radius:3px}
 .errs{display:flex;flex-direction:column}
 .err{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
 .err:first-child{border-top:0}
@@ -97,7 +100,7 @@ input[type=text]{font:inherit;color:var(--ink);background:var(--bg);border:1px s
 <header class="top">
   <div class="brand"><h1>세무사 동차 플래너</h1><div class="dd" id="dd"></div></div>
   <nav id="nav">
-    <a href="#today">오늘</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a><a href="#coach">코치</a>
+    <a href="#today">오늘</a><a href="#books">교재</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a><a href="#coach">코치</a>
   </nav>
 </header>
 <div id="sync"></div>
@@ -162,7 +165,7 @@ const WEEKS=[
  ['2026-12-28','부가가치세: 영세율·면세, 세금계산서, 매입세액','1단계 오답 전체 복습']
 ];
 /* ---------- 상태·저장 ---------- */
-const S={settings:{e1:'2027-04-24',e2:'2027-07-17'},days:{},mocks:[],weeks:{},coach:[]};
+const S={settings:{e1:'2027-04-24',e2:'2027-07-17',routine:['오일풀링','따뜻한 소금물','올리브오일','영양제']},days:{},mocks:[],weeks:{},coach:[],books:[]};
 let db=null,col=null,view=null,curDay=iso(new Date());
 const LS='semusa-planner-v1';
 function iso(d){const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())}
@@ -170,7 +173,7 @@ function pd(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function addD(s,n){const d=pd(s);d.setDate(d.getDate()+n);return iso(d)}
 function diff(a,b){return Math.round((pd(b)-pd(a))/864e5)}
 function cache(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
-function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[];S.weeks=o.weeks||{};S.coach=o.coach||[]}}catch(e){}}
+function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[];S.weeks=o.weeks||{};S.coach=o.coach||[];S.books=o.books||[]}}catch(e){}}
 const queue={},timers={};
 function persist(id,body){
   cache(); if(!col) return;
@@ -226,6 +229,61 @@ function errPanel(d){
     h('p',{class:'note',text:'밤에는 단서만 보고 핵심을 종이에 먼저 쓴 뒤 확인합니다. ○는 목록에서 빠지고, △·×는 ○가 될 때까지 다음 날에도 나옵니다. 토요일에는 그 주 오답이 전부 나옵니다.'}),
     list,h('h3',{text:'오답 추가'}),add);
 }
+let routineEdit=false;
+function routinePanel(d){
+  const D=day(d);D.r=D.r||{};const R=S.settings.routine||[],done=R.filter(t=>D.r[t]).length;
+  const saveR=()=>persist('settings',S.settings);
+  return h('div',{class:'panel'},
+    h('div',{class:'row'},h('h2',{class:'grow',text:'아침 루틴 '+done+'/'+R.length}),h('button',{type:'button',onclick:()=>{routineEdit=!routineEdit;render()},text:routineEdit?'편집 끝':'루틴 편집'})),
+    h('ul',{class:'blocks routine'},R.map((t,i)=>h('li',{class:D.r[t]?'done':''},
+      h('input',{type:'checkbox',id:'r'+i,checked:D.r[t]?'':false,'aria-label':t,onchange:e=>{D.r[t]=e.target.checked;saveDay(d);render()}}),
+      h('span',{class:'d'},h('b',{text:t})),
+      routineEdit?h('button',{type:'button','aria-label':t+' 삭제',onclick:()=>{R.splice(i,1);saveR();render()},text:'삭제'}):h('span')))),
+    routineEdit?h('form',{class:'row',onsubmit:e=>{e.preventDefault();const v=document.getElementById('r-new').value.trim();if(v&&!R.includes(v)){R.push(v);S.settings.routine=R;saveR();render()}}},
+      h('input',{id:'r-new',type:'text',class:'grow',placeholder:'예: 물 한 잔, 스트레칭'}),h('button',{class:'pri',type:'submit',text:'추가'})):null,
+    h('p',{class:'note',text:'루틴은 15분 안에 끝내고, 마지막 항목을 체크하면 바로 열품타 측정을 누릅니다.'}));
+}
+function studyDays(a,b){let n=0;for(let x=a;x<=b;x=addD(x,1))if(pd(x).getDay()!==0)n++;return n}
+function vBooks(){
+  const t=iso(new Date()),save=()=>persist('books',{items:S.books});
+  const card=(bk,i)=>{
+    const u=bk.unit||'쪽';
+    const fld=(id,lab,key,type)=>h('label',{class:'f',for:id},lab,h('input',{id,type,value:bk[key]??'',inputmode:type==='number'?'numeric':null,min:type==='number'?'0':null,
+      onchange:e=>{const v=e.target.value;bk[key]=type==='date'?v:(v===''?null:+v);save();render()}}));
+    let info;
+    if(!bk.total)info=h('p',{class:'flag',text:'총량이 비어 있습니다. 목차 사진을 Claude에게 보내면 채워 드립니다. 직접 넣어도 됩니다.'});
+    else{
+      const round=bk.round||1,pos=Math.min(bk.pos||0,bk.total),target=Math.max(bk.target||round,round);
+      const remain=Math.max(0,(target-round+1)*bk.total-pos);
+      const days=bk.due&&bk.due>=t?studyDays(t,bk.due):0,per=days?Math.ceil(remain/days):remain;
+      const left=weekDays(t).filter(x=>x>=t&&pd(x).getDay()!==0).length;
+      let goal=pos+per*left,r=round;while(goal>bk.total&&r<target){goal-=bk.total;r++}goal=Math.min(goal,bk.total);
+      const ch=(bk.chapters||[]).filter(c=>c[1]<=goal).pop();
+      info=h('div',{class:'stats'},
+        h('div',{class:'stat'},h('span',{text:'하루 최소 (월~토)'}),h('b',{class:'big',text:remain?per+u:'완료'})),
+        h('div',{class:'stat'},h('span',{text:'이번 주 토요일까지'}),h('b',{class:'num',text:remain?r+'회독 '+goal+u+'까지':'-'}),ch?h('span',{text:ch[0]}):null),
+        h('div',{class:'stat'},h('span',{text:'남은 양 / 공부일'}),h('b',{class:'num',text:remain+u+' / '+days+'일'})));
+      if(remain&&!days)info=h('p',{class:'flag',text:'마감일이 지났습니다. 마감일이나 목표 회독을 고쳐 주세요.'});
+    }
+    return h('div',{class:'panel'},
+      h('div',{class:'row'},h('h2',{class:'grow',text:bk.name}),h('button',{type:'button','aria-label':bk.name+' 삭제',onclick:()=>{S.books.splice(i,1);save();render()},text:'삭제'})),
+      bk.total?h('div',{class:'row'},h('span',{class:'note num',text:(bk.round||1)+'회독째 '+(bk.pos||0)+'/'+bk.total+u}),h('div',{class:'prog grow'},h('span',{style:'width:'+Math.round(Math.min(1,(bk.pos||0)/bk.total)*100)+'%'}))):null,
+      info,
+      h('div',{class:'form'},fld('b'+i+'-pos','이번 회독 진행('+u+')','pos','number'),fld('b'+i+'-round','현재 회독','round','number'),
+        fld('b'+i+'-total','총량('+u+')','total','number'),fld('b'+i+'-target','목표 회독','target','number'),fld('b'+i+'-due','마감일','due','date')),
+      bk.note?h('p',{class:'note',text:bk.note}):null);
+  };
+  const add=h('form',{class:'form',onsubmit:e=>{e.preventDefault();const n=document.getElementById('nb-name').value.trim();if(!n)return;
+      S.books.push({name:n,unit:document.getElementById('nb-unit').value,round:1,pos:0,total:null,target:1,due:S.settings.e1});save();render()}},
+    h('label',{class:'f',for:'nb-name',style:'grid-column:1/-1'},'교재 이름',h('input',{id:'nb-name',type:'text',placeholder:'예: 재정학 기출문제집'})),
+    h('label',{class:'f',for:'nb-unit'},'단위',h('select',{id:'nb-unit'},h('option',{value:'쪽',text:'쪽'}),h('option',{value:'문제',text:'문제'}))),
+    h('button',{class:'pri',type:'submit',text:'교재 추가'}));
+  return h('section',{class:'view'},
+    h('div',{class:'panel'},h('h2',{text:'회독 관리'}),
+      h('p',{class:'note',text:'공부가 끝나면 "이번 회독 진행"에 오늘 끝낸 위치를 적습니다. 마감까지 남은 공부일(일요일 제외)로 하루 최소 분량을 다시 계산합니다. 한 회독을 끝내면 현재 회독을 1 올리고 진행을 0으로 바꿉니다.'})),
+    S.books.length?S.books.map(card):h('p',{class:'note',text:'아직 교재가 없습니다.'}),
+    h('div',{class:'panel'},h('h2',{text:'교재 추가'}),add));
+}
 function vToday(){
   const d=curDay,D=day(d),p=phaseOf(d),bl=blocksFor(d),wk=weekDays(d);
   const done=bl.filter((b,i)=>D.c[i]).length;
@@ -250,6 +308,7 @@ function vToday(){
         h('div',{class:'stat'},h('span',{text:'이번 주 순공시간 (목표 50)'}),h('b',{class:'big',text:hrs.toFixed(1)})),
         h('div',{class:'stat'},h('span',{text:'오늘 기상 목표'}),h('b',{class:'big',text:wakeGoal(d)})),
         h('div',{class:'stat'},h('span',{text:'이번 주 기상 성공'}),h('b',{class:'big',text:wakeOk+'일'})))),
+    routinePanel(d),
     h('div',{class:'panel'},h('h2',{text:bl.length?'오늘 할 일':'일요일은 쉽니다'}),
       bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 다음 주를 버티려면 이 하루가 필요합니다. 책은 펴지 않습니다.'})),
     errPanel(d),
@@ -418,7 +477,7 @@ function vCoach(){
       ta('w-good','이번 주에 된 것','g'),ta('w-bad','막힌 것, 못 지킨 것과 이유','b'),ta('w-ask','코치에게 묻고 싶은 것','q')),
     h('div',{class:'panel'},h('h2',{text:'오래 가는 방법'}),P.map(x=>h('div',{class:'phase'},h('b',{text:x[0]}),h('p',{class:'note',text:x[1]})))));
 }
-const VIEWS={today:vToday,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog,coach:vCoach};
+const VIEWS={today:vToday,books:vBooks,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog,coach:vCoach};
 function render(){view=(location.hash||'#today').slice(1);if(!VIEWS[view])view='today';header();
   const m=document.getElementById('main');m.replaceChildren(VIEWS[view]())}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
@@ -436,6 +495,7 @@ loadCache();render();
     const snap=await Promise.race([c.get(),new Promise((_,r)=>setTimeout(()=>r(new Error('t')),10000))]);
     snap.docs.forEach(x=>{const b=JSON.parse(JSON.stringify(x.data()||{}));
       if(x.id==='settings')Object.assign(S.settings,b);
+      else if(x.id==='books')S.books=b.items||[];
       else if(x.id==='mocks')S.mocks=b.items||[];
       else if(x.id[0]==='w')S.weeks[x.id.slice(1)]=b;
       else if(x.id[0]==='d'){b.c=b.c||{};S.days[x.id.slice(1)]=b}});
