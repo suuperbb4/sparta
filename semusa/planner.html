@@ -119,7 +119,7 @@ const ADM_MISS=[['판례 세부 내용',5,'43·46·60·63·65번'],['조문 문�
 const PHASES=[
  {id:1,name:'1단계 · 기반 다지기',goal:'재무회계 구멍 메우기, 세법 말문제 시작, 기상 시간 당기기',
   alloc:[['재무회계 연습서·미학습 단원',16],['세법 말문제(기출 지문)',10],['세무회계연습 5회독',6],['원가관리 2차 연습서',6],['재정학·행소법 유지',4],['주간 복습',4]],
-  wd:[['06:20–07:30','세무회계연습 5회독','법인세부터. 문제마다 걸린 시간을 적는다. 07:30–08:30은 아이 등원 준비'],
+  wd:[['06:20–07:30','세무회계연습 5회독','하루 7문제. 법인 7장부터 이어서. 문제마다 걸린 시간을 적는다. 07:30–08:30은 아이 등원 준비'],
       ['08:30–10:20','재무회계 미학습 단원','머리가 가장 맑은 시간에 새 단원. 자본 → 현금흐름표 → 지분법·환율'],
       ['10:30–12:00','재무회계연습 (김영덕)','2회독 마무리 → 3회독'],
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
@@ -128,7 +128,7 @@ const PHASES=[
   sat:[['06:20–08:00','주간 누적 복습','이번 주 오답 전부'],['08:20–10:20','재무회계 말문제','기준서 문장 OX'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
   alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
-  wd:[['06:20–07:30','세무회계연습 6회독','약점 주제만. 시간 초과 문제 표시'],
+  wd:[['06:00–07:30','세무회계연습 6회독','유예 표시 문제만 빼고 전체. 문제마다 걸린 시간을 적는다'],
       ['08:00–09:50','재무회계연습 3회독','동차 강의 병행'],
       ['10:00–11:50','세법학 1부 기본강의','국기법 강의를 들은 주에 객관식 국기법 지문을 같이 푼다'],
       ['13:00–14:50','원가관리 2차 연습서','강점 과목이므로 주 4회면 충분, 금요일은 재무회계로 대체'],
@@ -136,12 +136,12 @@ const PHASES=[
       ['21:00–21:40','당일 오답 백지 회상','세법학 목차 3개 암기 포함']],
   sat:[['06:20–08:00','주간 누적 복습',''],['08:20–10:20','재정학 기출 1회분 + 오답',''],['10:30–12:00','행소법 기출 1회분 + 오답','']]},
  {id:3,name:'3단계 · 1차 집중',goal:'객관식 기출 회독과 실전 시간 훈련. 2차 과목은 세무회계만 유지',
-  alloc:[['객관식 세법',14],['객관식 회계',14],['재정학',8],['행정소송법',8],['실전 모의고사',4],['세무회계연습 유지',2]],
-  wd:[['06:20–07:30','객관식 세법 계산','10문항 25분 세트. 3분 넘으면 넘긴다'],
+  alloc:[['객관식 세법',10],['객관식 회계',14],['재정학',8],['행정소송법',8],['세무회계연습 7~10회독',6],['실전 모의고사',4]],
+  wd:[['06:00–07:30','세무회계연습 7~10회독','[1차] 표시 문제와 틀렸던 문제만. 문제마다 시간을 재고 푼다'],
       ['08:00–09:50','객관식 재무회계','말문제 9문항 먼저, 계산은 빈출 유형만'],
       ['10:00–11:50','재정학 기출 회독','조세 파트 계산 4유형 매일 1문제씩'],
       ['13:00–14:50','행정소송법 조문·판례','틀린 지문을 조문 옆에 옮겨 적는다'],
-      ['15:00–16:50','세법 말문제 + 원가 객관식','원가는 주 2회, 유지 목적'],
+      ['15:00–16:50','객관식 세법 계산·말문제 + 원가 객관식','계산은 10문항 25분 세트, 원가는 주 2회'],
       ['21:00–21:40','당일 오답 백지 회상','']],
   sat:[['06:20–07:40','실전 1교시 (재정학+세법)','실제 80분. 재정학 28분에 끊는다'],['08:00–09:20','실전 2교시 (회계+행소법)','행소법 22분에 끊는다'],['09:40–12:00','채점과 오답 분류','개념·시간·실수로 나눠 기록 탭에 입력']]},
  {id:4,name:'4단계 · 2차 집중',goal:'세법학 1·2부 답안 쓰기와 회계학 1·2부 실전 풀이',
@@ -253,24 +253,24 @@ function vBooks(){
     let info;
     if(!bk.total)info=h('p',{class:'flag',text:'총량이 비어 있습니다. 목차 사진을 Claude에게 보내면 채워 드립니다. 직접 넣어도 됩니다.'});
     else{
-      const round=bk.round||1,pos=Math.min(bk.pos||0,bk.total),target=Math.max(bk.target||round,round);
-      const remain=Math.max(0,(target-round+1)*bk.total-pos);
+      const round=bk.round||1,target=Math.max(bk.target||round,round),sz=r=>(bk.sizes&&+bk.sizes[r])||bk.total;
+      const pos=Math.min(bk.pos||0,sz(round));let remain=sz(round)-pos;for(let r=round+1;r<=target;r++)remain+=sz(r);remain=Math.max(0,remain);
       const days=bk.due&&bk.due>=t?studyDays(t,bk.due):0,per=days?Math.ceil(remain/days):remain;
       const left=weekDays(t).filter(x=>x>=t&&pd(x).getDay()!==0).length;
-      let goal=pos+per*left,r=round;while(goal>bk.total&&r<target){goal-=bk.total;r++}goal=Math.min(goal,bk.total);
-      const ch=(bk.chapters||[]).filter(c=>c[1]<=goal).pop();
+      let goal=pos+per*left,r=round;while(goal>sz(r)&&r<target){goal-=sz(r);r++}goal=Math.min(goal,sz(r));
+      const cs=(bk.chapterSets&&bk.chapterSets[String(sz(r))])||bk.chapters||[],ch=cs.filter(c=>c[1]<=goal).pop();
       info=h('div',{class:'stats'},
         h('div',{class:'stat'},h('span',{text:'하루 최소 (월~토)'}),h('b',{class:'big',text:remain?per+u:'완료'})),
-        h('div',{class:'stat'},h('span',{text:'이번 주 토요일까지'}),h('b',{class:'num',text:remain?r+'회독 '+goal+u+'까지':'-'}),ch?h('span',{text:ch[0]}):null),
+        h('div',{class:'stat'},h('span',{text:'이번 주 토요일까지'}),h('b',{class:'num',text:remain?r+'회독 '+goal+u+'까지':'-'}),ch?h('span',{text:ch[0]+' 진행 중'}):null),
         h('div',{class:'stat'},h('span',{text:'남은 양 / 공부일'}),h('b',{class:'num',text:remain+u+' / '+days+'일'})));
       if(remain&&!days)info=h('p',{class:'flag',text:'마감일이 지났습니다. 마감일이나 목표 회독을 고쳐 주세요.'});
     }
     return h('div',{class:'panel'},
       h('div',{class:'row'},h('h2',{class:'grow',text:bk.name}),h('button',{type:'button','aria-label':bk.name+' 삭제',onclick:()=>{S.books.splice(i,1);save();render()},text:'삭제'})),
-      bk.total?h('div',{class:'row'},h('span',{class:'note num',text:(bk.round||1)+'회독째 '+(bk.pos||0)+'/'+bk.total+u}),h('div',{class:'prog grow'},h('span',{style:'width:'+Math.round(Math.min(1,(bk.pos||0)/bk.total)*100)+'%'}))):null,
+      bk.total?(()=>{const T=(bk.sizes&&+bk.sizes[bk.round||1])||bk.total;return h('div',{class:'row'},h('span',{class:'note num',text:(bk.round||1)+'회독째 '+(bk.pos||0)+'/'+T+u}),h('div',{class:'prog grow'},h('span',{style:'width:'+Math.round(Math.min(1,(bk.pos||0)/T)*100)+'%'})))})():null,
       info,
       h('div',{class:'form'},fld('b'+i+'-pos','이번 회독 진행('+u+')','pos','number'),fld('b'+i+'-round','현재 회독','round','number'),
-        fld('b'+i+'-total','총량('+u+')','total','number'),fld('b'+i+'-target','목표 회독','target','number'),fld('b'+i+'-due','마감일','due','date')),
+        bk.sizes?null:fld('b'+i+'-total','총량('+u+')','total','number'),fld('b'+i+'-target','목표 회독','target','number'),fld('b'+i+'-due','마감일','due','date')),
       bk.note?h('p',{class:'note',text:bk.note}):null);
   };
   const add=h('form',{class:'form',onsubmit:e=>{e.preventDefault();const n=document.getElementById('nb-name').value.trim();if(!n)return;
