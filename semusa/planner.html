@@ -124,7 +124,7 @@ const PHASES=[
       ['10:30–12:00','강의 들은 장 문제 풀이','그날 들은 장의 계산형 문제를 해설 없이 다시 푼다. 유예 문제는 1차 뒤로'],
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
       ['15:00–16:50','월수금 원가 2차 연습서 / 화목 재정학·행소법 기출','화목은 과목당 55분씩'],
-      ['21:00–21:40','당일 오답 백지 회상','오답 목록의 단서만 보고 핵심을 종이에 쓴 뒤 확인한다']],
+      ['21:00–21:40','백지 회상','블록마다 5분, 제목만 보고 쓰고 빨간펜으로 보충']],
   sat:[['06:20–08:00','주간 누적 복습','이번 주 오답 전부'],['08:20–10:20','재무회계 주간 복습','이번 주 강의 범위 계산 문제 다시 풀기 + 그 장 말문제만'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
   alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
@@ -133,7 +133,7 @@ const PHASES=[
       ['10:00–11:50','세법학 1부 기본강의','국기법 강의를 들은 주에 객관식 국기법 지문을 같이 푼다'],
       ['13:00–14:50','원가관리 2차 연습서','강점 과목이므로 주 4회면 충분, 금요일은 재무회계로 대체'],
       ['15:00–16:50','객관식 세법 말문제','틀린 지문은 조문 번호와 함께 표시'],
-      ['21:00–21:40','당일 오답 백지 회상','세법학 목차 3개 암기 포함']],
+      ['21:00–21:40','백지 회상','세법학 목차 3개 암기 포함']],
   sat:[['06:20–08:00','주간 누적 복습',''],['08:20–10:20','재정학 기출 1회분 + 오답',''],['10:30–12:00','행소법 기출 1회분 + 오답','']]},
  {id:3,name:'3단계 · 1차 집중',goal:'객관식 기출 회독과 실전 시간 훈련. 2차 과목은 세무회계만 유지',
   alloc:[['객관식 세법',10],['객관식 회계',14],['재정학',8],['행정소송법',8],['세무회계연습 7~10회독',6],['실전 모의고사',4]],
@@ -142,7 +142,7 @@ const PHASES=[
       ['10:00–11:50','재정학 기출 회독','조세 파트 계산 4유형 매일 1문제씩'],
       ['13:00–14:50','행정소송법 조문·판례','틀린 지문을 조문 옆에 옮겨 적는다'],
       ['15:00–16:50','객관식 세법 계산·말문제 + 원가 객관식','계산은 10문항 25분 세트, 원가는 주 2회'],
-      ['21:00–21:40','당일 오답 백지 회상','']],
+      ['21:00–21:40','백지 회상','']],
   sat:[['06:20–07:40','실전 1교시 (재정학+세법)','실제 80분. 재정학 28분에 끊는다'],['08:00–09:20','실전 2교시 (회계+행소법)','행소법 22분에 끊는다'],['09:40–12:00','채점과 오답 분류','개념·시간·실수로 나눠 기록 탭에 입력']]},
  {id:4,name:'4단계 · 2차 집중',goal:'세법학 1·2부 답안 쓰기와 회계학 1·2부 실전 풀이',
   alloc:[['세법학 1부',12],['세법학 2부',12],['회계학 2부(세무회계)',12],['회계학 1부(재무·원가)',10],['동차 모의고사',4]],
@@ -205,29 +205,20 @@ function header(){const t=iso(new Date());
   document.getElementById('dd').innerHTML='1차 <b>D-'+diff(t,S.settings.e1)+'</b> · 2차 <b>D-'+diff(t,S.settings.e2)+'</b>';
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+view))}
 
-const SUBJ=['세법','재무회계','원가','재정학','행소법'],CAUSE=['개념','암기','실수','시간','찍음'];
-function errPanel(d){
-  const D=day(d);D.e=D.e||[];const sat=pd(d).getDay()===6,due=[];
-  for(let i=0;i<=21;i++){const x=addD(d,-i),y=S.days[x];if(!y||!y.e)continue;
-    y.e.forEach((it,j)=>{if(i===0||(sat&&i<=6)||it.st!=='o')due.push([x,j,it])})}
-  const sel=(id,opts)=>h('select',{id},opts.map(o=>h('option',{value:o,text:o})));
-  const add=h('form',{class:'form',onsubmit:e=>{e.preventDefault();const g=id=>document.getElementById(id).value.trim();
-      if(!g('e-q'))return;D.e.push({s:g('e-s'),q:g('e-q'),a:g('e-a'),r:g('e-r'),st:''});saveDay(d);render()}},
-    h('label',{class:'f',for:'e-s'},'과목',sel('e-s',SUBJ)),
-    h('label',{class:'f',for:'e-r'},'원인',sel('e-r',CAUSE)),
-    h('label',{class:'f',for:'e-q',style:'grid-column:1/-1'},'단서: 무엇을 물었나 (책·번호 포함)',h('input',{id:'e-q',type:'text',placeholder:'예: 객세 법인 23번, 의제배당 주식배당 평가액'})),
-    h('label',{class:'f',for:'e-a',style:'grid-column:1/-1'},'핵심: 맞는 답이나 규칙 한 줄',h('input',{id:'e-a',type:'text',placeholder:'예: 상법상 주식배당은 발행가액으로 평가'})),
-    h('button',{class:'pri',type:'submit',text:'오답 추가'}));
-  const mark=(x,it,v)=>h('button',{type:'button',class:it.st===v?'sel':'','aria-label':'회상 결과 '+{o:'기억함',t:'일부',x:'못 함'}[v],onclick:()=>{it.st=v;saveDay(x);render()},text:{o:'○',t:'△',x:'×'}[v]});
-  const list=due.length?h('div',{class:'errs'},due.map(([x,j,it])=>h('div',{class:'err'},
-      h('div',{class:'q'},h('small',{text:it.s+' · '+it.r+(x!==d?' · '+fmt(x):'')}),h('span',{text:it.q}),
-        it.a?h('details',null,h('summary',{text:'핵심 확인'}),h('span',{text:it.a})):null),
-      h('div',{class:'marks'},mark(x,it,'o'),mark(x,it,'t'),mark(x,it,'x'),
-        x===d?h('button',{type:'button','aria-label':'이 오답 삭제',onclick:()=>{S.days[x].e.splice(j,1);saveDay(x);render()},text:'삭제'}):null)))):
-    h('p',{class:'note',text:'낮에 틀리거나 찍어서 맞힌 문제를 아래에 적어 두면 밤 회상 목록이 됩니다.'});
-  return h('div',{class:'panel'},h('h2',{text:sat?'이번 주 오답 회상':'오답 기록과 밤 회상'}),
-    h('p',{class:'note',text:'밤에는 단서만 보고 핵심을 종이에 먼저 쓴 뒤 확인합니다. ○는 목록에서 빠지고, △·×는 ○가 될 때까지 다음 날에도 나옵니다. 토요일에는 그 주 오답이 전부 나옵니다.'}),
-    list,h('h3',{text:'오답 추가'}),add);
+function recallPanel(d){
+  const D=day(d);D.rc=D.rc||{};
+  const items=blocksFor(d).map((b,i)=>[i,b]).filter(x=>!/회상/.test(x[1][1]));
+  let carry=[];for(let i=1;i<=3&&!carry.length;i++){const x=addD(d,-i),y=S.days[x];if(y&&y.rc){const bl=blocksFor(x);carry=Object.keys(y.rc).filter(k=>y.rc[k]==='t'||y.rc[k]==='x').map(k=>bl[k]?bl[k][1]:null).filter(Boolean);if(Object.keys(y.rc).length)break}}
+  const mark=(i,v)=>h('button',{type:'button',class:D.rc[i]===v?'sel':'','aria-label':{o:'거의 다 씀',t:'절반쯤',x:'거의 못 씀'}[v],onclick:()=>{D.rc[i]=D.rc[i]===v?'':v;saveDay(d);render()},text:{o:'○',t:'△',x:'×'}[v]});
+  return h('div',{class:'panel'},h('h2',{text:'백지 회상'}),
+    carry.length?h('p',{class:'flag',text:'아침 첫 5분: 어제 빨간펜이 많았던 '+carry.join(', ')+'의 빨간 글씨만 다시 읽고 시작합니다.'}):null,
+    h('ul',{class:'plain'},
+      h('li',{html:'<b>낮</b>: 아무것도 입력하지 않습니다. 틀리거나 찍은 문제는 책에 표시만 합니다.'}),
+      h('li',{html:'<b>밤 21:00</b>: 책을 덮고 백지 한 장. 아래 블록 제목만 보고 블록마다 5분씩, 오늘 한 내용을 기억나는 대로 씁니다. 계산 과목은 틀린 문제 하나의 풀이 순서를 씁니다.'}),
+      h('li',{html:'<b>확인</b>: 책을 펴고 빠졌거나 틀린 것을 <b>빨간펜</b>으로 보충합니다. 빨간 글씨가 내일 아침 복습거리입니다.'}),
+      h('li',{html:'<b>기록</b>: 블록마다 ○(거의 다 씀) △(절반) ×(거의 못 씀) 한 번만 누릅니다. 종이는 한 곳에 모아 토요일에 사진으로 Claude에게 보냅니다.'})),
+    items.length?h('div',{class:'errs'},items.map(([i,b])=>h('div',{class:'err'},h('div',{class:'q'},h('span',{text:b[1]})),h('div',{class:'marks'},mark(i,'o'),mark(i,'t'),mark(i,'x'))))):
+      h('p',{class:'note',text:'오늘은 회상할 블록이 없습니다.'}));
 }
 let routineEdit=false;
 function routinePanel(d){
@@ -311,7 +302,7 @@ function vToday(){
     routinePanel(d),
     h('div',{class:'panel'},h('h2',{text:bl.length?'오늘 할 일':'일요일은 쉽니다'}),
       bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 다음 주를 버티려면 이 하루가 필요합니다. 책은 펴지 않습니다.'})),
-    errPanel(d),
+    recallPanel(d),
     h('div',{class:'panel'},h('h2',{text:'몸 상태와 공부 시간'}),
       h('div',{class:'form'},
         f('f-wake','기상 시각','time','w'),
