@@ -79,6 +79,17 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .phase{border-left:3px solid var(--line);padding-left:14px;display:flex;flex-direction:column;gap:6px}
 .phase.cur{border-left-color:var(--pen)}
 #sync{font-size:12px;color:var(--sub)}
+.errs{display:flex;flex-direction:column}
+.err{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
+.err:first-child{border-top:0}
+.err .q{min-width:0;display:flex;flex-direction:column;gap:2px}
+.err .q small{color:var(--sub);font-size:12.5px}
+.err details{font-size:13.5px}
+.err summary{cursor:pointer;color:var(--sub)}
+.marks{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.marks button{padding:4px 9px;font-size:13px}
+.marks button.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+input[type=text]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%}
 @media (max-width:480px){ul.blocks li{grid-template-columns:24px 1fr}ul.blocks .t{grid-column:2}ul.blocks .d{grid-column:2}}
 </style>
 
@@ -110,7 +121,7 @@ const PHASES=[
       ['10:30–12:00','재무회계연습 (김영덕)','2회독 마무리 → 3회독'],
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
       ['15:00–16:50','월수금 원가 2차 연습서 / 화목 재정학·행소법 기출','화목은 과목당 55분씩'],
-      ['21:00–21:40','당일 오답 백지 회상','책을 덮고 오늘 틀린 것만 다시 쓴다']],
+      ['21:00–21:40','당일 오답 백지 회상','오답 목록의 단서만 보고 핵심을 종이에 쓴 뒤 확인한다']],
   sat:[['06:20–08:00','주간 누적 복습','이번 주 오답 전부'],['08:20–10:20','재무회계 말문제','기준서 문장 OX'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
   alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
@@ -191,6 +202,30 @@ function header(){const t=iso(new Date());
   document.getElementById('dd').innerHTML='1차 <b>D-'+diff(t,S.settings.e1)+'</b> · 2차 <b>D-'+diff(t,S.settings.e2)+'</b>';
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+view))}
 
+const SUBJ=['세법','재무회계','원가','재정학','행소법'],CAUSE=['개념','암기','실수','시간','찍음'];
+function errPanel(d){
+  const D=day(d);D.e=D.e||[];const sat=pd(d).getDay()===6,due=[];
+  for(let i=0;i<=21;i++){const x=addD(d,-i),y=S.days[x];if(!y||!y.e)continue;
+    y.e.forEach((it,j)=>{if(i===0||(sat&&i<=6)||it.st!=='o')due.push([x,j,it])})}
+  const sel=(id,opts)=>h('select',{id},opts.map(o=>h('option',{value:o,text:o})));
+  const add=h('form',{class:'form',onsubmit:e=>{e.preventDefault();const g=id=>document.getElementById(id).value.trim();
+      if(!g('e-q'))return;D.e.push({s:g('e-s'),q:g('e-q'),a:g('e-a'),r:g('e-r'),st:''});saveDay(d);render()}},
+    h('label',{class:'f',for:'e-s'},'과목',sel('e-s',SUBJ)),
+    h('label',{class:'f',for:'e-r'},'원인',sel('e-r',CAUSE)),
+    h('label',{class:'f',for:'e-q',style:'grid-column:1/-1'},'단서: 무엇을 물었나 (책·번호 포함)',h('input',{id:'e-q',type:'text',placeholder:'예: 객세 법인 23번, 의제배당 주식배당 평가액'})),
+    h('label',{class:'f',for:'e-a',style:'grid-column:1/-1'},'핵심: 맞는 답이나 규칙 한 줄',h('input',{id:'e-a',type:'text',placeholder:'예: 상법상 주식배당은 발행가액으로 평가'})),
+    h('button',{class:'pri',type:'submit',text:'오답 추가'}));
+  const mark=(x,it,v)=>h('button',{type:'button',class:it.st===v?'sel':'','aria-label':'회상 결과 '+{o:'기억함',t:'일부',x:'못 함'}[v],onclick:()=>{it.st=v;saveDay(x);render()},text:{o:'○',t:'△',x:'×'}[v]});
+  const list=due.length?h('div',{class:'errs'},due.map(([x,j,it])=>h('div',{class:'err'},
+      h('div',{class:'q'},h('small',{text:it.s+' · '+it.r+(x!==d?' · '+fmt(x):'')}),h('span',{text:it.q}),
+        it.a?h('details',null,h('summary',{text:'핵심 확인'}),h('span',{text:it.a})):null),
+      h('div',{class:'marks'},mark(x,it,'o'),mark(x,it,'t'),mark(x,it,'x'),
+        x===d?h('button',{type:'button','aria-label':'이 오답 삭제',onclick:()=>{S.days[x].e.splice(j,1);saveDay(x);render()},text:'삭제'}):null)))):
+    h('p',{class:'note',text:'낮에 틀리거나 찍어서 맞힌 문제를 아래에 적어 두면 밤 회상 목록이 됩니다.'});
+  return h('div',{class:'panel'},h('h2',{text:sat?'이번 주 오답 회상':'오답 기록과 밤 회상'}),
+    h('p',{class:'note',text:'밤에는 단서만 보고 핵심을 종이에 먼저 쓴 뒤 확인합니다. ○는 목록에서 빠지고, △·×는 ○가 될 때까지 다음 날에도 나옵니다. 토요일에는 그 주 오답이 전부 나옵니다.'}),
+    list,h('h3',{text:'오답 추가'}),add);
+}
 function vToday(){
   const d=curDay,D=day(d),p=phaseOf(d),bl=blocksFor(d),wk=weekDays(d);
   const done=bl.filter((b,i)=>D.c[i]).length;
@@ -217,6 +252,7 @@ function vToday(){
         h('div',{class:'stat'},h('span',{text:'이번 주 기상 성공'}),h('b',{class:'big',text:wakeOk+'일'})))),
     h('div',{class:'panel'},h('h2',{text:bl.length?'오늘 할 일':'일요일은 쉽니다'}),
       bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 다음 주를 버티려면 이 하루가 필요합니다. 책은 펴지 않습니다.'})),
+    errPanel(d),
     h('div',{class:'panel'},h('h2',{text:'몸 상태와 공부 시간'}),
       h('div',{class:'form'},
         f('f-wake','기상 시각','time','w'),
