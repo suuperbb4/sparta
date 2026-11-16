@@ -86,7 +86,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 <header class="top">
   <div class="brand"><h1>세무사 동차 플래너</h1><div class="dd" id="dd"></div></div>
   <nav id="nav">
-    <a href="#today">오늘</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a>
+    <a href="#today">오늘</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a><a href="#coach">코치</a>
   </nav>
 </header>
 <div id="sync"></div>
@@ -104,16 +104,16 @@ const SCORES=[
 const ADM_MISS=[['판례 세부 내용',5,'43·46·60·63·65번'],['조문 문언·절차',5,'50·52·56·59·67번'],['당사자소송',2,'58·73번'],['피고적격',1,'78번']];
 const PHASES=[
  {id:1,name:'1단계 · 기반 다지기',goal:'재무회계 구멍 메우기, 세법 말문제 시작, 기상 시간 당기기',
-  alloc:[['재무회계 연습서·미학습 단원',18],['세법 말문제(기출 지문)',10],['세무회계연습 5회독',8],['원가관리 2차 연습서',6],['재정학·행소법 유지',4],['주간 복습',4]],
-  wd:[['06:20–07:30','세무회계연습 5회독','법인세부터. 문제마다 걸린 시간을 적는다'],
-      ['08:00–09:50','재무회계연습 (김영덕)','2회독 마무리 → 3회독'],
-      ['10:00–11:50','재무회계 미학습 단원','자본 → 현금흐름표 → 지분법·환율(1차 범위만)'],
+  alloc:[['재무회계 연습서·미학습 단원',16],['세법 말문제(기출 지문)',10],['세무회계연습 5회독',6],['원가관리 2차 연습서',6],['재정학·행소법 유지',4],['주간 복습',4]],
+  wd:[['06:20–07:30','세무회계연습 5회독','법인세부터. 문제마다 걸린 시간을 적는다. 07:30–08:30은 아이 등원 준비'],
+      ['08:30–10:20','재무회계 미학습 단원','머리가 가장 맑은 시간에 새 단원. 자본 → 현금흐름표 → 지분법·환율'],
+      ['10:30–12:00','재무회계연습 (김영덕)','2회독 마무리 → 3회독'],
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
       ['15:00–16:50','월수금 원가 2차 연습서 / 화목 재정학·행소법 기출','화목은 과목당 55분씩'],
       ['21:00–21:40','당일 오답 백지 회상','책을 덮고 오늘 틀린 것만 다시 쓴다']],
   sat:[['06:20–08:00','주간 누적 복습','이번 주 오답 전부'],['08:20–10:20','재무회계 말문제','기준서 문장 OX'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
-  alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',2],['주간 복습',4]],
+  alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
   wd:[['06:20–07:30','세무회계연습 6회독','약점 주제만. 시간 초과 문제 표시'],
       ['08:00–09:50','재무회계연습 3회독','동차 강의 병행'],
       ['10:00–11:50','세법학 1부 기본강의','국기법 강의를 들은 주에 객관식 국기법 지문을 같이 푼다'],
@@ -151,7 +151,7 @@ const WEEKS=[
  ['2026-12-28','부가가치세: 영세율·면세, 세금계산서, 매입세액','1단계 오답 전체 복습']
 ];
 /* ---------- 상태·저장 ---------- */
-const S={settings:{e1:'2027-04-24',e2:'2027-07-17'},days:{},mocks:[]};
+const S={settings:{e1:'2027-04-24',e2:'2027-07-17'},days:{},mocks:[],weeks:{},coach:[]};
 let db=null,col=null,view=null,curDay=iso(new Date());
 const LS='semusa-planner-v1';
 function iso(d){const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())}
@@ -159,7 +159,7 @@ function pd(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function addD(s,n){const d=pd(s);d.setDate(d.getDate()+n);return iso(d)}
 function diff(a,b){return Math.round((pd(b)-pd(a))/864e5)}
 function cache(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
-function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[]}}catch(e){}}
+function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[];S.weeks=o.weeks||{};S.coach=o.coach||[]}}catch(e){}}
 const queue={},timers={};
 function persist(id,body){
   cache(); if(!col) return;
@@ -236,7 +236,7 @@ function vRoadmap(){
       h('p',{class:'flag',text:'2027년(제64회) 시행계획은 아직 공고 전입니다. 2026년 실제 일정(1차 4월 25일, 2차 7월 18일)을 기준으로 잡은 추정일이니, 큐넷 공고가 나오면 여기서 고치세요.'}),
       h('div',{class:'form'},setIn('s-e1','1차 시험일','e1'),setIn('s-e2','2차 시험일','e2'))),
     h('div',{class:'panel'},h('h2',{text:'쓸 수 있는 시간'}),
-      h('p',{text:'평일 06:20–17:00에 순공 약 8시간 40분, 밤 40분, 토요일 오전 5시간 반으로 주 50시간 정도입니다. 1차까지 약 1,150시간, 1차 뒤 2차까지 약 600시간입니다.'}),
+      h('p',{text:'12월까지는 아이 등원 준비(07:30–08:30)가 있어 주 46시간 안팎, 아이를 온전히 맡기는 1월 1일부터는 주 48~50시간입니다. 1차까지 약 1,100시간, 1차 뒤 2차까지 약 600시간입니다.'}),
       h('p',{class:'note',text:'동차 합격에는 1차 뒤 12주가 가장 부족합니다. 4월 말부터 7월 중순까지만 평일 저녁과 주말 하루를 더 쓰는 것을 지금 가족과 미리 정해 두길 권합니다.'})),
     h('div',{class:'panel'},h('h2',{text:'4단계 로드맵'}),
       PHASES.map(p=>{const r=phaseRange(p),cur=t>=r[0]&&t<=r[1];
@@ -248,12 +248,14 @@ function vRoadmap(){
     h('div',{class:'panel'},h('h2',{text:'1단계 주간 진도'}),
       h('p',{class:'note',text:'세법 말문제는 정우승 객관식 세법(2026년판)의 해당 단원 기출 지문, 재무회계는 김영덕 재무회계연습의 해당 단원입니다. 세무회계연습 회독과 같은 단원을 같은 주에 봅니다. 국세기본법은 1월 세법학 1부 강의와 함께, 징수·조처·국조는 3월에 봅니다.'}),
       h('div',{class:'tblwrap'},h('table',null,
-        h('thead',null,h('tr',null,h('th',{text:'주'}),h('th',{text:'세법 말문제 (13:00 블록)'}),h('th',{text:'재무회계 미학습 단원 (10:00 블록)'}))),
+        h('thead',null,h('tr',null,h('th',{text:'주'}),h('th',{text:'세법 말문제 (13:00 블록)'}),h('th',{text:'재무회계 미학습 단원 (08:30 블록)'}))),
         h('tbody',null,WEEKS.map(w=>{const cur=t>=w[0]&&t<=addD(w[0],6);
           return h('tr',null,h('td',{class:'num'},w[0].slice(5).replace('-','/')+'~',cur?h('span',{class:'pill now',text:'이번 주'}):null),h('td',{text:w[1]}),h('td',{text:w[2]}))}))))),
     h('div',{class:'panel'},h('h2',{text:'점검 시점'}),
       h('ul',{class:'plain'},
+        h('li',{text:'12월 26일(토): 첫 진단 모의. 2025년 기출 1교시를 실제 80분으로 풉니다. 점수보다 시간 배분을 봅니다.'}),
         h('li',{text:'12월 31일: 재무회계 자본·현금흐름표 1회독, 세법 말문제 법인세·소득세 1회독, 기상 06:00 정착.'}),
+        h('li',{text:'1월 30일(토): 두 번째 진단 모의(2교시). 이후 매달 마지막 토요일에 한 교시씩 봅니다.'}),
         h('li',{text:'2월 28일: 1차 모의 평균 60점 이상이면 계획대로 진행. 못 미치면 3월부터 2차 과목을 멈추고 1차에만 씁니다.'}),
         h('li',{text:'4월 첫 주: 실전 모의 3회 평균 65점 이상, 세법·회계 각 50점 이상이 안전선입니다.'}))));
 }
@@ -359,7 +361,26 @@ function vLog(){
         h('p',{class:'note',text:'오늘 탭에서 기상 시각과 순공시간을 적으면 여기에 쌓입니다.'})));
 }
 
-const VIEWS={today:vToday,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog};
+function vCoach(){
+  const mon=weekDays(iso(new Date()))[0],W=S.weeks[mon]||(S.weeks[mon]={});
+  const ta=(id,lab,key)=>h('label',{class:'f',for:id},lab,h('textarea',{id,onchange:e=>{W[key]=e.target.value;persist('w'+mon,W)}},W[key]||''));
+  const P=[['틀린 것만 다시 꺼내 쓴다','다시 읽기와 밑줄은 효과가 낮고, 스스로 떠올려 보는 연습과 간격을 둔 반복이 효과가 높다고 평가됩니다(Dunlosky 외, 2013). 밤 40분 백지 회상과 토요일 누적 복습이 이 역할입니다.'],
+    ['기록해서 보여 준다','진행 상황을 적어 두고 남에게 보고할 때 목표 달성 효과가 더 컸습니다(Harkin 외, 2016, 138개 실험 종합). 오늘 탭 기록과 이 코치 탭이 그 장치입니다.'],
+    ['하루 빠져도 습관은 깨지지 않는다','습관이 자동이 되기까지 걸린 기간의 중앙값은 66일, 사람에 따라 18~254일이었고 하루 빠진 것은 영향이 거의 없었습니다(Lally 외, 2010). 빠진 날은 메우지 않고 다음 날 정해진 블록부터 합니다.'],
+    ['언제·어디서·무엇을 미리 정한다','“일어나면 책상에 펴 둔 세무회계연습 첫 문제를 푼다”처럼 조건과 행동을 묶어 두면 실행률이 올라갑니다(Gollwitzer·Sheeran, 2006). 전날 밤 첫 문제를 펴 두세요.'],
+    ['잠을 줄여서 시간을 만들지 않는다','6시간 수면을 2주 이어 가면 하루 이틀 밤을 새운 수준으로 수행이 떨어지는데 본인은 잘 느끼지 못한다는 실험이 있습니다(Van Dongen 외, 2003). 수면 7시간을 먼저 지킵니다.'],
+    ['밀린 것은 토요일 2시간 안에서만 메운다','밀린 블록을 평일에 얹으면 다음 날이 무너집니다. 토요일 첫 2시간에 들어가지 않는 것은 버리고, 같은 일이 2주 이어지면 계획을 줄입니다.']];
+  return h('section',{class:'view'},
+    h('div',{class:'panel'},h('h2',{text:'코치 피드백'}),
+      h('p',{class:'note',text:'매주 수요일 밤과 토요일 낮에 Claude가 이 플래너의 기록을 읽고 여기에 피드백을 올립니다. 급한 질문은 Claude 대화창에 바로 쓰면 됩니다.'}),
+      S.coach.length?S.coach.map(c=>h('div',{class:'phase cur'},h('b',{text:c.title||''}),h('span',{class:'note num',text:c.id}),h('ul',{class:'plain'},(c.items||[]).map(x=>h('li',{text:String(x)}))))):
+        h('p',{class:'note',text:'아직 올라온 피드백이 없습니다.'})),
+    h('div',{class:'panel'},h('h2',{text:'이번 주 돌아보기'}),
+      h('p',{class:'note',text:'금요일 밤이나 토요일 오전에 세 줄만 적어 두세요. 토요일 피드백이 이 내용에 답합니다.'}),
+      ta('w-good','이번 주에 된 것','g'),ta('w-bad','막힌 것, 못 지킨 것과 이유','b'),ta('w-ask','코치에게 묻고 싶은 것','q')),
+    h('div',{class:'panel'},h('h2',{text:'오래 가는 방법'}),P.map(x=>h('div',{class:'phase'},h('b',{text:x[0]}),h('p',{class:'note',text:x[1]})))));
+}
+const VIEWS={today:vToday,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog,coach:vCoach};
 function render(){view=(location.hash||'#today').slice(1);if(!VIEWS[view])view='today';header();
   const m=document.getElementById('main');m.replaceChildren(VIEWS[view]())}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
@@ -378,7 +399,9 @@ loadCache();render();
     snap.docs.forEach(x=>{const b=JSON.parse(JSON.stringify(x.data()||{}));
       if(x.id==='settings')Object.assign(S.settings,b);
       else if(x.id==='mocks')S.mocks=b.items||[];
+      else if(x.id[0]==='w')S.weeks[x.id.slice(1)]=b;
       else if(x.id[0]==='d'){b.c=b.c||{};S.days[x.id.slice(1)]=b}});
+    try{const cs=await db.collection('coach').get();S.coach=cs.docs.map(x=>Object.assign({id:x.id},JSON.parse(JSON.stringify(x.data()||{})))).sort((a,b)=>a.id<b.id?1:-1).slice(0,6)}catch(e){}
     col=c;cache();setSync('기록을 불러왔습니다');render();
   }catch(e){setSync('서버 기록을 불러오지 못했습니다. 이 기기에 저장된 내용으로 표시합니다');}
 })();
