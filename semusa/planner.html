@@ -332,6 +332,21 @@ function outHint(t){
   if(/연습|문제 풀이|계산|원가|객관식|회계학/.test(t))return '가장 막혔던 문제 하나의 풀이 순서를 숫자 없이 말로 설명한다';
   return '책을 덮고 방금 한 내용 세 가지를 소리 내어 말한다'}
 const QZ={};
+const MS=['세법','재무회계','원가','재정학','행소법'];let memoSub='세법',dict=null,dictOn=false;
+(async()=>{try{if(window.claude&&window.claude.use){dict=await window.claude.use('dictation');if(dict){dict.onFinal(({text})=>{const el=document.getElementById('mm-t');if(el){el.value=(el.value?el.value+' ':'')+text.trim();el.focus()}});dict.onState(({state})=>{dictOn=state==='listening'||state==='starting';const b=document.getElementById('mm-mic');if(b)b.textContent=dictOn?'멈춤':'말로 입력'});render()}}}catch(e){}})();
+function memoPanel(d){
+  const D=day(d);D.mm=D.mm||[];
+  const add=e=>{e.preventDefault();const el=document.getElementById('mm-t'),v=el.value.trim();if(!v)return;D.mm.push({s:memoSub,t:v});saveDay(d);render();setTimeout(()=>{const n=document.getElementById('mm-t');if(n)n.focus()},0)};
+  return h('div',{class:'panel'},
+    h('div',{class:'row'},h('h2',{class:'grow',text:'오늘 기억할 것 '+D.mm.length}),h('a',{href:'https://claude.ai/artifact/CYMaHHgwHk614VRoL5QFHY',target:'_blank',rel:'noopener',text:'암기노트 열기'})),
+    h('div',{class:'row',style:'gap:4px'},MS.map(x=>h('button',{type:'button',class:memoSub===x?'pri':'',onclick:()=>{memoSub=x;render()},text:x}))),
+    h('form',{class:'row',onsubmit:add},
+      h('input',{id:'mm-t',type:'text',class:'grow',placeholder:'조건 → 결과. 예: 청산소득 중간신고 → 해산등기일부터 1년'}),
+      dict?h('button',{type:'button',id:'mm-mic',onclick:()=>{if(dictOn){dict.stop().catch(()=>{})}else{dict.start().catch(()=>{})}},text:dictOn?'멈춤':'말로 입력'}):null,
+      h('button',{class:'pri',type:'submit',text:'추가'})),
+    D.mm.length?h('ul',{class:'plain'},D.mm.map((m,i)=>h('li',null,h('span',{class:'note',text:m.s+' · '}),h('span',{text:m.t+' '}),h('button',{type:'button','aria-label':'삭제',onclick:()=>{D.mm.splice(i,1);saveDay(d);render()},text:'×'})))):
+      h('p',{class:'note',text:'공부하다 꼭 외워야 할 것이 나오면 한 줄로 적습니다. 매주 토요일 Claude가 과목·단원별로 정리해 암기노트 문서에 옮기고, 틀려 보이는 내용은 짚습니다. 암기노트는 Google Docs·Notion으로 내보낼 수 있습니다.'}));
+}
 function quizPanel(d){
   const D=day(d),q=QZ[d]||{},wk=weekDays(d)[0],row=WEEKS.find(w=>w[0]===wk);
   const fallback=['오늘 가장 어려웠던 단원의 핵심 규정 세 가지를 말해 보세요.','오늘 틀린 문제 하나를 골라, 왜 틀렸고 맞는 풀이는 무엇인지 설명해 보세요.','오늘 본 내용 중 숫자(기간, 금액, 비율) 세 개를 조건과 함께 말해 보세요.','오늘 배운 것을 처음 듣는 사람에게 1분 동안 설명해 보세요.','어제 한 내용과 오늘 한 내용이 어떻게 이어지는지 말해 보세요.'];
@@ -387,6 +402,7 @@ function vToday(){
         bl.length?h('button',{type:'button',class:D.min?'pri':'',onclick:()=>{D.min=!D.min;saveDay(d);render()},text:D.min?'최소 버전 켜짐':'오늘은 최소 버전'}):null),
       D.min?h('p',{class:'flag',text:'아프거나 일이 생긴 날입니다. 블록 2개와 백지 회상 10분만 하면 오늘은 지킨 날입니다. 밀린 것은 메우지 않습니다.'}):null,
       bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 기상 시각만 평소대로 지키고 책은 펴지 않습니다.'})),
+    memoPanel(d),
     bl.length?quizPanel(d):null,
     nightPanel(d),
     h('details',{class:'panel'},h('summary',{text:'더 적기 (선택): 컨디션, 운동, 메모'}),
