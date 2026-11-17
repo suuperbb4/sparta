@@ -87,6 +87,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .wd small{font-size:11.5px;color:var(--sub)}
 details.panel{display:block}details.panel[open]>*+*{margin-top:12px}
 details summary{cursor:pointer;font-weight:600}
+.review{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
 ul.routine li{grid-template-columns:24px 1fr auto}
 .prog{height:8px;background:var(--track);border-radius:3px;position:relative;overflow:hidden}
 .prog span{position:absolute;inset:0 auto 0 0;background:var(--bar);border-radius:3px}
@@ -133,7 +134,7 @@ const PHASES=[
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
       ['15:00–16:50','월수금 원가 2차 연습서 / 화목 재정학·행소법 기출','화목은 과목당 55분씩'],
       ['21:00–21:40','백지 회상','블록마다 5분, 제목만 보고 쓰고 빨간펜으로 보충']],
-  sat:[['06:20–08:00','주간 누적 복습','이번 주 오답 전부'],['08:20–10:20','재무회계 주간 복습','이번 주 강의 범위 계산 문제 다시 풀기 + 그 장 말문제만'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
+  sat:[['06:20–08:00','주간 복습','이번 주 백지 5장의 빨간 글씨 다시 떠올리기 + 책에 표시한 틀린 문제 다시 풀기'],['08:20–10:20','재무회계 주간 복습','이번 주 강의 범위 계산 문제 다시 풀기 + 그 장 말문제만'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
   alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
   wd:[['06:00–07:30','세무회계연습 6회독','유예 표시 문제만 빼고 전체. 문제마다 걸린 시간을 적는다'],
@@ -142,7 +143,7 @@ const PHASES=[
       ['13:00–14:50','원가관리 2차 연습서','강점 과목이므로 주 4회면 충분, 금요일은 재무회계로 대체'],
       ['15:00–16:50','객관식 세법 말문제','틀린 지문은 조문 번호와 함께 표시'],
       ['21:00–21:40','백지 회상','세법학 목차 3개 암기 포함']],
-  sat:[['06:20–08:00','주간 누적 복습',''],['08:20–10:20','재정학 기출 1회분 + 오답',''],['10:30–12:00','행소법 기출 1회분 + 오답','']]},
+  sat:[['06:20–08:00','주간 복습','이번 주 백지의 빨간 글씨 + 책에 표시한 틀린 문제'],['08:20–10:20','재정학 기출 1회분 + 오답',''],['10:30–12:00','행소법 기출 1회분 + 오답','']]},
  {id:3,name:'3단계 · 1차 집중',goal:'객관식 기출 회독과 실전 시간 훈련. 2차 과목은 세무회계만 유지',
   alloc:[['객관식 세법',10],['객관식 회계',14],['재정학',8],['행정소송법',8],['세무회계연습 7~10회독',6],['실전 모의고사',4]],
   wd:[['06:00–07:30','세무회계연습 7~10회독','[1차] 표시 문제와 틀렸던 문제만. 문제마다 시간을 재고 푼다'],
@@ -217,6 +218,12 @@ function header(){const t=iso(new Date());
   document.getElementById('dd').innerHTML='1차 <b>D-'+diff(t,S.settings.e1)+'</b> · 2차 <b>D-'+diff(t,S.settings.e2)+'</b>';
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+view))}
 
+function reviewDue(d){
+  const w=pd(d).getDay(),out=[],md=x=>{const q=pd(x);return (q.getMonth()+1)+'/'+q.getDate()};if(w===0)return out;
+  const y=addD(d,w===1?-2:-1);out.push(['1일 뒤 (5분)',md(y)+' 백지의 빨간 글씨만 읽고 시작합니다.']);
+  if(w===6){const m=addD(d,-5);out.push(['1주 뒤 (토요일 첫 블록)',md(m)+'~'+md(addD(d,-1))+' 백지 5장. 빨간 글씨를 가리고 다시 떠올려 보고, 떠오르면 줄을 긋습니다. 책에 표시한 틀린 문제도 다시 풉니다.']);
+    const a=addD(d,-33);out.push(['4주 뒤 (15분)',md(a)+'~'+md(addD(a,5))+' 백지에서 줄이 안 그어진 빨간 글씨만. 이번에도 못 떠올리면 과목별 약점 노트 한 장에 옮겨 적습니다.'])}
+  return out}
 function carryOver(d){
   for(let i=1;i<=3;i++){const x=addD(d,-i),y=S.days[x];if(y&&y.rc&&Object.keys(y.rc).length){const bl=blocksFor(x);
     return Object.keys(y.rc).filter(k=>y.rc[k]==='t'||y.rc[k]==='x').map(k=>bl[k]?bl[k][1]:null).filter(Boolean)}}return[]}
@@ -265,7 +272,11 @@ function routinePanel(d){
       routineEdit?h('button',{type:'button','aria-label':t+' 삭제',onclick:()=>{R.splice(i,1);saveR();render()},text:'삭제'}):h('span')))),
     routineEdit?h('form',{class:'row',onsubmit:e=>{e.preventDefault();const v=document.getElementById('r-new').value.trim();if(v&&!R.includes(v)){R.push(v);S.settings.routine=R;saveR();render()}}},
       h('input',{id:'r-new',type:'text',class:'grow',placeholder:'예: 물 한 잔, 스트레칭'}),h('button',{class:'pri',type:'submit',text:'추가'})):null,
-    carry.length?h('p',{class:'flag',text:'첫 5분: 어제 백지의 빨간 글씨를 다시 읽습니다 ('+carry.join(', ')+').'}):null,
+    (()=>{const rv=reviewDue(d);if(!rv.length)return null;
+      return h('div',{class:'review'},h('div',{class:'row'},h('h3',{class:'grow',text:'오늘 복습: 꺼낼 백지'}),
+          h('label',{class:'row',for:'f-rv',style:'gap:6px'},h('input',{id:'f-rv',type:'checkbox',style:'width:20px;height:20px',checked:D.rv?'':false,onchange:e=>{D.rv=e.target.checked;saveDay(d);render()}}),'복습함')),
+        h('ul',{class:'plain'},rv.map(x=>h('li',{html:'<b>'+x[0]+'</b> '+x[1]}))),
+        carry.length?h('p',{class:'note',text:'어제 △·×였던 블록: '+carry.join(', ')}):null)})(),
     h('p',{class:'note',text:'루틴이 끝나면 바로 열품타 측정을 누릅니다.'}));
 }
 function studyDays(a,b){let n=0;for(let x=a;x<=b;x=addD(x,1))if(pd(x).getDay()!==0)n++;return n}
