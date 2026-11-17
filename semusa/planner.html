@@ -57,6 +57,7 @@ ul.blocks input{width:20px;height:20px;margin-top:2px;accent-color:var(--pen)}
 ul.blocks .t{font-family:var(--mono);font-size:12.5px;color:var(--sub);padding-top:2px}
 ul.blocks .d b{font-weight:600}
 ul.blocks .d small{display:block;color:var(--sub);font-size:13px}
+ul.blocks .d small.out{color:var(--pen)}
 ul.blocks li.done .d b{text-decoration:line-through;color:var(--sub)}
 .form{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 label.f{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--sub)}
@@ -134,7 +135,7 @@ const PHASES=[
       ['13:00–14:50','세법 말문제 기출','아침에 푼 세무회계연습과 같은 단원. 법인세 → 소득세 → 부가세'],
       ['15:00–16:50','월수금 원가 2차 연습서 / 화목 재정학·행소법 기출','화목은 과목당 55분씩'],
       ['21:00–21:40','백지 회상','블록마다 5분, 제목만 보고 쓰고 빨간펜으로 보충']],
-  sat:[['06:20–08:00','주간 복습','이번 주 백지 5장의 빨간 글씨 다시 떠올리기 + 책에 표시한 틀린 문제 다시 풀기'],['08:20–10:20','재무회계 주간 복습','이번 주 강의 범위 계산 문제 다시 풀기 + 그 장 말문제만'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
+  sat:[['06:20–08:00','주간 복습','이번 주 백지 5장의 빨간 글씨 다시 떠올리기 + 책에 표시한 틀린 문제 다시 풀기. 끝에 이번 주 가장 어려웠던 주제를 3분 동안 소리 내어 강의한다'],['08:20–10:20','재무회계 주간 복습','이번 주 강의 범위 계산 문제 다시 풀기 + 그 장 말문제만'],['10:30–12:00','세법 계산 시간 재기','10문항 25분 세트 2회']]},
  {id:2,name:'2단계 · 2차 과목 선행',goal:'세법학 1부 1회 수강, 연습서 3종 회독, 객관식 세법 매일 유지',
   alloc:[['세법학 1부 기본강의',10],['재무회계연습 3회독',10],['세무회계연습 6회독',8],['원가관리 2차 연습서',8],['객관식 세법(말+계산)',8],['재정학·행소법 유지',4],['주간 복습',2]],
   wd:[['06:00–07:30','세무회계연습 6회독','유예 표시 문제만 빼고 전체. 문제마다 걸린 시간을 적는다'],
@@ -320,6 +321,39 @@ function vBooks(){
     S.books.length?S.books.map(card):h('p',{class:'note',text:'아직 교재가 없습니다.'}),
     h('div',{class:'panel'},h('h2',{text:'교재 추가'}),add));
 }
+function outHint(t){
+  if(/회상|모의|채점|주간 복습|누적/.test(t))return '';
+  if(/원가.*재정학/.test(t))return '계산은 막힌 문제의 풀이 순서를, 재정학·행소법은 틀린 지문을 고쳐 소리 내어 말한다';
+  if(/문제 풀이/.test(t))return '가장 막혔던 문제 하나의 풀이 순서를 숫자 없이 말로 설명한다';
+  if(/세법학/.test(t))return '책을 덮고 오늘 범위의 목차를 백지에 쓰고, 한 주제를 답안처럼 세 문장으로 쓴다';
+  if(/강의/.test(t))return '강의를 끄고 오늘 배운 것 세 가지를 소리 내어 설명한다';
+  if(/말문제|행정소송|행소법|조문/.test(t))return '틀린 지문 세 개를 맞는 문장으로 고쳐 소리 내어 말한다';
+  if(/재정학/.test(t)&&!/행소/.test(t))return '오늘 나온 그래프 하나를 백지에 그리며 말로 설명한다';
+  if(/연습|문제 풀이|계산|원가|객관식|회계학/.test(t))return '가장 막혔던 문제 하나의 풀이 순서를 숫자 없이 말로 설명한다';
+  return '책을 덮고 방금 한 내용 세 가지를 소리 내어 말한다'}
+const QZ={};
+function quizPanel(d){
+  const D=day(d),q=QZ[d]||{},wk=weekDays(d)[0],row=WEEKS.find(w=>w[0]===wk);
+  const fallback=['오늘 가장 어려웠던 단원의 핵심 규정 세 가지를 말해 보세요.','오늘 틀린 문제 하나를 골라, 왜 틀렸고 맞는 풀이는 무엇인지 설명해 보세요.','오늘 본 내용 중 숫자(기간, 금액, 비율) 세 개를 조건과 함께 말해 보세요.','오늘 배운 것을 처음 듣는 사람에게 1분 동안 설명해 보세요.','어제 한 내용과 오늘 한 내용이 어떻게 이어지는지 말해 보세요.'];
+  const ask=async()=>{
+    QZ[d]={busy:true};render();
+    try{
+      const sample=window.claude&&window.claude.use?await window.claude.use('sample'):null;
+      if(!sample)throw {code:'none'};
+      const topics=blocksFor(d).map(b=>b[1]).filter(x=>!/회상/.test(x)).join(', ');
+      const books=S.books.filter(b=>b.total).map(b=>{const T=(b.sizes&&+b.sizes[b.round||1])||b.total,cs=(b.chapterSets&&b.chapterSets[String(T)])||b.chapters||[],c=cs.filter(x=>x[1]<=(b.pos||0)).pop();return b.name+(c?' 현재 '+c[0]:'')}).join('; ');
+      const r=await sample('한국 세무사 1차·2차 동차를 준비하는 수험생이 오늘 공부를 마쳤다. 책을 덮고 소리 내어 답할 질문 5개를 만들어라.\n오늘 블록: '+topics+'\n이번 주 범위: '+(row?row[1]+' / '+row[2]:'없음')+'\n교재 위치: '+(books||'없음')+'\n규칙: 한 줄에 질문 하나, 번호와 머리말 없이 질문만. 정답과 힌트는 절대 쓰지 않는다(수험생이 책에서 확인한다). 요건, 숫자, 예외, 풀이 순서, 두 제도의 차이를 묻는다. 질문마다 30초 안에 말로 답할 수 있어야 한다.',{modelTier:'quick',cache:false});
+      const qs=r.text.split('\n').map(x=>x.replace(/^[\s\d.)\-•*]+/,'').trim()).filter(x=>x.length>5).slice(0,5);
+      if(!qs.length)throw {code:'empty'};
+      QZ[d]={qs};D.q=(D.q||0)+1;saveDay(d);
+    }catch(e){QZ[d]={qs:fallback,note:'Claude 질문을 불러오지 못해 기본 질문을 보여 드립니다.'};D.q=(D.q||0)+1;saveDay(d)}
+    render()};
+  return h('div',{class:'panel'},
+    h('div',{class:'row'},h('h2',{class:'grow',text:'말로 답하기'}),h('button',{type:'button',class:'pri',disabled:q.busy?'':false,onclick:ask,text:q.busy?'질문 만드는 중…':(q.qs?'새 질문':'질문 5개 받기')})),
+    q.qs?h('ol',{class:'plain'},q.qs.map(x=>h('li',{text:x}))):h('p',{class:'note',text:'하루 한 번, 점심 뒤나 마지막 블록 뒤 5분. Claude가 오늘 공부한 범위에서 질문만 냅니다. 책을 덮고 소리 내어 답한 뒤, 막힌 질문만 책에서 확인하세요. 정답은 일부러 보여 주지 않습니다.'}),
+    q.note?h('p',{class:'note',text:q.note}):null,
+    D.q?h('p',{class:'note num',text:'오늘 '+D.q+'회 했습니다.'}):null);
+}
 function vToday(){
   const d=curDay,D=day(d),p=phaseOf(d),bl=blocksFor(d),wk=weekDays(d).slice(0,6),goal=d<'2027-01-01'?46:50;
   const done=bl.filter((b,i)=>D.c[i]).length,need=D.min?Math.min(2,bl.length):bl.length;
@@ -329,7 +363,7 @@ function vToday(){
   const list=h('ul',{class:'blocks'},bl.map((b,i)=>h('li',{class:D.c[i]?'done':''},
      h('input',{type:'checkbox',id:'b'+i,checked:D.c[i]?'':false,'aria-label':b[1],onchange:e=>{D.c[i]=e.target.checked;saveDay(d);render()}}),
      h('span',{class:'t',text:b[0]}),
-     h('span',{class:'d'},h('b',{text:b[1]}),b[2]?h('small',{text:b[2]}):null))));
+     h('span',{class:'d'},h('b',{text:b[1]}),b[2]?h('small',{text:b[2]}):null,outHint(b[1])?h('small',{class:'out',text:'끝나고 2분 · '+outHint(b[1])}):null))));
   const cond=h('select',{id:'f-cond',onchange:e=>{D.k=e.target.value;saveDay(d)}},['','1 바닥','2 무거움','3 보통','4 좋음','5 최상'].map((t,i)=>h('option',{value:i||'',text:t||'선택',selected:String(D.k||'')===String(i||'')?'':false})));
   const strip=h('div',{class:'week'},wk.map(x=>{const v=+((S.days[x]||{}).h)||0;
     return h('button',{type:'button',class:'wd'+(x===d?' cur':''),'aria-label':fmt(x)+' 순공 '+v+'시간',onclick:()=>{curDay=x;render()}},
@@ -353,6 +387,7 @@ function vToday(){
         bl.length?h('button',{type:'button',class:D.min?'pri':'',onclick:()=>{D.min=!D.min;saveDay(d);render()},text:D.min?'최소 버전 켜짐':'오늘은 최소 버전'}):null),
       D.min?h('p',{class:'flag',text:'아프거나 일이 생긴 날입니다. 블록 2개와 백지 회상 10분만 하면 오늘은 지킨 날입니다. 밀린 것은 메우지 않습니다.'}):null,
       bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 기상 시각만 평소대로 지키고 책은 펴지 않습니다.'})),
+    bl.length?quizPanel(d):null,
     nightPanel(d),
     h('details',{class:'panel'},h('summary',{text:'더 적기 (선택): 컨디션, 운동, 메모'}),
       h('div',{class:'form'},
@@ -512,6 +547,7 @@ function vCoach(){
     ['언제·어디서·무엇을 미리 정한다','“일어나면 책상에 펴 둔 세무회계연습 첫 문제를 푼다”처럼 조건과 행동을 묶어 두면 실행률이 올라갑니다(Gollwitzer·Sheeran, 2006). 전날 밤 첫 문제를 펴 두세요.'],
     ['잠을 줄여서 시간을 만들지 않는다','6시간 수면을 2주 이어 가면 하루 이틀 밤을 새운 수준으로 수행이 떨어지는데 본인은 잘 느끼지 못한다는 실험이 있습니다(Van Dongen 외, 2003). 수면 7시간을 먼저 지킵니다.'],
     ['휴대폰은 의지가 아니라 환경으로 막는다','유혹이 생긴 뒤 참는 것보다 유혹이 생기기 전에 상황을 바꾸는 전략이 더 효과적이라는 정리가 있습니다(Duckworth·Gendler·Gross, 2016). 공부는 Bigme(유튜브 없음)로만, 아이폰은 공부 공간 밖 제자리에 두고 09:00·12:00·17:00에만 확인합니다. 평일 낮 유튜브는 다운타임으로 막고 주말은 그대로 둡니다. 쉬는 시간에는 자리를 뜨고, 영상 시간은 매일 기록합니다.'],
+    ['읽은 것보다 꺼낸 것이 남는다','소리 내어 말한 내용은 눈으로만 읽은 내용보다 잘 기억되고(산출 효과), 남에게 설명하듯 말하면 자기가 모르는 곳이 드러납니다. 그래서 블록마다 끝나고 2분 말하기, 하루 한 번 질문에 말로 답하기, 밤 백지 쓰기, 토요일 3분 강의를 넣었습니다. 따로 시간을 내지 않고 블록 끝에 붙여 두어야 끝까지 갑니다.'],
     ['기록은 하루 2분으로 줄인다','기록이 번거로우면 기록부터 끊깁니다. 꼭 적는 것은 기상 시각, 순공시간, 블록 체크, 교재 위치, 회상 ○△× 다섯 가지이고 나머지는 선택입니다.'],
     ['나쁜 날에는 최소 버전으로 끊기지 않게 한다','하루를 통째로 빼먹으면 “이미 망쳤다”는 생각으로 며칠이 무너지기 쉽습니다. 블록 2개와 회상 10분으로 줄여서라도 이어 가는 것이 다음 날 복귀를 쉽게 합니다.'],
     ['밀린 것은 토요일 2시간 안에서만 메운다','밀린 블록을 평일에 얹으면 다음 날이 무너집니다. 토요일 첫 2시간에 들어가지 않는 것은 버리고, 같은 일이 2주 이어지면 계획을 줄입니다.']];
