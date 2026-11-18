@@ -80,6 +80,15 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .phase{border-left:3px solid var(--line);padding-left:14px;display:flex;flex-direction:column;gap:6px}
 .phase.cur{border-left-color:var(--pen)}
 #sync{font-size:12px;color:var(--sub)}
+.pe{display:flex;flex-direction:column;gap:10px}
+ul.pe-list li.pe-row{grid-template-columns:20px 1fr auto;align-items:center}
+.pe-row.over{background:var(--pen-soft)}
+.grip{cursor:grab;color:var(--sub);font-size:18px;user-select:none}
+.pe-f{display:grid;grid-template-columns:110px 1fr;gap:6px;min-width:0}
+.pe-f .pe-d{grid-column:1/-1}
+ul.blocks .pe-f input{width:100%;height:auto;margin:0;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+.pe-b{display:flex;gap:4px}.pe-b button{padding:4px 8px}
+@media (max-width:480px){ul.pe-list li.pe-row{grid-template-columns:20px 1fr}.pe-b{grid-column:2}.pe-f{grid-template-columns:1fr}}
 .week{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .wd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:8px}
 .wd.cur{border-color:var(--ink)}
@@ -202,7 +211,9 @@ function phaseOf(d){const e1=S.settings.e1,e2=S.settings.e2;
   if(d<'2027-01-01')return PHASES[0]; if(d<'2027-03-01')return PHASES[1]; if(d<=e1)return PHASES[2]; if(d<=e2)return PHASES[3]; return null}
 function phaseRange(p){const e1=S.settings.e1,e2=S.settings.e2;
   return [['2026-11-16','2026-12-31'],['2027-01-01','2027-02-28'],['2027-03-01',e1],[addD(e1,1),e2]][p.id-1]}
-function blocksFor(d){const p=phaseOf(d);if(!p)return[];const w=pd(d).getDay();if(w===0)return[];if(w===6)return p.sat;
+function blocksFor(d){const P=S.days[d]&&S.days[d].plan;if(P)return P;return baseBlocks(d)}
+function tplKey(d){const p=phaseOf(d);if(!p)return null;const w=pd(d).getDay();return w===0?p.id+'sun':p.id+(w===6?'sat':'wd')}
+function baseBlocks(d){const T=S.settings.tpl&&S.settings.tpl[tplKey(d)];if(T)return T;const p=phaseOf(d);if(!p)return[];const w=pd(d).getDay();if(w===0)return[];if(w===6)return p.sat;
   if(p.id!==1)return p.wd;
   const g=wakeGoal(d),m=+g.slice(0,2)*60+ +g.slice(3)+20,z=n=>String(n).padStart(2,'0'),b=p.wd.slice();
   b[0]=m<=410?[z(Math.floor(m/60))+':'+z(m%60)+'–07:30',b[0][1],b[0][2]]:['15:00부터 40분',b[0][1],'기상이 06:30대가 될 때까지는 15:00 블록 앞 40분에 7문제를 풉니다. 07:30–08:30은 아이 등원 준비'];
@@ -369,13 +380,39 @@ function quizPanel(d){
     q.note?h('p',{class:'note',text:q.note}):null,
     D.q?h('p',{class:'note num',text:'오늘 '+D.q+'회 했습니다.'}):null);
 }
+let planEdit=false,dragFrom=null;
+function planEditor(d){
+  const D=day(d);if(!D.plan)D.plan=JSON.parse(JSON.stringify(baseBlocks(d)));const P=D.plan;
+  const swap=(a,b)=>{if(b<0||b>=P.length)return;[P[a][1],P[b][1]]=[P[b][1],P[a][1]];[P[a][2],P[b][2]]=[P[b][2],P[a][2]];
+    for(const k of ['c','rc']){const o=D[k]||{},x=o[a],y=o[b];o[a]=y;o[b]=x;if(o[a]==null)delete o[a];if(o[b]==null)delete o[b];D[k]=o}saveDay(d);render()};
+  const reindex=fn=>{fn();D.c={};D.rc={};saveDay(d);render()};
+  const sv=()=>saveDay(d);
+  return h('div',{class:'pe'},
+    h('p',{class:'note',text:'시간칸은 그대로 두고 할 일을 옮깁니다. 컴퓨터에서는 ⠿를 끌어 다른 칸에 놓고, 폰·e-ink에서는 ▲▼로 옮기세요. 시간과 내용은 눌러서 고칩니다.'}),
+    h('ul',{class:'blocks pe-list'},P.map((b,i)=>h('li',{class:'pe-row',draggable:'true',
+        ondragstart:e=>{dragFrom=i;e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',String(i))}catch(_){}},
+        ondragover:e=>{e.preventDefault();e.currentTarget.classList.add('over')},ondragleave:e=>e.currentTarget.classList.remove('over'),
+        ondrop:e=>{e.preventDefault();e.currentTarget.classList.remove('over');if(dragFrom!=null&&dragFrom!==i)swap(dragFrom,i);dragFrom=null}},
+      h('span',{class:'grip','aria-hidden':'true',text:'⠿'}),
+      h('div',{class:'pe-f'},
+        h('input',{type:'text',class:'pe-t','aria-label':'시간',value:b[0],onchange:e=>{b[0]=e.target.value;sv()}}),
+        h('input',{type:'text','aria-label':'할 일',value:b[1],onchange:e=>{b[1]=e.target.value;sv()}}),
+        h('input',{type:'text',class:'pe-d','aria-label':'메모',placeholder:'메모(선택)',value:b[2]||'',onchange:e=>{b[2]=e.target.value;sv()}})),
+      h('div',{class:'pe-b'},h('button',{type:'button','aria-label':'위로',onclick:()=>swap(i,i-1),text:'▲'}),h('button',{type:'button','aria-label':'아래로',onclick:()=>swap(i,i+1),text:'▼'}),
+        h('button',{type:'button','aria-label':'이 칸 삭제',onclick:()=>reindex(()=>P.splice(i,1)),text:'×'}))))),
+    h('div',{class:'row'},
+      h('button',{type:'button',onclick:()=>reindex(()=>P.push(['',' 새 블록',''])),text:'칸 추가'}),
+      h('button',{type:'button',onclick:()=>{S.settings.tpl=S.settings.tpl||{};S.settings.tpl[tplKey(d)]=JSON.parse(JSON.stringify(P));persist('settings',S.settings);planEdit=false;render()},text:'이 시간표를 '+(pd(d).getDay()===6?'토요일':'평일')+' 기본으로'}),
+      h('button',{type:'button',onclick:()=>{delete D.plan;D.c={};D.rc={};saveDay(d);planEdit=false;render()},text:'기본으로 되돌리기'}),
+      h('button',{type:'button',onclick:()=>{const n=addD(d,1),N=day(n);N.plan=JSON.parse(JSON.stringify(P));N.c={};saveDay(n);curDay=n;render()},text:'내일로 복사'})));
+}
 function vToday(){
   const d=curDay,D=day(d),p=phaseOf(d),bl=blocksFor(d),wk=weekDays(d).slice(0,6),goal=d<'2027-01-01'?46:50;
   const done=bl.filter((b,i)=>D.c[i]).length,need=D.min?Math.min(2,bl.length):bl.length;
   const hrs=wk.reduce((s,x)=>s+(+((S.days[x]||{}).h)||0),0);
   const wakeOk=wk.filter(x=>{const y=S.days[x];return y&&y.w&&y.w<=wakeGoal(x)}).length;
   const kept=wk.filter(x=>{const y=S.days[x];return y&&(+y.h>0||Object.values(y.c||{}).some(Boolean))}).length;
-  const list=h('ul',{class:'blocks'},bl.map((b,i)=>h('li',{class:D.c[i]?'done':''},
+  const list=planEdit?planEditor(d):h('ul',{class:'blocks'},bl.map((b,i)=>h('li',{class:D.c[i]?'done':''},
      h('input',{type:'checkbox',id:'b'+i,checked:D.c[i]?'':false,'aria-label':b[1],onchange:e=>{D.c[i]=e.target.checked;saveDay(d);render()}}),
      h('span',{class:'t',text:b[0]}),
      h('span',{class:'d'},h('b',{text:b[1]}),b[2]?h('small',{text:b[2]}):null,outHint(b[1])?h('small',{class:'out',text:'끝나고 2분 · '+outHint(b[1])}):null))));
@@ -401,7 +438,9 @@ function vToday(){
       h('div',{class:'row'},h('h2',{class:'grow',text:bl.length?'오늘 할 일 '+done+'/'+need:'일요일은 쉽니다'}),
         bl.length?h('button',{type:'button',class:D.min?'pri':'',onclick:()=>{D.min=!D.min;saveDay(d);render()},text:D.min?'최소 버전 켜짐':'오늘은 최소 버전'}):null),
       D.min?h('p',{class:'flag',text:'아프거나 일이 생긴 날입니다. 블록 2개와 백지 회상 10분만 하면 오늘은 지킨 날입니다. 밀린 것은 메우지 않습니다.'}):null,
-      bl.length?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 기상 시각만 평소대로 지키고 책은 펴지 않습니다.'})),
+      (bl.length||planEdit)?list:h('p',{class:'note',text:'가족과 보내는 날입니다. 기상 시각만 평소대로 지키고 책은 펴지 않습니다.'}),
+      h('div',{class:'row'},h('button',{type:'button',class:planEdit?'pri':'',onclick:()=>{planEdit=!planEdit;render()},text:planEdit?'편집 끝':'시간표 편집'}),
+        D.plan&&!planEdit?h('span',{class:'note',text:'오늘은 직접 짠 시간표입니다.'}):null)),
     memoPanel(d),
     bl.length?quizPanel(d):null,
     nightPanel(d),
