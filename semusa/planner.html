@@ -80,6 +80,8 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .phase{border-left:3px solid var(--line);padding-left:14px;display:flex;flex-direction:column;gap:6px}
 .phase.cur{border-left-color:var(--pen)}
 #sync{font-size:12px;color:var(--sub)}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cq{font-size:16px;font-weight:600;margin:0}.ca{margin:0;padding:10px;background:var(--ok-soft);border-radius:8px;white-space:pre-wrap}
 .pe{display:flex;flex-direction:column;gap:10px}
 ul.pe-list li.pe-row{grid-template-columns:20px 1fr auto;align-items:center}
 .pe-row.over{background:var(--pen-soft)}
@@ -119,7 +121,7 @@ input[type=text]{font:inherit;color:var(--ink);background:var(--bg);border:1px s
 <header class="top">
   <div class="brand"><h1>세무사 동차 플래너</h1><div class="dd" id="dd"></div></div>
   <nav id="nav">
-    <a href="#today">오늘</a><a href="#books">교재</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a><a href="#coach">코치</a>
+    <a href="#today">오늘</a><a href="#cards">암기</a><a href="#books">교재</a><a href="#roadmap">로드맵</a><a href="#analysis">1차 분석</a><a href="#strategy">과목 전략</a><a href="#log">기록</a><a href="#coach">코치</a>
   </nav>
 </header>
 <div id="sync"></div>
@@ -184,7 +186,7 @@ const WEEKS=[
  ['2026-12-28','부가가치세: 영세율·면세, 세금계산서, 매입세액','1단계 오답 전체 복습']
 ];
 /* ---------- 상태·저장 ---------- */
-const S={settings:{e1:'2027-04-24',e2:'2027-07-17',routine:['오일풀링','따뜻한 소금물','올리브오일','영양제']},days:{},mocks:[],weeks:{},coach:[],books:[]};
+const S={settings:{e1:'2027-04-24',e2:'2027-07-17',routine:['오일풀링','따뜻한 소금물','올리브오일','영양제']},days:{},mocks:[],weeks:{},coach:[],books:[],cards:[]};
 let db=null,col=null,view=null,curDay=iso(new Date());
 const LS='semusa-planner-v1';
 function iso(d){const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())}
@@ -192,7 +194,7 @@ function pd(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function addD(s,n){const d=pd(s);d.setDate(d.getDate()+n);return iso(d)}
 function diff(a,b){return Math.round((pd(b)-pd(a))/864e5)}
 function cache(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
-function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[];S.weeks=o.weeks||{};S.coach=o.coach||[];S.books=o.books||[]}}catch(e){}}
+function loadCache(){try{const o=JSON.parse(localStorage.getItem(LS)||'null');if(o){Object.assign(S.settings,o.settings||{});S.days=o.days||{};S.mocks=o.mocks||[];S.weeks=o.weeks||{};S.coach=o.coach||[];S.books=o.books||[];S.cards=o.cards||[]}}catch(e){}}
 const queue={},timers={};
 function persist(id,body){
   cache(); if(!col) return;
@@ -406,6 +408,64 @@ function planEditor(d){
       h('button',{type:'button',onclick:()=>{delete D.plan;D.c={};D.rc={};saveDay(d);planEdit=false;render()},text:'기본으로 되돌리기'}),
       h('button',{type:'button',onclick:()=>{const n=addD(d,1),N=day(n);N.plan=JSON.parse(JSON.stringify(P));N.c={};saveDay(n);curDay=n;render()},text:'내일로 복사'})));
 }
+/* ---------- 암기 카드: 간격 반복 1·4·7·14·30·60일 ---------- */
+const STEPS=[1,4,7,14,30,60];
+function saveCards(){persist('cards',{items:S.cards})}
+function dueCards(d){return S.cards.filter(c=>c.due&&c.due<=d).sort((a,b)=>a.due<b.due?-1:1)}
+let rvIdx=0,rvShow=false;
+function grade(c,g,d){c.h=(c.h||[]);c.h.push([d,g]);
+  if(g==='o')c.step=Math.min((c.step||0)+1,STEPS.length-1);else if(g==='x')c.step=0;
+  c.due=addD(d,STEPS[c.step||0]);if(g!=='o')c.lapse=(c.lapse||0)+(g==='x'?1:0);saveCards()}
+function cardsPanel(d){
+  const due=dueCards(d);if(!due.length)return null;
+  const isToday=d===iso(new Date()),c=due[Math.min(rvIdx,due.length-1)];
+  return h('div',{class:'panel'},
+    h('div',{class:'row'},h('h2',{class:'grow',text:'암기 카드 '+due.length+'장'}),h('a',{href:'#cards',text:'전체 보기'})),
+    !isToday?h('p',{class:'note',text:'복습은 오늘 날짜에서 합니다.'}):
+    h('div',{class:'card'},
+      h('small',{class:'note',text:c.s+' · '+c.ch+' · '+(c.step?STEPS[c.step-1]+'일 만':'처음')+(c.lapse?' · 잊은 횟수 '+c.lapse:'')}),
+      h('p',{class:'cq',text:c.q}),
+      rvShow?h('p',{class:'ca',text:c.a}):h('p',{class:'note',text:'답을 먼저 소리 내어 말한 뒤 확인하세요.'}),
+      rvShow?h('div',{class:'row'},
+        h('button',{type:'button',onclick:()=>{grade(c,'x',d);rvShow=false;render()},text:'모름 → 내일'}),
+        h('button',{type:'button',onclick:()=>{grade(c,'t',d);rvShow=false;render()},text:'헷갈림 → 같은 간격'}),
+        h('button',{type:'button',class:'pri',onclick:()=>{grade(c,'o',d);rvShow=false;render()},text:'기억함 → 다음 간격'})):
+        h('button',{type:'button',class:'pri',onclick:()=>{rvShow=true;render()},text:'답 보기'})));
+}
+let pasteBusy=false,pasteDraft=null,pasteErr='';
+function vCards(){
+  const t=iso(new Date());
+  const parse=async()=>{
+    const src=document.getElementById('cp-src').value.trim();if(!src)return;
+    pasteBusy=true;pasteErr='';render();
+    try{
+      const sample=window.claude&&window.claude.use?await window.claude.use('sample'):null;
+      if(!sample)throw new Error('none');
+      const r=await sample.json('아래는 세무사 수험생이 공부하며 정리한 노트다. 내용을 바꾸거나 보태지 말고, 노트에 있는 사실만으로 암기 카드를 만든다.\n카드마다: s=과목(세법|재무회계|원가|재정학|행소법 중 하나), ch=세목과 장 또는 단원(예: "법인세 9장 자산의 취득과 평가"), t=항목 제목, q=책을 덮고 답할 질문(답이 드러나지 않게), a=답(노트 문장 그대로, 숫자·조건 포함, 3줄 이내).\n핵심 규정, 한 줄 암기, 계산 공식, 세무조정 결론마다 카드 하나. 예시 숫자만 바꾼 중복 카드는 만들지 않는다. 최대 25장.\nJSON 배열만 답한다: [{"s":"","ch":"","t":"","q":"","a":""}]\n\n노트:\n'+src,{modelTier:'default'});
+      if(!Array.isArray(r)||!r.length)throw new Error('empty');
+      pasteDraft=r.filter(x=>x&&x.q&&x.a).map(x=>({s:String(x.s||'세법'),ch:String(x.ch||''),t:String(x.t||''),q:String(x.q),a:String(x.a)}));
+      S.inbox=S.inbox||[];S.inbox.push({d:t,text:src});persist('inbox',{items:S.inbox});
+    }catch(e){pasteErr='자동 정리를 하지 못했습니다. 노트를 Claude 대화창에 붙여 주시면 그곳에서 정리해 넣겠습니다. 붙인 원문은 보관해 두었습니다.';S.inbox=S.inbox||[];S.inbox.push({d:t,text:src});persist('inbox',{items:S.inbox})}
+    pasteBusy=false;render()};
+  const save=()=>{pasteDraft.forEach((x,i)=>S.cards.push(Object.assign(x,{id:t.replace(/-/g,'')+'-'+Date.now().toString(36)+i,src:t,step:0,due:addD(t,1)})));saveCards();pasteDraft=null;document.getElementById('cp-src').value='';render()};
+  const groups={};S.cards.forEach(c=>{const k=c.s+' · '+c.ch;(groups[k]=groups[k]||[]).push(c)});
+  return h('section',{class:'view'},
+    h('div',{class:'panel'},h('h2',{text:'노트 붙여넣기'}),
+      h('p',{class:'note',text:'Genspark나 Claude에서 정리한 노트를 그대로 붙여 넣고 "카드로 정리"를 누르면, 과목·장·항목으로 나눈 질문-답 카드가 만들어집니다. 내용은 바꾸지 않고 나누기만 합니다. 확인 후 저장하면 1·4·7·14·30·60일 뒤 오늘 탭에 다시 나옵니다.'}),
+      h('textarea',{id:'cp-src',style:'min-height:140px',placeholder:'# 법인세\n## 제9장 자산의 취득과 평가\n...'}),
+      h('div',{class:'row'},h('button',{type:'button',class:'pri',disabled:pasteBusy?'':false,onclick:parse,text:pasteBusy?'정리하는 중… (30초 안팎)':'카드로 정리'}),
+        h('a',{href:'https://claude.ai/artifact/CYMaHHgwHk614VRoL5QFHY',target:'_blank',rel:'noopener',text:'암기노트 문서'})),
+      pasteErr?h('p',{class:'flag',text:pasteErr}):null),
+    pasteDraft?h('div',{class:'panel'},h('h2',{text:'만들어진 카드 '+pasteDraft.length+'장 (저장 전)'}),
+      h('ul',{class:'plain'},pasteDraft.map((x,i)=>h('li',null,h('small',{class:'note',text:x.s+' · '+x.ch+' · '+x.t}),h('div',null,h('b',{text:'Q '}),x.q),h('div',null,h('b',{text:'A '}),x.a),
+        h('button',{type:'button','aria-label':'이 카드 빼기',onclick:()=>{pasteDraft.splice(i,1);render()},text:'빼기'})))),
+      h('div',{class:'row'},h('button',{type:'button',class:'pri',onclick:save,text:'저장하고 복습 일정에 넣기'}),h('button',{type:'button',onclick:()=>{pasteDraft=null;render()},text:'취소'}))):null,
+    h('div',{class:'panel'},h('h2',{text:'카드 '+S.cards.length+'장 · 오늘 복습 '+dueCards(t).length+'장'}),
+      S.cards.length?h('div',{class:'tblwrap'},h('table',null,
+        h('thead',null,h('tr',null,...['과목·장','항목','만든 날','다음 복습','간격'].map(x=>h('th',{text:x})))),
+        h('tbody',null,Object.keys(groups).sort().flatMap(k=>groups[k].map((c,j)=>h('tr',null,h('td',{text:j?'':k}),h('td',{text:c.t||c.q.slice(0,24)}),h('td',{class:'num',text:c.src||''}),h('td',{class:'num',text:c.due||''}),h('td',{class:'num',text:STEPS[c.step||0]+'일'}))))))):
+        h('p',{class:'note',text:'아직 카드가 없습니다. 위에 노트를 붙여 넣어 보세요.'})));
+}
 function vToday(){
   const d=curDay,D=day(d),p=phaseOf(d),bl=blocksFor(d),wk=weekDays(d).slice(0,6),goal=d<'2027-01-01'?46:50;
   const done=bl.filter((b,i)=>D.c[i]).length,need=D.min?Math.min(2,bl.length):bl.length;
@@ -434,6 +494,7 @@ function vToday(){
         h('div',{class:'stat'},h('span',{text:'공부한 날'}),h('b',{class:'big',text:kept+'/6'})),
         h('div',{class:'stat'},h('span',{text:'기상 성공'}),h('b',{class:'big',text:wakeOk+'일'})))),
     routinePanel(d),
+    cardsPanel(d),
     h('div',{class:'panel'},
       h('div',{class:'row'},h('h2',{class:'grow',text:bl.length?'오늘 할 일 '+done+'/'+need:'일요일은 쉽니다'}),
         bl.length?h('button',{type:'button',class:D.min?'pri':'',onclick:()=>{D.min=!D.min;saveDay(d);render()},text:D.min?'최소 버전 켜짐':'오늘은 최소 버전'}):null),
@@ -616,7 +677,7 @@ function vCoach(){
       ta('w-good','이번 주에 된 것','g'),ta('w-bad','막힌 것, 못 지킨 것과 이유','b'),ta('w-ask','코치에게 묻고 싶은 것','q')),
     h('div',{class:'panel'},h('h2',{text:'오래 가는 방법'}),P.map(x=>h('div',{class:'phase'},h('b',{text:x[0]}),h('p',{class:'note',text:x[1]})))));
 }
-const VIEWS={today:vToday,books:vBooks,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog,coach:vCoach};
+const VIEWS={today:vToday,cards:vCards,books:vBooks,roadmap:vRoadmap,analysis:vAnalysis,strategy:vStrategy,log:vLog,coach:vCoach};
 function render(){view=(location.hash||'#today').slice(1);if(!VIEWS[view])view='today';header();
   const m=document.getElementById('main');m.replaceChildren(VIEWS[view]())}
 window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
@@ -635,6 +696,7 @@ loadCache();render();
     snap.docs.forEach(x=>{const b=JSON.parse(JSON.stringify(x.data()||{}));
       if(x.id==='settings')Object.assign(S.settings,b);
       else if(x.id==='books')S.books=b.items||[];
+      else if(x.id==='cards')S.cards=b.items||[];
       else if(x.id==='mocks')S.mocks=b.items||[];
       else if(x.id[0]==='w')S.weeks[x.id.slice(1)]=b;
       else if(x.id[0]==='d'){b.c=b.c||{};S.days[x.id.slice(1)]=b}});
