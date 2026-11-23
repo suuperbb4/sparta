@@ -408,14 +408,16 @@ function planEditor(d){
       h('button',{type:'button',onclick:()=>{delete D.plan;D.c={};D.rc={};saveDay(d);planEdit=false;render()},text:'기본으로 되돌리기'}),
       h('button',{type:'button',onclick:()=>{const n=addD(d,1),N=day(n);N.plan=JSON.parse(JSON.stringify(P));N.c={};saveDay(n);curDay=n;render()},text:'내일로 복사'})));
 }
-/* ---------- 암기 카드: 간격 반복 1·4·7·14·30·60일 ---------- */
+/* ---------- 암기 카드: 학습일 기준 1·4·7·14·30·60일째 복습, 모름이면 그날을 새 학습일로 ---------- */
 const STEPS=[1,4,7,14,30,60];
 function saveCards(){persist('cards',{items:S.cards})}
 function dueCards(d){return S.cards.filter(c=>c.due&&c.due<=d).sort((a,b)=>a.due<b.due?-1:1)}
 let rvIdx=0,rvShow=false;
-function grade(c,g,d){c.h=(c.h||[]);c.h.push([d,g]);
-  if(g==='o')c.step=Math.min((c.step||0)+1,STEPS.length-1);else if(g==='x')c.step=0;
-  c.due=addD(d,STEPS[c.step||0]);if(g!=='o')c.lapse=(c.lapse||0)+(g==='x'?1:0);saveCards()}
+function grade(c,g,d){c.h=(c.h||[]);c.h.push([d,g]);c.base=c.base||c.src||d;let st=c.step||0;
+  if(g==='x'){c.base=d;st=0;c.lapse=(c.lapse||0)+1;c.due=addD(d,1)}
+  else if(g==='t'){c.due=addD(d,Math.max(1,STEPS[st]-(st?STEPS[st-1]:0)))}
+  else{st=st+1;if(st>=STEPS.length){st=STEPS.length-1;c.due=addD(d,60)}else{const n=addD(c.base,STEPS[st]),m=addD(d,1);c.due=n>m?n:m}}
+  c.step=st;saveCards()}
 function cardsPanel(d){
   const due=dueCards(d);if(!due.length)return null;
   const isToday=d===iso(new Date()),c=due[Math.min(rvIdx,due.length-1)];
@@ -423,7 +425,7 @@ function cardsPanel(d){
     h('div',{class:'row'},h('h2',{class:'grow',text:'암기 카드 '+due.length+'장'}),h('a',{href:'#cards',text:'전체 보기'})),
     !isToday?h('p',{class:'note',text:'복습은 오늘 날짜에서 합니다.'}):
     h('div',{class:'card'},
-      h('small',{class:'note',text:c.s+' · '+c.ch+' · '+(c.step?STEPS[c.step-1]+'일 만':'처음')+(c.lapse?' · 잊은 횟수 '+c.lapse:'')}),
+      h('small',{class:'note',text:c.s+' · '+c.ch+' · '+(c.step?'학습 후 '+STEPS[c.step]+'일째 복습':'첫 복습')+(c.lapse?' · 잊은 횟수 '+c.lapse:'')}),
       h('p',{class:'cq',text:c.q}),
       rvShow?h('p',{class:'ca',text:c.a}):h('p',{class:'note',text:'답을 먼저 소리 내어 말한 뒤 확인하세요.'}),
       rvShow?h('div',{class:'row'},
@@ -447,11 +449,11 @@ function vCards(){
       S.inbox=S.inbox||[];S.inbox.push({d:t,text:src});persist('inbox',{items:S.inbox});
     }catch(e){pasteErr='자동 정리를 하지 못했습니다. 노트를 Claude 대화창에 붙여 주시면 그곳에서 정리해 넣겠습니다. 붙인 원문은 보관해 두었습니다.';S.inbox=S.inbox||[];S.inbox.push({d:t,text:src});persist('inbox',{items:S.inbox})}
     pasteBusy=false;render()};
-  const save=()=>{pasteDraft.forEach((x,i)=>S.cards.push(Object.assign(x,{id:t.replace(/-/g,'')+'-'+Date.now().toString(36)+i,src:t,step:0,due:addD(t,1)})));saveCards();pasteDraft=null;document.getElementById('cp-src').value='';render()};
+  const save=()=>{pasteDraft.forEach((x,i)=>S.cards.push(Object.assign(x,{id:t.replace(/-/g,'')+'-'+Date.now().toString(36)+i,src:t,base:t,step:0,due:addD(t,1)})));saveCards();pasteDraft=null;document.getElementById('cp-src').value='';render()};
   const groups={};S.cards.forEach(c=>{const k=c.s+' · '+c.ch;(groups[k]=groups[k]||[]).push(c)});
   return h('section',{class:'view'},
     h('div',{class:'panel'},h('h2',{text:'노트 붙여넣기'}),
-      h('p',{class:'note',text:'Genspark나 Claude에서 정리한 노트를 그대로 붙여 넣고 "카드로 정리"를 누르면, 과목·장·항목으로 나눈 질문-답 카드가 만들어집니다. 내용은 바꾸지 않고 나누기만 합니다. 확인 후 저장하면 1·4·7·14·30·60일 뒤 오늘 탭에 다시 나옵니다.'}),
+      h('p',{class:'note',text:'Genspark나 Claude에서 정리한 노트를 그대로 붙여 넣고 "카드로 정리"를 누르면, 과목·장·항목으로 나눈 질문-답 카드가 만들어집니다. 내용은 바꾸지 않고 나누기만 합니다. 확인 후 저장하면 학습일로부터 1·4·7·14·30·60일째에 오늘 탭에 다시 나옵니다. 모름을 누르면 그날부터 다시 셉니다.'}),
       h('textarea',{id:'cp-src',style:'min-height:140px',placeholder:'# 법인세\n## 제9장 자산의 취득과 평가\n...'}),
       h('div',{class:'row'},h('button',{type:'button',class:'pri',disabled:pasteBusy?'':false,onclick:parse,text:pasteBusy?'정리하는 중… (30초 안팎)':'카드로 정리'}),
         h('a',{href:'https://claude.ai/artifact/CYMaHHgwHk614VRoL5QFHY',target:'_blank',rel:'noopener',text:'암기노트 문서'})),
@@ -462,8 +464,8 @@ function vCards(){
       h('div',{class:'row'},h('button',{type:'button',class:'pri',onclick:save,text:'저장하고 복습 일정에 넣기'}),h('button',{type:'button',onclick:()=>{pasteDraft=null;render()},text:'취소'}))):null,
     h('div',{class:'panel'},h('h2',{text:'카드 '+S.cards.length+'장 · 오늘 복습 '+dueCards(t).length+'장'}),
       S.cards.length?h('div',{class:'tblwrap'},h('table',null,
-        h('thead',null,h('tr',null,...['과목·장','항목','만든 날','다음 복습','간격'].map(x=>h('th',{text:x})))),
-        h('tbody',null,Object.keys(groups).sort().flatMap(k=>groups[k].map((c,j)=>h('tr',null,h('td',{text:j?'':k}),h('td',{text:c.t||c.q.slice(0,24)}),h('td',{class:'num',text:c.src||''}),h('td',{class:'num',text:c.due||''}),h('td',{class:'num',text:STEPS[c.step||0]+'일'}))))))):
+        h('thead',null,h('tr',null,...['과목·장','항목','학습일','다음 복습','회차'].map(x=>h('th',{text:x})))),
+        h('tbody',null,Object.keys(groups).sort().flatMap(k=>groups[k].map((c,j)=>h('tr',null,h('td',{text:j?'':k}),h('td',{text:c.t||c.q.slice(0,24)}),h('td',{class:'num',text:c.src||''}),h('td',{class:'num',text:c.due||''}),h('td',{class:'num',text:STEPS[c.step||0]+'일째'}))))))):
         h('p',{class:'note',text:'아직 카드가 없습니다. 위에 노트를 붙여 넣어 보세요.'})));
 }
 function vToday(){
