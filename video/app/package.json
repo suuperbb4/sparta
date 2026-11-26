@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "studio": "remotion studio --browser-executable=/opt/pw-browsers/chromium",
-    "tts": "node --no-warnings --experimental-strip-types tools/tts.mjs",
+    "tts": "NODE_USE_ENV_PROXY=1 node --no-warnings --experimental-strip-types tools/tts.mjs",
     "preview": "remotion render Main out/preview.mp4 --scale=0.5 --browser-executable=/opt/pw-browsers/chromium",
     "render": "remotion render Main out/video.mp4 --browser-executable=/opt/pw-browsers/chromium",
     "typecheck": "tsc -p ."

@@ -2,8 +2,11 @@
 // 이 파일 하나만 고치면 내레이션(TTS), 자막, 화면이 함께 바뀝니다.
 // 모든 숫자는 ../../research/factsheet.md 에 출처가 있어야 합니다.
 
+export type Headline = {outlet: string; date: string; title: string; tag?: string};
+
 export type Visual =
   | {type: 'hook'; lines: string[]}
+  | {type: 'headlines'; items: Headline[]; stamp?: string}
   | {type: 'chapter'; index: number}
   | {type: 'bigNumber'; value: string; unit?: string; label: string; sub?: string; tone?: 'red' | 'ink'}
   | {type: 'rateSteps'; steps: {label: string; value: number}[]; highlight: number}
@@ -50,22 +53,51 @@ export const TICKER = [
 export const TITLE = '2년 만의 금리 인상, 내 대출이자는 얼마나 늘어날까';
 
 export const SCENES: Scene[] = [
-  // ── 오프닝 ─────────────────────────────
+  // ── 오프닝: 실제 기사 헤드라인 몽타주 ─────────────
+  // 헤드라인은 검색으로 제목을 확인한 기사만 사용 (factsheet.md 출처 목록)
   {
     id: 'hook1',
     part: 0,
-    narration: '수출은 사상 처음 1조 달러를 넘었고, 성장률 전망은 4%대로 올라갔습니다.',
-    visual: {type: 'hook', lines: ['수출 1조 달러', '내년 성장률 전망 4.1%']},
-    source: '산업통상부(2026.11.19) · 한국은행 수정경제전망(2026.11.26)',
+    narration: '코스피 하루 6% 폭락, 주택담보대출 금리는 14년여 만에 최고, 가계 빚은 2030조 원. 최근 경제 뉴스는 이런 제목들로 가득했습니다.',
+    visual: {
+      type: 'headlines',
+      items: [
+        {outlet: '굿모닝경제', date: '2026.11.25', title: '코스피, 하루 만에 6%대 폭락…삼성전자·SK하이닉스 급락에 4700선 붕괴', tag: '증시'},
+        {outlet: '뉴데일리', date: '2026.11.25', title: '주담대 금리 14년 7개월 만에 최고', tag: '대출'},
+        {outlet: '아주경제', date: '2026.11.25', title: '같은 돈 빌려도 매달 더 갚는다…변동형 주담대 차주 부담 가중', tag: '대출'},
+        {outlet: '시대일보', date: '2026.11.18', title: '외상 구매·주담대 늘어…가계빚 2030조 사상 최대', tag: '가계부채'},
+        {outlet: '한국경제TV', date: '2026.11.25', title: '가계대출 금리 5% 돌파…"금리 추가 인상 유력"', tag: '금리'},
+      ],
+    },
+    source: '각 언론사 보도 제목 인용',
   },
   {
     id: 'hook2',
     part: 0,
-    narration: '그런데 바로 그 순간, 한국은행은 브레이크를 밟았습니다.',
-    visual: {type: 'bigNumber', value: '3.25', unit: '%', label: '기준금리 인상', sub: '2026.11.26 금융통화위원회', tone: 'red'},
+    narration: '그리고 11월 26일, 한국은행이 기준금리를 올렸습니다.',
+    visual: {
+      type: 'headlines',
+      items: [
+        {outlet: '서울신문', date: '2026.11.26', title: '[속보] 금통위, 기준금리 연 3.25%로 인상 결정', tag: '속보'},
+      ],
+      stamp: 'BREAKING',
+    },
+    source: '서울신문 (2026.11.26)',
   },
   {
     id: 'hook3',
+    part: 0,
+    narration: '그런데 이상한 점이 있습니다. 같은 날 한국은행은 성장률 전망을 오히려 크게 올렸습니다.',
+    visual: {
+      type: 'headlines',
+      items: [
+        {outlet: '파이낸셜뉴스', date: '2026.11.26', title: "한은 '다시 긴축' 기준금리 3.25%로…성장률 올해 3.9%, 내년 4.1%로 대폭 상향", tag: '경제전망'},
+      ],
+    },
+    source: '파이낸셜뉴스 (2026.11.26)',
+  },
+  {
+    id: 'hook4',
     part: 0,
     narration: '경제가 좋다는데 왜 금리를 올렸을까요? 그리고 이 결정은 우리 대출이자를 얼마나 바꿀까요?',
     visual: {type: 'question', text: '경제가 좋은데, 왜 브레이크를?'},

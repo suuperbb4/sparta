@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {C, clamp01, countUp, Highlighted, MONO, Panel, rise, useEnter} from './theme';
-import {PARTS, Visual} from './script';
+import {Headline, PARTS, Visual} from './script';
 
 const center: React.CSSProperties = {display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'};
 
@@ -32,6 +32,89 @@ const Hook: React.FC<{lines: string[]}> = ({lines}) => {
           </div>
         );
       })}
+    </AbsoluteFill>
+  );
+};
+
+
+// ── 기사 헤드라인 몽타주 ───────────────────────
+const layouts = [
+  {x: -330, y: -250, r: -3},
+  {x: 330, y: -120, r: 2.5},
+  {x: -300, y: 20, r: 1.5},
+  {x: 320, y: 150, r: -2},
+  {x: 0, y: -40, r: -1},
+];
+
+const HeadlineCard: React.FC<{h: Headline; delay: number; pos: {x: number; y: number; r: number}; dim: number; solo: boolean}> = ({h, delay, pos, dim, solo}) => {
+  const frame = useCurrentFrame();
+  const t = frame - delay;
+  if (t < 0) return null;
+  const p = clamp01(t, 0, 7);
+  const flash = 1 - clamp01(t, 0, 5);
+  const scale = (solo ? 1.15 : 1) * (1.25 - 0.25 * p);
+  const drift = solo ? clamp01(frame, 0, 200) * 0.06 : 0;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: solo ? 1400 : 1040,
+        transform: `translate(-50%,-50%) translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg) scale(${scale + drift})`,
+        opacity: p,
+        filter: `brightness(${1 - dim * 0.55})`,
+        background: '#F5F7FB',
+        color: '#0A0F1C',
+        borderRadius: 6,
+        boxShadow: '0 30px 70px rgba(0,0,0,0.55)',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{display: 'flex', alignItems: 'center', gap: 16, padding: '14px 26px', background: '#E3E8F2', fontSize: 24, fontWeight: 700, color: '#3A4760'}}>
+        {h.tag && <span style={{background: h.tag === '속보' ? C.up : '#0A0F1C', color: '#fff', padding: '2px 12px', borderRadius: 3}}>{h.tag}</span>}
+        <span>{h.outlet}</span>
+        <span style={{marginLeft: 'auto', fontFamily: MONO, fontWeight: 500}}>{h.date}</span>
+      </div>
+      <div style={{padding: solo ? '40px 50px 48px' : '26px 34px 32px', fontSize: solo ? 64 : 46, fontWeight: 800, lineHeight: 1.3, letterSpacing: -1}}>{h.title}</div>
+      <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: flash * 0.8}} />
+    </div>
+  );
+};
+
+const Headlines: React.FC<Extract<Visual, {type: 'headlines'}>> = ({items, stamp}) => {
+  const frame = useCurrentFrame();
+  const solo = items.length === 1;
+  const gap = 46; // 카드 간격(프레임) ≈ 1.5초, 내레이션 속도에 맞춤
+  const shown = Math.min(items.length, Math.floor(frame / gap) + 1);
+  const stampP = clamp01(frame, 18, 24);
+  const shake = frame < 30 && solo ? Math.sin(frame * 2.3) * (1 - frame / 30) * 8 : 0;
+  return (
+    <AbsoluteFill style={{transform: `translateX(${shake}px)`}}>
+      {items.map((h, i) => (
+        <HeadlineCard key={i} h={h} delay={i * gap} pos={solo ? {x: 0, y: 0, r: -1.5} : layouts[i % layouts.length]} dim={Math.max(0, shown - 1 - i) > 0 ? 1 : 0} solo={solo} />
+      ))}
+      {stamp && (
+        <div
+          style={{
+            position: 'absolute',
+            right: 230,
+            top: 210,
+            transform: `rotate(8deg) scale(${2 - stampP})`,
+            opacity: stampP,
+            border: `8px solid ${C.up}`,
+            color: C.up,
+            fontFamily: MONO,
+            fontWeight: 800,
+            fontSize: 76,
+            padding: '6px 28px',
+            borderRadius: 8,
+            background: 'rgba(10,15,28,0.6)',
+          }}
+        >
+          {stamp}
+        </div>
+      )}
     </AbsoluteFill>
   );
 };
@@ -395,6 +478,8 @@ export const VisualView: React.FC<{v: Visual}> = ({v}) => {
   switch (v.type) {
     case 'hook':
       return <Hook lines={v.lines} />;
+    case 'headlines':
+      return <Headlines {...v} />;
     case 'chapter':
       return <Chapter index={v.index} />;
     case 'bigNumber':
