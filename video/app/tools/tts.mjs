@@ -18,8 +18,8 @@ const arg = (name, def) => {
   const i = process.argv.indexOf(`--${name}`);
   return i > -1 ? process.argv[i + 1] : def;
 };
-const voice = arg('voice', 'ko-KR-Chirp3-HD-Charon');
-const rate = Number(arg('rate', '1.08'));
+const voice = arg('voice', 'ko-KR-Chirp3-HD-Algenib');
+const rate = Number(arg('rate', '1.04'));
 const only = arg('only', '')?.split(',').filter(Boolean);
 
 const key = process.env.GOOGLE_TTS_API_KEY || 'injected-by-proxy';

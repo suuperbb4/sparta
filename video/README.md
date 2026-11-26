@@ -18,7 +18,7 @@ video/
 
 1. `research/factsheet.md`에 사실과 출처를 정리
 2. `app/src/script.ts`에 장면별 내레이션과 화면 종류를 작성
-3. AI 음성 생성: `npm run tts` (음성: `-- --voice ko-KR-Chirp3-HD-Charon --rate 1.08`)
+3. AI 음성 생성: `npm run tts` (음성: `-- --voice ko-KR-Chirp3-HD-Algenib --rate 1.04`)
 4. 미리보기: `npm run preview` → `out/preview.mp4` (절반 해상도)
 5. 최종본: `npm run render` → `out/video.mp4` (1920×1080)
 6. (선택) 배경음악: `public/bgm.mp3`를 넣고 `src/timings.json`에 `"bgm": "bgm.mp3"` 추가
