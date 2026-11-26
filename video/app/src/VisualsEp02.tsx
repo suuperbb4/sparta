@@ -86,7 +86,7 @@ export const Crash: React.FC<Extract<Visual, {type: 'crash'}>> = ({points, note,
             <path d={d} fill="none" stroke={C.up} strokeWidth={9} strokeLinejoin="round" style={{filter: 'drop-shadow(0 0 18px rgba(255,77,94,0.8))'}} />
           </g>
           {points.map((p, i) => {
-            const vis = clamp01(headPos, i - 0.05, i + 0.15);
+            const vis = done ? 1 : clamp01(headPos, i - 0.05, i + 0.15);
             return (
               <g key={i} opacity={vis}>
                 <circle cx={x(i)} cy={y(p.value)} r={i === 0 || i === points.length - 1 ? 14 : 9} fill={i === points.length - 1 ? C.up : '#fff'} />
