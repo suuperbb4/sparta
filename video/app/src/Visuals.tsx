@@ -173,7 +173,7 @@ const BigNumber: React.FC<Extract<Visual, {type: 'bigNumber'}>> = ({value, unit,
   const lp = useEnter(18);
   return (
     <AbsoluteFill style={{...center}}>
-      <Panel label={label} style={{...rise(p), width: 1300, padding: '0 0 50px'}} right={<span style={{color: C.green}}>● LIVE</span>}>
+      <Panel label={label} style={{...rise(p), width: 1300, padding: '0 0 50px'}}>
         <div style={{padding: '10px 60px 0', display: 'flex', alignItems: 'baseline', gap: 16, color}}>
           <span style={{fontFamily: MONO, fontSize: 250, fontWeight: 800, letterSpacing: -12, lineHeight: 1.1}}>{shown}</span>
           {unit && <span style={{fontSize: 90, fontWeight: 800}}>{unit}</span>}
@@ -474,6 +474,30 @@ const Checklist: React.FC<{title: string; items: string[]}> = ({title, items}) =
   );
 };
 
+
+// ── 클로징 (오른쪽은 유튜브 최종 화면용 여백) ─────────────
+const Closing: React.FC<{brand: string; kakao: string}> = ({brand, kakao}) => {
+  const a = useEnter(0);
+  const b = useEnter(14);
+  const c = useEnter(30);
+  return (
+    <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 140}}>
+      <div style={{...rise(a), fontFamily: MONO, fontSize: 30, fontWeight: 800, color: C.accent}}>&gt; END_OF_REPORT</div>
+      <div style={{...rise(a), fontSize: 104, fontWeight: 900, letterSpacing: -4, lineHeight: 1.15, marginTop: 18}}>
+        시청해 주셔서
+        <br />
+        감사합니다<Cursor />
+      </div>
+      <div style={{...rise(b), display: 'flex', alignItems: 'center', gap: 18, marginTop: 50}}>
+        <span style={{background: '#FEE500', color: '#191919', fontSize: 34, fontWeight: 900, padding: '10px 22px', borderRadius: 10}}>💬 {kakao}</span>
+      </div>
+      <div style={{...rise(c), marginTop: 34, fontSize: 34, fontWeight: 700, color: C.muted}}>
+        다음 이야기로 다시 찾아오겠습니다 · <span style={{color: C.text}}>{brand}</span>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 export const VisualView: React.FC<{v: Visual}> = ({v}) => {
   switch (v.type) {
     case 'hook':
@@ -502,5 +526,7 @@ export const VisualView: React.FC<{v: Visual}> = ({v}) => {
       return <Question text={v.text} />;
     case 'checklist':
       return <Checklist title={v.title} items={v.items} />;
+    case 'closing':
+      return <Closing brand={v.brand} kakao={v.kakao} />;
   }
 };

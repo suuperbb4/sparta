@@ -15,7 +15,7 @@ const timings = timingsJson as Timings;
 export const sceneSeconds = (s: Scene) => {
   if (!s.narration) return 2.6;
   const audio = timings.scenes?.[s.id];
-  if (audio) return audio + PAD_AFTER;
+  if (audio) return audio + PAD_AFTER + (s.hold ?? 0);
   return Math.max(3, s.narration.replace(/\s/g, '').length / 7 + PAD_AFTER);
 };
 

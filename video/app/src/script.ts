@@ -17,7 +17,8 @@ export type Visual =
   | {type: 'calc'; principal: string; rows: {label: string; value: string}[]; note: string}
   | {type: 'gap'; kr: number; us: number}
   | {type: 'question'; text: string}
-  | {type: 'checklist'; title: string; items: string[]};
+  | {type: 'checklist'; title: string; items: string[]}
+  | {type: 'closing'; brand: string; kakao: string};
 
 export type Footage = {clip: string; seconds: number; credit: string};
 
@@ -32,6 +33,7 @@ export const FOOTAGE = {
 
 export type Scene = {
   bg?: Footage; // 배경 영상 (선택)
+  hold?: number; // 내레이션이 끝난 뒤 화면을 더 보여줄 시간(초). 유튜브 최종 화면용
   id: string;
   part: number; // 0 = 오프닝
   narration: string; // TTS로 읽을 문장
@@ -361,5 +363,12 @@ export const SCENES: Scene[] = [
       title: '오늘의 요약',
       items: ['기준금리 3.25% · 2년 만의 최고', '성장 강하고 물가 목표 상회', '가계 빚 2030조 원 사상 최대', '이자: 1억당 연 25만 원 (단순 계산)'],
     },
+  },
+  {
+    id: 'closing',
+    part: 0,
+    narration: '오늘 영상은 여기까지입니다. 시청해 주셔서 감사합니다. 매일 경제 소식을 더 빠르게 받아보고 싶으시다면, 카카오톡에서 비티의 경제를 검색해 주세요. 그럼 다음 이야기로 다시 찾아오겠습니다.',
+    visual: {type: 'closing', brand: '비티의 경제', kakao: '카카오톡에서 「비티의 경제」 검색'},
+    hold: 8,
   },
 ];
