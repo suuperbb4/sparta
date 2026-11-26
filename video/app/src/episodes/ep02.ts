@@ -32,6 +32,8 @@ const SCENES: Scene[] = [
     sfx: [{file: 'riser.wav', at: 0, volume: 0.35}, {file: 'impact.wav', at: 1.1, volume: 0.7}],
   },
   {
+    bg: FOOTAGE.traderPhone,
+    bgDim: 1.25,
     id: 'o2',
     part: 0,
     cinematic: true,
@@ -42,6 +44,8 @@ const SCENES: Scene[] = [
     sfx: [{file: 'tick.wav', at: 0.3, volume: 0.5}],
   },
   {
+    bg: FOOTAGE.redChart,
+    bgDim: 1.35,
     id: 'o3',
     part: 0,
     cinematic: true,
@@ -64,6 +68,8 @@ const SCENES: Scene[] = [
     sfx: [{file: 'whoosh.wav', at: 0.2, volume: 0.5}, {file: 'impact.wav', at: 4.15, volume: 0.9}],
   },
   {
+    bg: FOOTAGE.redChart,
+    bgDim: 1.3,
     id: 'o4',
     part: 0,
     cinematic: true,
@@ -97,6 +103,8 @@ const SCENES: Scene[] = [
     sfx: [{file: 'whoosh.wav', at: 2.85, volume: 0.45}, {file: 'whoosh.wav', at: 4.65, volume: 0.45}, {file: 'whoosh.wav', at: 6.45, volume: 0.45}],
   },
   {
+    bg: FOOTAGE.emptyHall,
+    bgDim: 1.15,
     id: 'o6',
     part: 0,
     cinematic: true,
@@ -108,7 +116,7 @@ const SCENES: Scene[] = [
   },
 
   // ════════ 1. 빚이 쌓이던 시간 ════════
-  {id: 'ch1', part: 1, narration: '', visual: {type: 'chapter', index: 1}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
+  {bg: FOOTAGE.traderPhone, bgDim: 1, id: 'ch1', part: 1, narration: '', visual: {type: 'chapter', index: 1}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
     id: 'p1a',
     part: 1,
@@ -131,6 +139,8 @@ const SCENES: Scene[] = [
     source: '네이트 뉴스 (2026.3.4)',
   },
   {
+    bg: FOOTAGE.traderPhone,
+    bgDim: 1.3,
     id: 'p1c',
     part: 1,
     narration: '2분기에는 주식을 담보로 빌린 돈까지 합친 이른바 빚투가 하루 평균 61조 9천억 원. 역대 최대였습니다. 같은 기간 증권사들이 받은 이자만 약 1조 3,600억 원입니다.', // [B2][B3]
@@ -153,7 +163,7 @@ const SCENES: Scene[] = [
   },
 
   // ════════ 2. 무너진 다섯 달 ════════
-  {id: 'ch2', part: 2, narration: '', visual: {type: 'chapter', index: 2}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
+  {bg: FOOTAGE.redChart, bgDim: 1, id: 'ch2', part: 2, narration: '', visual: {type: 'chapter', index: 2}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
     id: 'p2a',
     part: 2,
@@ -172,6 +182,8 @@ const SCENES: Scene[] = [
     source: '데일리연합·twig24 보도',
   },
   {
+    bg: FOOTAGE.redChart,
+    bgDim: 1.3,
     id: 'p2b',
     part: 2,
     narration: '하지만 11월 6일, 미국발 인공지능 투자 둔화 우려가 번지면서 코스피는 장 초반 8% 넘게 떨어졌습니다. 서킷브레이커가 발동됐습니다.', // [A9][A10]
@@ -202,14 +214,18 @@ const SCENES: Scene[] = [
   },
 
   // ════════ 3. 반대매매의 원리 ════════
-  {id: 'ch3', part: 3, narration: '', visual: {type: 'chapter', index: 3}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
+  {bg: FOOTAGE.emptyHall, bgDim: 1, id: 'ch3', part: 3, narration: '', visual: {type: 'chapter', index: 3}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
+    bg: FOOTAGE.traderPhone,
+    bgDim: 1.35,
     id: 'p3a',
     part: 3,
     narration: '예를 들어 보겠습니다. 내 돈 1,000만 원에 증권사에서 1,000만 원을 빌려, 2,000만 원어치 주식을 샀다고 해 보죠. 증권사는 주식 가치가 빌린 돈의 일정 비율 아래로 떨어지면, 주식을 강제로 팔아 돈을 회수합니다. 이게 반대매매입니다.',
     visual: {type: 'leverage', own: 1000, borrowed: 1000, drop: 0.3, threshold: 1.4, note: '계산 예시 · 담보비율 기준 140% 가정 · 실제 기준은 증권사·상품마다 다릅니다'},
   },
   {
+    bg: FOOTAGE.traderPhone,
+    bgDim: 1.35,
     id: 'p3b',
     part: 3,
     narration: '기준이 140%라면, 주가가 30% 떨어지는 순간 기준에 닿습니다. 주가는 30% 떨어졌는데, 내 돈은 1,000만 원에서 400만 원, 60%가 사라진 겁니다.',
@@ -250,8 +266,10 @@ const SCENES: Scene[] = [
   },
 
   // ════════ 4. 역사는 반복된다 ════════
-  {id: 'ch4', part: 4, narration: '', visual: {type: 'chapter', index: 4}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
+  {bg: FOOTAGE.wallStreet, bgDim: 1, id: 'ch4', part: 4, narration: '', visual: {type: 'chapter', index: 4}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
+    bg: FOOTAGE.wallStreet,
+    bgDim: 1.15,
     id: 'p4a',
     part: 4,
     narration: '1929년 미국. 당시에는 주식값의 10%만 내고, 나머지는 빌려서 주식을 사는 일이 가능했습니다. 그해 여름 증권사들이 빌려준 돈은 약 85억 달러. 당시 미국에 풀린 현금보다 많았습니다.', // [D1][D2]
@@ -259,6 +277,8 @@ const SCENES: Scene[] = [
     source: 'Wikipedia(Wall Street Crash of 1929), EBSCO, ABA Journal',
   },
   {
+    bg: FOOTAGE.wallStreet,
+    bgDim: 1.35,
     id: 'p4b',
     part: 4,
     narration: '1929년 9월 381이던 다우지수는, 1932년 7월 41까지 떨어졌습니다. 89%가 사라졌습니다.', // [D3]
@@ -276,6 +296,8 @@ const SCENES: Scene[] = [
     sfx: [{file: 'impact.wav', at: 4.2, volume: 0.7}],
   },
   {
+    bg: FOOTAGE.seoul,
+    bgDim: 1.15,
     id: 'p4c',
     part: 4,
     narration: '1990년 서울. 1989년 봄 사상 처음 1,000을 넘었던 코스피는 이후 하락장이 길어졌고, 담보가 바닥난 이른바 깡통계좌가 쌓였습니다. 1990년 10월 10일, 이 계좌들은 한꺼번에 반대매매됐습니다.', // [D9][D10]
@@ -283,6 +305,8 @@ const SCENES: Scene[] = [
     source: '머니투데이·파이낸셜리뷰',
   },
   {
+    bg: FOOTAGE.shanghai,
+    bgDim: 1.25,
     id: 'p4d',
     part: 4,
     narration: '2015년 중국. 신용융자는 6월 중순 2조 2,700억 위안으로 정점을 찍었고, 상하이 지수는 한 달이 채 안 돼 약 32% 떨어졌습니다. 당시 HSBC의 한 애널리스트는 이렇게 말했습니다. 신용은 오를 때 시장의 주된 동력이었고, 내려갈 때도 핵심 동력이 될 것이다.', // [D7][D8]
@@ -298,8 +322,10 @@ const SCENES: Scene[] = [
   },
 
   // ════════ 5. 얼마나 걸렸나 ════════
-  {id: 'ch5', part: 5, narration: '', visual: {type: 'chapter', index: 5}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
+  {bg: FOOTAGE.clock, bgDim: 1, id: 'ch5', part: 5, narration: '', visual: {type: 'chapter', index: 5}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
+    bg: FOOTAGE.tokyo,
+    bgDim: 1.3,
     id: 'p5a',
     part: 5,
     narration: '그렇다면 이전 고점을 되찾기까지는 얼마나 걸렸을까요. 나스닥은 2000년 고점을 2015년에야 넘었습니다. 15년. 다우지수는 1954년, 25년이 걸렸습니다. 일본 닛케이는 1989년 고점을 2024년 2월에야 넘어섰습니다. 34년입니다.', // [D4][D5][D6]
@@ -316,12 +342,16 @@ const SCENES: Scene[] = [
     source: 'Fortune·Benzinga·Bloomberg·Boston Globe',
   },
   {
+    bg: FOOTAGE.clock,
+    bgDim: 1.15,
     id: 'p5b',
     part: 5,
     narration: '물론 모든 폭락이 이렇게 길었던 건 아닙니다. 지금 코스피가 언제 회복할지, 더 떨어질지는 누구도 단정할 수 없습니다.',
     visual: {type: 'question', text: '이번엔 얼마나? → 단정할 수 없다'},
   },
   {
+    bg: FOOTAGE.emptyHall,
+    bgDim: 1.3,
     id: 'p5c',
     part: 5,
     narration: '다만 역사가 반복해서 보여준 패턴은 있습니다. 빚은 시장의 꼭대기에서 가장 많았고, 빚을 진 사람은 하락을 버틸 시간을 고를 수 없었습니다. 주가가 30% 떨어질 때, 빚을 낸 사람의 돈은 60%가 사라질 수 있습니다.', // [B1 vs A1][계산 예시]

@@ -35,6 +35,15 @@ export const FOOTAGE = {
   port: {clip: 'stock/port.mp4', seconds: 16, credit: '영상: Toàn BDS / Pexels'},
   apartments: {clip: 'stock/apartments.mp4', seconds: 16, credit: '영상: Aaron Hairston / Pexels'},
   calculator: {clip: 'stock/calculator.mp4', seconds: 10.3, credit: '영상: Mikhail Nilov / Pexels'},
+  // EP02
+  traderPhone: {clip: 'stock/trader_phone.mp4', seconds: 16, credit: '영상: Mikhail Nilov / Pexels'},
+  redChart: {clip: 'stock/red_chart.mp4', seconds: 16, credit: '영상: Rafael Minguet Delgado / Pexels'},
+  wallStreet: {clip: 'stock/wall_street.mp4', seconds: 10, credit: '영상: CityXcape / Pexels · 현재 모습(당시 자료 아님)'},
+  shanghai: {clip: 'stock/shanghai.mp4', seconds: 14.4, credit: '영상: Acres of Film / Pexels · 현재 모습(당시 자료 아님)'},
+  tokyo: {clip: 'stock/tokyo.mp4', seconds: 10.6, credit: '영상: Cheng / Pexels · 현재 모습'},
+  seoul: {clip: 'stock/seoul.mp4', seconds: 9.8, credit: '영상: Nuhyil Ahammed / Pexels · 현재 모습(당시 자료 아님)'},
+  emptyHall: {clip: 'stock/empty_hall.mp4', seconds: 10, credit: '영상: Nino Souza / Pexels'},
+  clock: {clip: 'stock/clock.mp4', seconds: 13, credit: '영상: Jakub Zerdzicki / Pexels'},
 } satisfies Record<string, Footage>;
 
 export type Scene = {
