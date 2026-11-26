@@ -33,7 +33,7 @@ timings.scenes ??= {};
 timings.voice = voice;
 
 // 숫자·기호를 TTS가 정확히 읽도록 한글로 바꾸기 (화면 자막은 원문 숫자 그대로)
-// 예) 3.25% → 삼 점 이오 퍼센트, 0.75%포인트 → 영 점 칠오 퍼센트포인트
+// 예) 3.25% → 삼 쩜 이오 퍼센트, 0.75%포인트 → 영 쩜 칠오 퍼센트포인트
 const DIGIT = ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
 const sino = (n) => {
   // 0~9999 정수를 한자어 수사로
@@ -50,7 +50,7 @@ const sino = (n) => {
     });
   return out;
 };
-const decimal = (_, a, b) => `${sino(Number(a))} 점 ${b.split('').map((d) => DIGIT[Number(d)]).join('')}`;
+const decimal = (_, a, b) => `${sino(Number(a))} 쩜 ${b.split('').map((d) => DIGIT[Number(d)]).join('')}`;
 export const speakable = (t) =>
   t
     .replace(/(\d{1,4})\.(\d+)/g, decimal)
