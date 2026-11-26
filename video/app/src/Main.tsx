@@ -1,6 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
-import {PARTS, Scene, SCENES, STATUS, TICKER} from './script';
+import {AbsoluteFill, Audio, interpolate, Loop, OffthreadVideo, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {Footage, PARTS, Scene, SCENES, STATUS, TICKER} from './script';
 import timingsJson from './timings.json';
 import {C, FontFaces, MONO, Screen, Subtitle} from './theme';
 import {VisualView} from './Visuals';
@@ -127,6 +127,22 @@ const Ticker: React.FC = () => {
   );
 };
 
+// ── 배경 영상: 남색으로 덮어 그래픽이 잘 보이게 ──────────
+const Backdrop: React.FC<{f: Footage}> = ({f}) => {
+  const frame = useCurrentFrame();
+  const zoom = 1.05 + frame * 0.0004; // 느린 줌인
+  return (
+    <AbsoluteFill>
+      <Loop durationInFrames={Math.floor(f.seconds * FPS)}>
+        <OffthreadVideo src={staticFile(f.clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`}} />
+      </Loop>
+      <AbsoluteFill style={{background: 'linear-gradient(rgba(10,15,28,0.62), rgba(10,15,28,0.80))'}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10,15,28,0.7) 100%)'}} />
+      <div style={{position: 'absolute', right: 40, bottom: 70, fontSize: 20, fontWeight: 600, color: 'rgba(230,237,247,0.75)', fontFamily: "'Pretendard'"}}>{f.credit}</div>
+    </AbsoluteFill>
+  );
+};
+
 const SceneView: React.FC<{scene: Scene; dur: number}> = ({scene, dur}) => {
   const frame = useCurrentFrame();
   const fadeIn = interpolate(frame, [0, 6], [0, 1], {extrapolateRight: 'clamp'});
@@ -135,6 +151,11 @@ const SceneView: React.FC<{scene: Scene; dur: number}> = ({scene, dur}) => {
   const speechFrames = audioSec ? audioSec * FPS : dur - PAD_AFTER * FPS;
   return (
     <AbsoluteFill>
+      {scene.bg ? (
+        <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut)}}>
+          <Backdrop f={scene.bg} />
+        </AbsoluteFill>
+      ) : null}
       <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut), transform: 'translateY(-10px)'}}>
         <VisualView v={scene.visual} />
       </AbsoluteFill>

@@ -19,7 +19,19 @@ export type Visual =
   | {type: 'question'; text: string}
   | {type: 'checklist'; title: string; items: string[]};
 
+export type Footage = {clip: string; seconds: number; credit: string};
+
+// 무료 스톡 영상 (Pexels). 파일은 public/stock/ 에 두고 저장소에는 올리지 않음
+export const FOOTAGE = {
+  market: {clip: 'stock/market.mp4', seconds: 12.8, credit: '영상: Rafael Minguet Delgado / Pexels'},
+  bok: {clip: 'stock/bok.mp4', seconds: 10.2, credit: '영상: FREE VIDEO HAPPY / Pexels'},
+  port: {clip: 'stock/port.mp4', seconds: 16, credit: '영상: Toàn BDS / Pexels'},
+  apartments: {clip: 'stock/apartments.mp4', seconds: 16, credit: '영상: Aaron Hairston / Pexels'},
+  calculator: {clip: 'stock/calculator.mp4', seconds: 10.3, credit: '영상: Mikhail Nilov / Pexels'},
+} satisfies Record<string, Footage>;
+
 export type Scene = {
+  bg?: Footage; // 배경 영상 (선택)
   id: string;
   part: number; // 0 = 오프닝
   narration: string; // TTS로 읽을 문장
@@ -56,6 +68,7 @@ export const SCENES: Scene[] = [
   // ── 오프닝: 실제 기사 헤드라인 몽타주 ─────────────
   // 헤드라인은 검색으로 제목을 확인한 기사만 사용 (factsheet.md 출처 목록)
   {
+    bg: FOOTAGE.market,
     id: 'hook1',
     part: 0,
     narration: '코스피 하루 6% 폭락, 주택담보대출 금리는 14년여 만에 최고, 가계 빚은 2030조 원. 최근 경제 뉴스는 이런 제목들로 가득했습니다.',
@@ -104,8 +117,9 @@ export const SCENES: Scene[] = [
   },
 
   // ── 1. 오늘 무슨 일이 ─────────────────────
-  {id: 'ch1', part: 1, narration: '', visual: {type: 'chapter', index: 1}},
+  {bg: FOOTAGE.bok, id: 'ch1', part: 1, narration: '', visual: {type: 'chapter', index: 1}},
   {
+    bg: FOOTAGE.bok,
     id: 'p1a',
     part: 1,
     narration: '11월 26일, 한국은행 금융통화위원회는 기준금리를 연 3%에서 3.25%로 0.25%포인트 올렸습니다.',
@@ -152,7 +166,7 @@ export const SCENES: Scene[] = [
   },
 
   // ── 2. 왜 지금 올렸나 ─────────────────────
-  {id: 'ch2', part: 2, narration: '', visual: {type: 'chapter', index: 2}},
+  {bg: FOOTAGE.port, id: 'ch2', part: 2, narration: '', visual: {type: 'chapter', index: 2}},
   {
     id: 'p2a',
     part: 2,
@@ -168,6 +182,7 @@ export const SCENES: Scene[] = [
     source: '한국은행 수정경제전망 · 파이낸셜뉴스 (2026.11.26) · 이전값은 8월 전망',
   },
   {
+    bg: FOOTAGE.port,
     id: 'p2b',
     part: 2,
     narration: '결정문은 그 배경으로 반도체 경기 호조, 그리고 수출과 투자의 높은 증가세를 꼽았습니다.',
@@ -219,8 +234,9 @@ export const SCENES: Scene[] = [
   },
 
   // ── 3. 2030조 원의 빚 ─────────────────────
-  {id: 'ch3', part: 3, narration: '', visual: {type: 'chapter', index: 3}},
+  {bg: FOOTAGE.apartments, id: 'ch3', part: 3, narration: '', visual: {type: 'chapter', index: 3}},
   {
+    bg: FOOTAGE.apartments,
     id: 'p3a',
     part: 3,
     narration: '세 번째 이유는 빚입니다. 올해 3분기 말 우리나라 가계 빚은 2030조 5000억 원. 통계 작성 이래 가장 많습니다.',
@@ -257,7 +273,7 @@ export const SCENES: Scene[] = [
   },
 
   // ── 4. 내 이자는 얼마나 ─────────────────────
-  {id: 'ch4', part: 4, narration: '', visual: {type: 'chapter', index: 4}},
+  {bg: FOOTAGE.calculator, id: 'ch4', part: 4, narration: '', visual: {type: 'chapter', index: 4}},
   {
     id: 'p4a',
     part: 4,
@@ -266,6 +282,7 @@ export const SCENES: Scene[] = [
     source: '한국은행 금융기관 가중평균금리 · 뉴데일리 (2026.11.25)',
   },
   {
+    bg: FOOTAGE.calculator,
     id: 'p4b',
     part: 4,
     narration: '그럼 이번 인상으로 이자는 얼마나 늘까요? 0.25%포인트가 대출금리에 그대로 반영된다고 단순하게 가정하면, 1억 원당 1년에 25만 원입니다.',
