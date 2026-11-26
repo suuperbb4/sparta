@@ -10,6 +10,8 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.1.1",
+    "@fontsource/noto-serif-kr": "^5.1.1",
     "@remotion/cli": "^4.0.242",
     "@types/react": "^18.3.12",
     "pretendard": "^1.3.9",
