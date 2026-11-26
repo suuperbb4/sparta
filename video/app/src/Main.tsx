@@ -102,7 +102,7 @@ const SourceLine: React.FC<{text?: string}> = ({text}) => {
   const frame = useCurrentFrame();
   if (!text) return null;
   return (
-    <div style={{position: 'absolute', top: 88, left: 50, fontFamily: MONO, fontSize: 22, color: C.dim, opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
+    <div style={{position: 'absolute', top: 40, left: 50, fontFamily: MONO, fontSize: 22, color: C.dim, opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
       SRC <span style={{color: C.muted, fontFamily: "'Pretendard'"}}>{text}</span>
     </div>
   );
@@ -183,7 +183,6 @@ export const Main: React.FC = () => {
             <SceneView scene={scene} dur={dur} />
           </Sequence>
         ))}
-        <CurrentTopBar items={items} />
         <Ticker />
       </Screen>
       {timings.bgm ? <Audio src={staticFile(timings.bgm)} volume={0.12} loop /> : null}

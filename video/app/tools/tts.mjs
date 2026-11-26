@@ -26,16 +26,36 @@ const key = process.env.GOOGLE_TTS_API_KEY || 'injected-by-proxy';
 const outDir = join(root, 'public/audio');
 mkdirSync(outDir, {recursive: true});
 
+const readings = [];
 const timingsPath = join(root, 'src/timings.json');
 const timings = existsSync(timingsPath) ? JSON.parse(readFileSync(timingsPath, 'utf8')) : {};
 timings.scenes ??= {};
 timings.voice = voice;
 
-// 숫자·기호를 TTS가 자연스럽게 읽도록 다듬기 (화면 자막은 원문 그대로)
-const speakable = (t) =>
+// 숫자·기호를 TTS가 정확히 읽도록 한글로 바꾸기 (화면 자막은 원문 숫자 그대로)
+// 예) 3.25% → 삼 점 이오 퍼센트, 0.75%포인트 → 영 점 칠오 퍼센트포인트
+const DIGIT = ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
+const sino = (n) => {
+  // 0~9999 정수를 한자어 수사로
+  if (n === 0) return '영';
+  const units = ['', '십', '백', '천'];
+  let out = '';
+  String(n)
+    .split('')
+    .reverse()
+    .forEach((d, i) => {
+      const v = Number(d);
+      if (v === 0) return;
+      out = (v === 1 && i > 0 ? '' : DIGIT[v]) + units[i] + out;
+    });
+  return out;
+};
+const decimal = (_, a, b) => `${sino(Number(a))} 점 ${b.split('').map((d) => DIGIT[Number(d)]).join('')}`;
+export const speakable = (t) =>
   t
-    .replace(/(\d)%포인트/g, '$1퍼센트포인트')
-    .replace(/(\d)%/g, '$1퍼센트')
+    .replace(/(\d{1,4})\.(\d+)/g, decimal)
+    .replace(/%포인트/g, ' 퍼센트포인트')
+    .replace(/%/g, ' 퍼센트')
     .replace(/(\d),(\d{3})/g, '$1$2');
 
 for (const s of SCENES) {
@@ -45,7 +65,7 @@ for (const s of SCENES) {
     method: 'POST',
     headers: {'Content-Type': 'application/json', 'x-goog-api-key': key},
     body: JSON.stringify({
-      input: {text: speakable(s.narration)},
+      input: {text: (readings.push(`${s.id}\t${speakable(s.narration)}`), speakable(s.narration))},
       voice: {languageCode: 'ko-KR', name: voice},
       audioConfig: {audioEncoding: 'MP3', speakingRate: rate, sampleRateHertz: 44100},
     }),
@@ -64,6 +84,7 @@ for (const s of SCENES) {
   console.log(`✓ ${s.id}  ${dur.toFixed(2)}s`);
 }
 
+writeFileSync(join(root, 'out/tts_readings.txt'), readings.join('\n') + '\n');
 writeFileSync(timingsPath, JSON.stringify(timings, null, 2) + '\n');
 const total = Object.values(timings.scenes).reduce((a, b) => a + b, 0);
 console.log(`\n내레이션 합계 ${total.toFixed(1)}초 → src/timings.json 갱신`);
