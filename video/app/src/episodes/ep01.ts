@@ -1,47 +1,9 @@
-// 영상 대본 + 장면 정의.
-// 이 파일 하나만 고치면 내레이션(TTS), 자막, 화면이 함께 바뀝니다.
-// 모든 숫자는 ../../research/factsheet.md 에 출처가 있어야 합니다.
+// EP01: 2026-11-26 기준금리 인상
+// 모든 숫자는 research/factsheet.md 에 출처가 있어야 합니다.
+import {FOOTAGE} from '../types.ts';
+import type {Episode, Scene} from '../types.ts';
 
-export type Headline = {outlet: string; date: string; title: string; tag?: string};
-
-export type Visual =
-  | {type: 'hook'; lines: string[]}
-  | {type: 'headlines'; items: Headline[]; stamp?: string}
-  | {type: 'chapter'; index: number}
-  | {type: 'bigNumber'; value: string; unit?: string; label: string; sub?: string; tone?: 'red' | 'ink'}
-  | {type: 'rateSteps'; steps: {label: string; value: number}[]; highlight: number}
-  | {type: 'vote'; yes: number; no: number; noNames: string}
-  | {type: 'doc'; outlet: string; date: string; title: string; body: string[]; highlight?: string}
-  | {type: 'compare'; title: string; rows: {label: string; before: number; after: number; unit: string}[]}
-  | {type: 'bars'; title: string; rows: {label: string; value: number; display: string; accent?: boolean}[]}
-  | {type: 'calc'; principal: string; rows: {label: string; value: string}[]; note: string}
-  | {type: 'gap'; kr: number; us: number}
-  | {type: 'question'; text: string}
-  | {type: 'checklist'; title: string; items: string[]}
-  | {type: 'closing'; brand: string; kakao: string};
-
-export type Footage = {clip: string; seconds: number; credit: string};
-
-// 무료 스톡 영상 (Pexels). 파일은 public/stock/ 에 두고 저장소에는 올리지 않음
-export const FOOTAGE = {
-  market: {clip: 'stock/market.mp4', seconds: 12.8, credit: '영상: Rafael Minguet Delgado / Pexels'},
-  bok: {clip: 'stock/bok.mp4', seconds: 10.2, credit: '영상: FREE VIDEO HAPPY / Pexels'},
-  port: {clip: 'stock/port.mp4', seconds: 16, credit: '영상: Toàn BDS / Pexels'},
-  apartments: {clip: 'stock/apartments.mp4', seconds: 16, credit: '영상: Aaron Hairston / Pexels'},
-  calculator: {clip: 'stock/calculator.mp4', seconds: 10.3, credit: '영상: Mikhail Nilov / Pexels'},
-} satisfies Record<string, Footage>;
-
-export type Scene = {
-  bg?: Footage; // 배경 영상 (선택)
-  hold?: number; // 내레이션이 끝난 뒤 화면을 더 보여줄 시간(초). 유튜브 최종 화면용
-  id: string;
-  part: number; // 0 = 오프닝
-  narration: string; // TTS로 읽을 문장
-  visual: Visual;
-  source?: string; // 화면 왼쪽 위 출처 라벨
-};
-
-export const PARTS = [
+const PARTS = [
   '오늘 무슨 일이',
   '왜 지금 올렸나',
   '2030조 원의 빚',
@@ -49,13 +11,7 @@ export const PARTS = [
   '미국과 다음 수',
 ];
 
-// 화면 위 상태바와 아래 시세 띠에 계속 흐르는 지표 (팩트시트에 출처 있음)
-export const STATUS = [
-  {k: 'BOK', v: '3.25%', d: '▲0.25', up: true},
-  {k: 'FED', v: '4.00%', d: '상단', up: null},
-  {k: 'KOSPI', v: '4,697.51', d: '▼6.16% (11/25)', up: false},
-];
-export const TICKER = [
+const TICKER = [
   '기준금리 3.00% → 3.25%',
   '성장률 전망 2026 3.9% · 2027 4.1%',
   '10월 소비자물가 2.8% · 근원 2.8%',
@@ -64,9 +20,9 @@ export const TICKER = [
   '한미 금리차 0.75%p',
 ];
 
-export const TITLE = '2년 만의 금리 인상, 내 대출이자는 얼마나 늘어날까';
+const TITLE = '2년 만의 금리 인상, 내 대출이자는 얼마나 늘어날까';
 
-export const SCENES: Scene[] = [
+const SCENES: Scene[] = [
   // ── 오프닝: 실제 기사 헤드라인 몽타주 ─────────────
   // 헤드라인은 검색으로 제목을 확인한 기사만 사용 (factsheet.md 출처 목록)
   {
@@ -372,3 +328,5 @@ export const SCENES: Scene[] = [
     hold: 8,
   },
 ];
+
+export const EP01: Episode = {id: 'ep01', title: TITLE, parts: PARTS, ticker: TICKER, scenes: SCENES};

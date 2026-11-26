@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {createContext, useContext} from 'react';
 import {AbsoluteFill, Audio, interpolate, Loop, OffthreadVideo, Sequence, staticFile, useCurrentFrame} from 'remotion';
-import {Footage, PARTS, Scene, SCENES, STATUS, TICKER} from './script';
-import timingsJson from './timings.json';
+import {Episode, Footage, Scene} from './types';
+import ep01Timings from './timings/ep01.json';
+import ep02Timings from './timings/ep02.json';
 import {C, FontFaces, MONO, Screen, Subtitle} from './theme';
 import {VisualView} from './Visuals';
 
@@ -9,27 +10,36 @@ export const FPS = 30;
 const PAD_AFTER = 0.45; // 문장 끝 뒤 여백(초)
 
 type Timings = {scenes?: Record<string, number>; bgm?: string};
-const timings = timingsJson as Timings;
+const TIMINGS: Record<string, Timings> = {ep01: ep01Timings as Timings, ep02: ep02Timings as Timings};
 
-// TTS 오디오가 있으면 그 길이, 없으면 글자 수로 추정 (한국어 약 7자/초)
-export const sceneSeconds = (s: Scene) => {
-  if (!s.narration) return 2.6;
-  const audio = timings.scenes?.[s.id];
-  if (audio) return audio + PAD_AFTER + (s.hold ?? 0);
-  return Math.max(3, s.narration.replace(/\s/g, '').length / 7 + PAD_AFTER);
+// 지금 렌더링 중인 편 (Visuals 에서 챕터 이름 등을 읽음)
+export const EpisodeContext = createContext<Episode | null>(null);
+export const useEpisode = () => {
+  const ep = useContext(EpisodeContext);
+  if (!ep) throw new Error('EpisodeContext 없음');
+  return ep;
 };
 
-export const layout = () => {
+// TTS 오디오가 있으면 그 길이, 없으면 글자 수로 추정 (한국어 약 7자/초)
+export const sceneSeconds = (ep: Episode, s: Scene) => {
+  if (s.seconds) return s.seconds;
+  if (!s.narration) return 2.6;
+  const audio = TIMINGS[ep.id]?.scenes?.[s.id];
+  if (audio) return (s.lead ?? 0) + audio + PAD_AFTER + (s.hold ?? 0);
+  return (s.lead ?? 0) + Math.max(3, s.narration.replace(/\s/g, '').length / 7 + PAD_AFTER) + (s.hold ?? 0);
+};
+
+export const layout = (ep: Episode) => {
   let from = 0;
-  return SCENES.map((s) => {
-    const dur = Math.round(sceneSeconds(s) * FPS);
+  return ep.scenes.map((s) => {
+    const dur = Math.round(sceneSeconds(ep, s) * FPS);
     const item = {scene: s, from, dur};
     from += dur;
     return item;
   });
 };
 
-export const totalFrames = () => layout().reduce((a, b) => a + b.dur, 0);
+export const totalFrames = (ep: Episode) => layout(ep).reduce((a, b) => a + b.dur, 0);
 
 // 자막: 문장 → 화면에 맞는 길이로 쪼개고, 글자 수 비율로 시간 배분
 const chunk = (text: string, max = 30): string[] => {
@@ -75,43 +85,21 @@ const SubtitleTrack: React.FC<{text: string; speechFrames: number}> = ({text, sp
   return <Subtitle text={current} />;
 };
 
-// ── 위쪽 상태바 (항상 표시) ─────────────────────
-const TopBar: React.FC<{scene: Scene}> = ({scene}) => {
-  const frame = useCurrentFrame();
-  const blink = Math.floor(frame / 20) % 2 === 0;
-  return (
-    <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 64, background: '#111A2E', borderBottom: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', gap: 38, padding: '0 50px', fontFamily: MONO, fontSize: 23, color: C.muted, whiteSpace: 'nowrap'}}>
-      <span style={{color: C.accent, fontWeight: 800}}>
-        <span style={{opacity: blink ? 1 : 0.3}}>●</span> LIVE
-      </span>
-      {STATUS.map((s) => (
-        <span key={s.k}>
-          {s.k} <span style={{color: C.text}}>{s.v}</span>{' '}
-          <span style={{color: s.up === true ? C.up : s.up === false ? C.down : C.dim}}>{s.d}</span>
-        </span>
-      ))}
-      <span style={{marginLeft: 'auto', color: scene.part ? C.text : C.dim}}>
-        {scene.part ? `CH${String(scene.part).padStart(2, '0')} · ${PARTS[scene.part - 1]}` : '2026-11-26'}
-      </span>
-    </div>
-  );
-};
-
-// ── 출처 (상태바 아래) ─────────────────────────
-const SourceLine: React.FC<{text?: string}> = ({text}) => {
+// ── 출처 (왼쪽 위) ─────────────────────────────
+const SourceLine: React.FC<{text?: string; top?: number}> = ({text, top = 40}) => {
   const frame = useCurrentFrame();
   if (!text) return null;
   return (
-    <div style={{position: 'absolute', top: 40, left: 50, fontFamily: MONO, fontSize: 22, color: C.dim, opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
+    <div style={{position: 'absolute', top, left: 50, fontFamily: MONO, fontSize: 22, color: C.dim, opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
       SRC <span style={{color: C.muted, fontFamily: "'Pretendard'"}}>{text}</span>
     </div>
   );
 };
 
 // ── 아래쪽 시세 띠 (계속 흐름) ───────────────────
-const Ticker: React.FC = () => {
+const Ticker: React.FC<{items: string[]}> = ({items: base}) => {
   const frame = useCurrentFrame();
-  const items = [...TICKER, ...TICKER, ...TICKER];
+  const items = [...base, ...base, ...base];
   const x = -((frame * 2.2) % 2400);
   return (
     <div style={{position: 'absolute', bottom: 0, left: 0, right: 0, height: 56, background: C.accent, overflow: 'hidden', display: 'flex', alignItems: 'center'}}>
@@ -128,7 +116,7 @@ const Ticker: React.FC = () => {
 };
 
 // ── 배경 영상: 남색으로 덮어 그래픽이 잘 보이게 ──────────
-const Backdrop: React.FC<{f: Footage}> = ({f}) => {
+const Backdrop: React.FC<{f: Footage; dim?: number}> = ({f, dim = 1}) => {
   const frame = useCurrentFrame();
   const zoom = 1.05 + frame * 0.0004; // 느린 줌인
   return (
@@ -136,56 +124,89 @@ const Backdrop: React.FC<{f: Footage}> = ({f}) => {
       <Loop durationInFrames={Math.floor(f.seconds * FPS)}>
         <OffthreadVideo src={staticFile(f.clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`}} />
       </Loop>
-      <AbsoluteFill style={{background: 'linear-gradient(rgba(10,15,28,0.62), rgba(10,15,28,0.80))'}} />
+      <AbsoluteFill style={{background: `linear-gradient(rgba(10,15,28,${0.62 * dim}), rgba(10,15,28,${0.8 * dim}))`}} />
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10,15,28,0.7) 100%)'}} />
       <div style={{position: 'absolute', right: 40, bottom: 70, fontSize: 20, fontWeight: 600, color: 'rgba(230,237,247,0.75)', fontFamily: "'Pretendard'"}}>{f.credit}</div>
     </AbsoluteFill>
   );
 };
 
-const SceneView: React.FC<{scene: Scene; dur: number}> = ({scene, dur}) => {
+// ── 시네마틱: 위아래 검은 띠 + 필름 그레인 ───────────────
+const Letterbox: React.FC = () => {
   const frame = useCurrentFrame();
-  const fadeIn = interpolate(frame, [0, 6], [0, 1], {extrapolateRight: 'clamp'});
+  const grainShift = (frame * 37) % 200;
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      <svg width="100%" height="100%" style={{position: 'absolute', opacity: 0.09, mixBlendMode: 'screen', transform: `translate(${-grainShift / 10}px, ${grainShift / 14}px)`}}>
+        <filter id="g2">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed={frame % 7} />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="110%" height="110%" filter="url(#g2)" />
+      </svg>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 120, background: '#000'}} />
+      <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 120, background: '#000'}} />
+    </AbsoluteFill>
+  );
+};
+
+const SceneView: React.FC<{ep: Episode; scene: Scene; dur: number}> = ({ep, scene, dur}) => {
+  const frame = useCurrentFrame();
+  const fadeIn = interpolate(frame, [0, scene.cinematic ? 10 : 6], [0, 1], {extrapolateRight: 'clamp'});
   const fadeOut = interpolate(frame, [dur - 5, dur], [1, 0], {extrapolateLeft: 'clamp'});
-  const audioSec = timings.scenes?.[scene.id];
-  const speechFrames = audioSec ? audioSec * FPS : dur - PAD_AFTER * FPS;
+  const audioSec = TIMINGS[ep.id]?.scenes?.[scene.id];
+  const lead = Math.round((scene.lead ?? 0) * FPS);
+  const speechFrames = audioSec ? audioSec * FPS : dur - lead - PAD_AFTER * FPS;
   return (
     <AbsoluteFill>
       {scene.bg ? (
         <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut)}}>
-          <Backdrop f={scene.bg} />
+          <Backdrop f={scene.bg} dim={scene.bgDim} />
         </AbsoluteFill>
       ) : null}
       <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut), transform: 'translateY(-10px)'}}>
         <VisualView v={scene.visual} />
       </AbsoluteFill>
-      <SourceLine text={scene.source} />
-      <SubtitleTrack text={scene.narration} speechFrames={speechFrames} />
-      {audioSec ? <Audio src={staticFile(`audio/${scene.id}.mp3`)} /> : null}
+      {scene.cinematic ? <Letterbox /> : null}
+      <SourceLine text={scene.source} top={scene.cinematic ? 140 : 40} />
+      <Sequence from={lead}>
+        <SubtitleTrack text={scene.narration} speechFrames={speechFrames} />
+        {audioSec ? <Audio src={staticFile(`audio/${ep.id}/${scene.id}.mp3`)} /> : null}
+      </Sequence>
+      {(scene.sfx ?? []).map((s, i) => (
+        <Sequence key={i} from={Math.round(s.at * FPS)}>
+          <Audio src={staticFile(`sfx/${s.file}`)} volume={s.volume ?? 0.6} />
+        </Sequence>
+      ))}
     </AbsoluteFill>
   );
 };
 
-const CurrentTopBar: React.FC<{items: ReturnType<typeof layout>}> = ({items}) => {
+// 지금 프레임이 시네마틱 장면이면 아래 시세 띠를 숨김
+const TickerUnlessCinematic: React.FC<{ep: Episode; items: ReturnType<typeof layout>}> = ({ep, items}) => {
   const frame = useCurrentFrame();
-  const cur = items.find((it) => frame >= it.from && frame < it.from + it.dur) ?? items[items.length - 1];
-  return <TopBar scene={cur.scene} />;
+  const cur = items.find((it) => frame >= it.from && frame < it.from + it.dur);
+  if (cur?.scene.cinematic || cur?.scene.noTicker) return null;
+  return <Ticker items={ep.ticker} />;
 };
 
-export const Main: React.FC = () => {
-  const items = layout();
+export const Main: React.FC<{ep: Episode}> = ({ep}) => {
+  const items = layout(ep);
+  const t = TIMINGS[ep.id] ?? {};
   return (
-    <AbsoluteFill style={{background: C.bg}}>
-      <FontFaces />
-      <Screen>
-        {items.map(({scene, from, dur}) => (
-          <Sequence key={scene.id} from={from} durationInFrames={dur} name={scene.id}>
-            <SceneView scene={scene} dur={dur} />
-          </Sequence>
-        ))}
-        <Ticker />
-      </Screen>
-      {timings.bgm ? <Audio src={staticFile(timings.bgm)} volume={0.12} loop /> : null}
-    </AbsoluteFill>
+    <EpisodeContext.Provider value={ep}>
+      <AbsoluteFill style={{background: C.bg}}>
+        <FontFaces />
+        <Screen>
+          {items.map(({scene, from, dur}) => (
+            <Sequence key={scene.id} from={from} durationInFrames={dur} name={scene.id}>
+              <SceneView ep={ep} scene={scene} dur={dur} />
+            </Sequence>
+          ))}
+          <TickerUnlessCinematic ep={ep} items={items} />
+        </Screen>
+        {t.bgm ? <Audio src={staticFile(t.bgm)} volume={0.1} loop /> : null}
+      </AbsoluteFill>
+    </EpisodeContext.Provider>
   );
 };

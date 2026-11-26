@@ -1,7 +1,9 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {C, clamp01, countUp, Highlighted, MONO, Panel, rise, useEnter} from './theme';
-import {Headline, PARTS, Visual} from './script';
+import {Headline, Visual} from './types';
+import {useEpisode} from './Main';
+import {Crash, Cycle, HBars, Leverage, Stamp, TitleCard, YearFlash} from './VisualsEp02';
 
 const center: React.CSSProperties = {display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'};
 
@@ -122,6 +124,7 @@ const Headlines: React.FC<Extract<Visual, {type: 'headlines'}>> = ({items, stamp
 // ── 챕터 ───────────────────────────────────
 const Chapter: React.FC<{index: number}> = ({index}) => {
   const frame = useCurrentFrame();
+  const PARTS = useEpisode().parts;
   const title = PARTS[index - 1];
   const typed = Math.floor(clamp01(frame, 8, 8 + title.length * 2.2) * title.length);
   return (
@@ -528,5 +531,19 @@ export const VisualView: React.FC<{v: Visual}> = ({v}) => {
       return <Checklist title={v.title} items={v.items} />;
     case 'closing':
       return <Closing brand={v.brand} kakao={v.kakao} />;
+    case 'stamp':
+      return <Stamp {...v} />;
+    case 'crash':
+      return <Crash {...v} />;
+    case 'yearFlash':
+      return <YearFlash {...v} />;
+    case 'titleCard':
+      return <TitleCard {...v} />;
+    case 'cycle':
+      return <Cycle {...v} />;
+    case 'leverage':
+      return <Leverage {...v} />;
+    case 'hbars':
+      return <HBars {...v} />;
   }
 };
