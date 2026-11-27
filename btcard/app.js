@@ -7,9 +7,9 @@
   const MEMBER = 'btcard.member';
   const S = {
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
-    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
+    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, reason: '', plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v19';
+  const VERSION = 'v20';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -25,7 +25,7 @@
   const dayLabel = (iso) => { const d = new Date(iso + 'T00:00:00'); return `${d.getMonth() + 1}월 ${d.getDate()}일 (${W[d.getDay()]})`; };
   const longDay = (iso) => { const d = new Date(iso + 'T00:00:00'); return `${d.getMonth() + 1}월 ${d.getDate()}일 ${W[d.getDay()]}요일`; };
   const untilLabel = (t) => { const d = new Date(t); return `${d.getMonth() + 1}월 ${d.getDate()}일`; };
-  const memberUntil = () => { const m = S.member; if (!m) return 0; return m.status === 'canceled' ? m.paidUntil : Infinity; };
+  const memberUntil = () => { const m = S.member; if (!m) return 0; if (m.status === 'canceled') return m.paidUntil; if (m.status === 'paused' && Date.now() < m.nextBill) return m.pausedFrom; return Infinity; };
   const viaCode = () => S.access && S.access.until > Date.now();
   const valid = () => viaCode() || memberUntil() > Date.now();
   const won = (n) => n.toLocaleString('ko-KR');
@@ -196,8 +196,8 @@
       const methodName = (id) => (S.cfg.membership.methods.find((x) => x.id === id) || {}).name || id;
       const memberCard = m ? `<div class="card">
           <div class="row"><span>멤버십</span><span>${B()} ${m.plan === 'annual' ? '연간' : '월간'}${m.test ? ' <em class="tm">테스트</em>' : ''}</span></div>
-          <div class="row"><span>상태</span><span>${m.status === 'trial' ? `무료 체험 중 · ${ymd(m.trialEnd)}까지` : m.status === 'canceled' ? `해지됨 · ${ymd(m.paidUntil)}까지 이용` : '이용 중'}</span></div>
-          ${m.status === 'canceled' ? '' : `<div class="row"><span>다음 결제</span><span>${ymd(m.nextBill)} · ${priceOf(m.plan)}원</span></div>`}
+          <div class="row"><span>상태</span><span>${m.status === 'trial' ? `무료 체험 중 · ${ymd(m.trialEnd)}까지` : m.status === 'canceled' ? `해지 예약 · ${ymd(m.paidUntil)}까지 이용` : m.status === 'paused' ? `쉬어가기 예약 · ${ymd(m.pausedFrom)}부터 한 달 쉬고 ${ymd(m.nextBill)}에 다시 시작` : '이용 중'}</span></div>
+          ${m.status === 'canceled' ? '' : `<div class="row"><span>다음 결제</span><span>${ymd(m.nextBill)} · ${m.discount ? `<s class="muted">${priceOf(m.plan)}원</s> ${won(Math.round(parseInt(priceOf(m.plan).replace(/,/g, ''), 10) * (100 - m.discount) / 100))}원` : `${priceOf(m.plan)}원`}</span></div>`}
           <div class="row"><span>결제수단</span><span>${esc(methodName(m.method))} · ${esc(m.phoneTail)}</span></div>
         </div>
         ${m.status === 'canceled' ? '<button class="btn" data-act="resume">멤버십 다시 시작</button>' : '<button class="btn ghost" data-go="cancel">멤버십 해지</button>'}` : '';
@@ -209,7 +209,8 @@
       return `<div class="body pad">${topbar()}<h1>내 정보</h1>
       ${naverCard}${memberCard}
       <div class="card"><div class="row"><span>이 기기</span><span>${DEVICE_NAME[deviceType()]} · ${esc(deviceLabel())}</span></div>
-        <div class="row"><span>기기 등록</span><span>폰 1 · 태블릿 1 · PC 1 (정식 오픈 때 적용)</span></div></div>
+        <button class="row rowb" data-go="help"><span>기기 등록</span><span>폰 1 · 태블릿 1 · PC 1 ›</span></button></div>
+      <button class="btn ghost" data-go="help">이용 안내 (기기 등록·해지·환불)</button>
       ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하기</button>'}
       ${m ? '' : '<button class="btn ghost" data-go="plans">멤버십 안내</button>'}
       ${viaCode() ? '' : '<button class="btn ghost" data-go="gate">네이버 구독자 연동하기</button>'}
@@ -267,10 +268,11 @@
       <h2>휴대폰 번호</h2>
       <input class="field plain" id="phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" value="${esc(S.phone)}" autocomplete="tel">
       <p class="muted" style="margin-top:-4px">결제 알림과 영수증을 보내고, 무료 체험 중복을 확인하는 데만 써요.</p>
+      <div class="box" style="font-size:13px">한 계정으로 <b>폰 1 · 태블릿 1 · PC 1</b>, 모두 3대까지 볼 수 있어요. <button class="lnk" data-go="help" style="font-size:13px">자세히</button></div>
       <h2>약관 동의</h2>
       <div class="agree">
         <label class="all"><input type="checkbox" data-agree="all" ${need.concat('mkt').every((k) => S.agree[k]) ? 'checked' : ''}><span>전체 동의</span></label>
-        ${ag('terms', '서비스 이용약관', true, `${B()} 멤버십은 디지털 카드 콘텐츠를 열람하는 구독 서비스예요. 콘텐츠는 정보 제공·시황 정리 목적이며 투자자문이나 매매 권유가 아니에요. 콘텐츠의 무단 복제와 배포는 금지돼요.`)}
+        ${ag('terms', '서비스 이용약관', true, `${B()} 멤버십은 디지털 카드 콘텐츠를 열람하는 구독 서비스예요. 콘텐츠는 정보 제공·시황 정리 목적이며 투자자문이나 매매 권유가 아니에요. 콘텐츠의 무단 복제와 배포, 계정 공유는 금지돼요. 한 계정으로 폰·태블릿·PC를 종류별로 1대씩, 모두 3대까지 이용할 수 있고, 기기 해제는 한 달에 2번까지 할 수 있어요.`)}
         ${ag('privacy', '개인정보 수집·이용', true, '수집 항목: 휴대폰 번호, 결제수단 정보(결제대행사 보관). 이용 목적: 결제, 결제 알림, 무료 체험 중복 확인, 고객 문의 응대. 보관 기간: 해지 후 관련 법령에서 정한 기간.')}
         ${ag('billing', `정기결제 동의`, true, `무료 체험이 끝나는 ${ymd(end)}부터 ${annual ? '매년' : '매월'} ${price}원이 선택한 결제수단으로 자동 결제돼요. 결제 전 언제든 해지할 수 있고, 체험 중 해지하면 비용이 청구되지 않아요. 결제 후 7일 안에 콘텐츠를 열람하지 않았다면 전액 환불돼요.`)}
         ${ag('mkt', '혜택·이벤트 알림 받기', false, '')}
@@ -297,16 +299,86 @@
       </div>`;
     },
 
+    help: () => `<div class="body pad">
+      <button class="back" data-go="my">‹ 내 정보</button>
+      <h1>이용 안내</h1>
+      <section class="hp"><h2>기기 등록</h2>
+        <div class="slots"><div><b>폰</b>1대</div><div><b>태블릿</b>1대</div><div><b>PC</b>1대</div></div>
+        <ul>
+          <li>한 계정으로 <b>폰·태블릿·PC를 종류별로 1대씩, 모두 3대</b>까지 볼 수 있어요.</li>
+          <li>처음 로그인한 기기는 자동으로 등록돼요. 기기 종류는 접속한 기기 정보로 자동 판별해요.</li>
+          <li>같은 종류의 기기가 이미 등록돼 있으면, 그 기기를 해제해야 새 기기에서 볼 수 있어요. 다른 종류의 기기는 그대로 유지돼요.</li>
+          <li>기기 해제는 <b>한 달에 2번</b>까지 할 수 있어요. 휴대폰을 바꾸실 때처럼 꼭 필요할 때 사용해 주세요.</li>
+          <li>같은 폰에서도 <b>Safari와 홈 화면 앱, 크롬처럼 브라우저가 다르면</b> 같은 기기로 인식되지 않을 수 있어요. 한 가지로 정해서 쓰시는 걸 권해요.</li>
+          <li>계정 공유는 이용약관상 허용되지 않아요. 여러 분이 함께 보시려면 각자 구독해 주세요.</li>
+        </ul>
+        <p class="muted">이 기기: ${DEVICE_NAME[deviceType()]} · ${esc(deviceLabel())}</p></section>
+      <section class="hp"><h2>해지</h2>
+        <ul>
+          <li>내 정보 → <b>멤버십 해지</b>에서 언제든 바로 해지할 수 있어요.</li>
+          <li>무료 체험 중 해지하면 비용이 청구되지 않아요.</li>
+          <li>해지해도 이미 결제한 기간이 끝날 때까지 모든 카드를 볼 수 있어요.</li>
+          <li>해지 후에도 같은 계정으로 언제든 다시 시작할 수 있어요.</li>
+        </ul></section>
+      <section class="hp"><h2>환불</h2>
+        <ul>
+          <li>결제 후 7일 안에 카드를 열람하지 않았다면 전액 환불돼요.</li>
+          <li>열람 후에는 남은 기간을 일 단위로 계산해 환불해요. 자세한 기준은 정식 오픈 때 이용약관에 안내돼요.</li>
+        </ul></section>
+      <section class="hp"><h2>네이버 인사이트 노트 구독자</h2>
+        <ul><li>네이버 유료 글의 "${B()} 앱에서 넘겨보기" 버튼으로 연동하면 별도 결제 없이 볼 수 있어요. 버튼을 누를 때마다 35일씩 자동 연장돼요.</li>
+          <li>네이버 구독을 해지하면 새 버튼을 볼 수 없어 연동 기간이 끝나면 자동으로 종료돼요.</li></ul></section>
+    </div>`,
+
     cancel: () => {
-      const mm = S.member; const until = mm.status === 'trial' ? mm.trialEnd : mm.nextBill;
+      const mm = S.member; const trial = mm.status === 'trial'; const until = trial ? mm.trialEnd : mm.status === 'paused' ? mm.pausedFrom : mm.nextBill;
+      const since = new Date(mm.start).toISOString().slice(0, 10);
+      const got = S.feed.days.filter((d) => d.date >= since).reduce((n, d) => n + d.sets.reduce((k, x) => k + x.cards.length, 0), 0);
+      const total = S.feed.days.reduce((n, d) => n + d.sets.reduce((k, x) => k + x.cards.length, 0), 0);
+      const R = [
+        ['price', '가격이 부담돼요'], ['time', '볼 시간이 없어요'], ['naver', '네이버 인사이트 노트로 볼게요'],
+        ['content', '내용이 기대와 달라요'], ['etc', '기타'],
+      ];
+      const offer = {
+        price: `<div class="offer"><b>다음 결제 50% 할인</b><p>한 달 더 ${won(Math.round(parseInt(priceOf(mm.plan).replace(/,/g, ''), 10) / 2))}원에 이용해 보세요. 이후엔 원래 요금으로 돌아가고, 언제든 해지할 수 있어요.</p><button class="btn" data-act="offerDiscount">50% 할인 받고 계속 이용</button></div>`,
+        time: `<div class="offer"><b>한 달 쉬어가기</b><p>결제를 한 달 미루고 쉬어가요. 보관함은 그대로 남고, ${ymd(until + 30 * 864e5)}에 자동으로 다시 시작해요.</p><button class="btn" data-act="offerPause">한 달 쉬어가기</button></div>`,
+        naver: `<div class="offer"><b>네이버 구독자는 앱이 무료예요</b><p>네이버 인사이트 노트를 구독하시면 이 앱을 별도 결제 없이 연동해서 볼 수 있어요. 이 멤버십은 해지하셔도 돼요.</p><a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버 인사이트 노트 보기</a></div>`,
+        content: `<div class="offer"><b>어떤 점이 아쉬웠는지 알려 주세요</b><p>비티가 직접 읽고 카드에 반영해요. 오픈채팅방 '비티의 경제'에서도 바로 이야기 나눌 수 있어요.</p><textarea class="fb" placeholder="예: 마켓 카드가 더 짧았으면 좋겠어요"></textarea></div>`,
+        etc: '',
+      };
       return `<div class="body pad">
       <button class="back" data-go="my">‹ 내 정보</button>
-      <h1>정말 해지할까요?</h1>
-      <p class="muted">${mm.status === 'trial' ? '지금 해지하면 비용은 청구되지 않아요.' : '해지해도 결제한 기간 끝까지 볼 수 있어요.'} ${ymd(until)}까지 이용할 수 있어요.</p>
-      <div class="card lose"><p class="muted" style="margin:0 0 8px">해지하면 이런 것들을 받을 수 없어요</p>
-        <ul><li>매일 모닝 인사이트·마켓·5분 세상읽기 전체</li><li>SNS보다 반나절 먼저 받는 카드</li><li>지난 카드 보관함</li></ul></div>
-      <button class="btn" data-go="my">계속 이용하기</button>
-      <button class="btn ghost" data-act="doCancel">해지하기</button>
+      <h1>해지하기 전에<br>확인해 주세요</h1>
+      <div class="stat2">
+        <div><b>${got}</b><span>${trial ? '체험 중' : '구독 중'} 받아본 카드</span></div>
+        <div><b>${total}</b><span>보관함에 쌓인 카드</span></div>
+      </div>
+      <div class="card lose"><p class="muted" style="margin:0 0 8px">${ymd(until)} 이후에는 이렇게 바뀌어요</p>
+        <ul><li>매일 아침 모닝 인사이트·마켓·5분 세상읽기 전체를 받지 않아요</li><li>SNS와 오픈채팅의 일부 맛보기만 볼 수 있어요</li><li>보관함의 지난 카드를 열 수 없어요</li></ul>
+        <p class="muted" style="margin:10px 0 0">${trial ? '지금 해지해도 비용은 청구되지 않고, 체험 기간 끝까지 볼 수 있어요.' : `이미 결제한 ${ymd(until)}까지는 그대로 볼 수 있어요.`}</p></div>
+      <h2>해지하시는 이유를 알려 주세요 <span class="muted" style="font-weight:400">(선택)</span></h2>
+      <div class="reasons">${R.map(([k, l]) => `<button class="rs ${S.reason === k ? 'on' : ''}" data-reason="${k}">${l}</button>`).join('')}</div>
+      ${S.reason && offer[S.reason] ? offer[S.reason] : ''}
+      <div class="cbar">
+        <button class="btn ghost" data-go="my">계속 이용하기</button>
+        <button class="btn danger" data-act="doCancel">해지하기</button>
+      </div>
+      <p class="muted" style="text-align:center;font-size:12px;margin-top:10px">해지 후에도 언제든 같은 계정으로 다시 시작할 수 있어요.</p>
+      </div>`;
+    },
+
+    canceled: () => {
+      const mm = S.member;
+      return `<div class="body pad">
+      <div class="ok" style="background:var(--surf2);color:var(--ink)">✓</div>
+      <h1 style="margin-top:0">해지가 예약됐어요</h1>
+      <div class="card">
+        <div class="row"><span>이용 가능</span><span>${ymd(mm.paidUntil)}까지</span></div>
+        <div class="row"><span>추가 결제</span><span>없음</span></div>
+      </div>
+      <p class="muted">${ymd(mm.paidUntil)}까지는 지금처럼 모든 카드를 볼 수 있어요. 마음이 바뀌면 내 정보에서 버튼 하나로 다시 시작할 수 있어요.</p>
+      <button class="btn" data-act="resume">해지 취소하고 계속 이용</button>
+      <button class="btn ghost" data-go="home">카드 보러 가기</button>
       </div>`;
     },
   };
@@ -332,7 +404,7 @@
   }
 
   function render() {
-    const needAccess = ['home', 'archive', 'news', 'my', 'welcome', 'done', 'cancel'];
+    const needAccess = ['home', 'archive', 'news', 'my', 'welcome', 'done', 'cancel', 'canceled', 'help'];
     if (needAccess.includes(S.route) && !valid()) S.route = 'gate';
     let h = V[S.route]();
     if (S.open) h += viewer();
@@ -374,11 +446,12 @@
   }
 
   $app.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day],[data-cat],[data-plan],[data-method]');
+    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day],[data-cat],[data-plan],[data-method],[data-reason]');
     if (!el) return;
     const d = el.dataset;
     if (d.cat) { S.cat = d.cat; render(); return; }
     if (d.plan) { S.plan = d.plan; render(); return; }
+    if (d.reason) { S.reason = S.reason === d.reason ? '' : d.reason; keepScroll(); return; }
     if (d.method) { S.method = d.method; render(); return; }
     if (d.go) {
       S.open = null; S.date = null;
@@ -395,10 +468,12 @@
     if (d.act === 'diag') { const x = document.getElementById('diag'); x.textContent = probe(); x.hidden = false; return; }
     if (d.act === 'startTrial') { startTrial(); return; }
     if (d.act === 'doCancel') {
-      const until = S.member.status === 'trial' ? S.member.trialEnd : S.member.nextBill;
-      S.member = { ...S.member, status: 'canceled', paidUntil: until }; saveMember(); go('my'); toast(`해지했어요. ${ymd(until)}까지 볼 수 있어요`); return;
+      const until = S.member.status === 'trial' ? S.member.trialEnd : S.member.status === 'paused' ? S.member.pausedFrom : S.member.nextBill;
+      S.member = { ...S.member, status: 'canceled', paidUntil: until, cancelReason: S.reason || '' }; saveMember(); S.reason = ''; go('canceled'); return;
     }
-    if (d.act === 'resume') { S.member = { ...S.member, status: S.member.trialEnd > Date.now() ? 'trial' : 'active' }; delete S.member.paidUntil; saveMember(); render(); toast('멤버십을 다시 시작했어요'); return; }
+    if (d.act === 'offerDiscount') { S.member = { ...S.member, discount: 50 }; saveMember(); S.reason = ''; go('my'); toast('다음 결제가 50% 할인돼요. 고마워요!'); return; }
+    if (d.act === 'offerPause') { { const from = S.member.status === 'trial' ? S.member.trialEnd : S.member.nextBill; S.member = { ...S.member, status: 'paused', pausedFrom: from, nextBill: from + 30 * 864e5 }; } saveMember(); S.reason = ''; go('my'); toast(`한 달 쉬어가요. ${ymd(S.member.nextBill)}에 다시 시작해요`); return; }
+    if (d.act === 'resume') { S.member = { ...S.member, status: S.member.trialEnd > Date.now() ? 'trial' : 'active', ...(S.member.pausedFrom ? { nextBill: S.member.pausedFrom } : {}) }; delete S.member.pausedFrom; delete S.member.paidUntil; saveMember(); go('my'); toast('멤버십을 다시 시작했어요'); return; }
     if (d.act === 'install' && installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; render(); }); }
   });
   $app.addEventListener('change', (e) => {
