@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0b0e14"/>
+  <g transform="rotate(-14 256 300)"><rect x="140" y="120" width="232" height="290" rx="26" fill="#E4572E"/></g>
+  <g transform="rotate(7 256 300)"><rect x="140" y="112" width="232" height="290" rx="26" fill="#f3efe6"/></g>
+  <rect x="140" y="104" width="232" height="290" rx="26" fill="#f5c451"/>
+  <rect x="176" y="148" width="72" height="14" rx="7" fill="#0b0e14" opacity=".35"/>
+  <text x="168" y="350" font-family="Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="128" letter-spacing="-8" fill="#0b0e14">BT</text></svg>

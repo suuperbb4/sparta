@@ -1,4 +1,4 @@
-// 비티 카드 시범판 (서버 없이 동작하는 PWA)
+// 비티 노트 시범판 (서버 없이 동작하는 PWA)
 // 구독자 확인: 네이버 유료 글의 링크(?k=코드) 또는 코드 직접 입력 → config.json의 해시와 비교
 {
   const $app = document.getElementById('app');
@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v16';
+  const VERSION = 'v17';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;

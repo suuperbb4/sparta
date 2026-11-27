@@ -1,6 +1,6 @@
-// 비티 카드 서비스 워커: 앱 화면은 캐시, 카드 목록은 항상 최신 우선
-const VERSION = 'btcard-v16';
-const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'config.json', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
+// 비티 노트 서비스 워커: 앱 화면은 캐시, 카드 목록은 항상 최신 우선
+const VERSION = 'btcard-v17';
+const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'config.json', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

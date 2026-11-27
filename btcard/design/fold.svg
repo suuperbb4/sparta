@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0b0e14"/>
+  <path d="M112 84h204l84 84v232a28 28 0 0 1-28 28H112a28 28 0 0 1-28-28V112a28 28 0 0 1 28-28z" fill="#f5c451"/>
+  <path d="M316 84l84 84h-60a24 24 0 0 1-24-24z" fill="#E4572E"/>
+  <text x="122" y="372" font-family="Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="168" letter-spacing="-10" fill="#0b0e14">bt</text>
+  <circle cx="338" cy="352" r="20" fill="#E4572E"/></svg>

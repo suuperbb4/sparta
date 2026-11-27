@@ -238,3 +238,5 @@ h2{font-size:18px;letter-spacing:-.01em;margin:26px 0 10px}
 .tile img{object-position:center}
 .tile .tag{font-size:11px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .tile .tag::before{width:6px;height:6px;flex:none}
+.logo{position:relative;overflow:hidden}
+.logo::after{content:"";position:absolute;top:0;right:18%;width:22%;height:42%;background:#E4572E;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}
