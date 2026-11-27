@@ -20,7 +20,7 @@
 - 시리즈 폴더: `morning` 모닝 인사이트, `market` 비티의 마켓, `world` 5분 세상읽기, `weekly` 주간 비티
 - 텔레그램 승인과 연결하는 방법은 `N8N.md`를 보세요.
 - 올리면 GitHub Actions가 `feed.json`을 자동으로 갱신합니다. 직접 갱신하려면 `node scripts/build-feed.mjs`.
-- `cards/2026-11-26`, `cards/2026-11-27`은 샘플이므로 실제 운영 전에 지웁니다.
+- `cards/2026-11-26/world`는 테스트용 실제 카드(11월 26일 5분 세상읽기)입니다.
 
 ## 시범판의 한계
 

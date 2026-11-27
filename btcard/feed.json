@@ -1,85 +1,23 @@
 {
   "days": [
     {
-      "date": "2026-11-27",
-      "sets": [
-        {
-          "series": "market",
-          "cards": [
-            "cards/2026-11-27/market/01.svg",
-            "cards/2026-11-27/market/02.svg",
-            "cards/2026-11-27/market/03.svg"
-          ],
-          "text": "오늘 장의 핵심은 수급이었습니다.\n외국인과 기관의 방향이 엇갈린 하루였습니다.\n(샘플 글)"
-        },
-        {
-          "series": "morning",
-          "cards": [
-            "cards/2026-11-27/morning/01.svg",
-            "cards/2026-11-27/morning/02.svg",
-            "cards/2026-11-27/morning/03.svg",
-            "cards/2026-11-27/morning/04.svg",
-            "cards/2026-11-27/morning/05.svg",
-            "cards/2026-11-27/morning/06.svg",
-            "cards/2026-11-27/morning/07.svg",
-            "cards/2026-11-27/morning/08.svg",
-            "cards/2026-11-27/morning/09.svg"
-          ],
-          "text": "코스피는 내렸는데 환율도 함께 내렸습니다.\n지수와 원·달러가 같은 날 같은 방향이었습니다.\n평소와 다른 이 움직임을 일시적으로 보시나요, 구조적으로 보시나요?\n(샘플 글)"
-        },
-        {
-          "series": "world",
-          "cards": [
-            "cards/2026-11-27/world/01.svg",
-            "cards/2026-11-27/world/02.svg",
-            "cards/2026-11-27/world/03.svg",
-            "cards/2026-11-27/world/04.svg",
-            "cards/2026-11-27/world/05.svg",
-            "cards/2026-11-27/world/06.svg",
-            "cards/2026-11-27/world/07.svg",
-            "cards/2026-11-27/world/08.svg",
-            "cards/2026-11-27/world/09.svg"
-          ]
-        }
-      ]
-    },
-    {
       "date": "2026-11-26",
       "sets": [
         {
-          "series": "market",
-          "cards": [
-            "cards/2026-11-26/market/01.svg",
-            "cards/2026-11-26/market/02.svg",
-            "cards/2026-11-26/market/03.svg"
-          ]
-        },
-        {
-          "series": "morning",
-          "cards": [
-            "cards/2026-11-26/morning/01.svg",
-            "cards/2026-11-26/morning/02.svg",
-            "cards/2026-11-26/morning/03.svg",
-            "cards/2026-11-26/morning/04.svg",
-            "cards/2026-11-26/morning/05.svg",
-            "cards/2026-11-26/morning/06.svg",
-            "cards/2026-11-26/morning/07.svg",
-            "cards/2026-11-26/morning/08.svg",
-            "cards/2026-11-26/morning/09.svg"
-          ]
-        },
-        {
           "series": "world",
           "cards": [
-            "cards/2026-11-26/world/01.svg",
-            "cards/2026-11-26/world/02.svg",
-            "cards/2026-11-26/world/03.svg",
-            "cards/2026-11-26/world/04.svg",
-            "cards/2026-11-26/world/05.svg",
-            "cards/2026-11-26/world/06.svg",
-            "cards/2026-11-26/world/07.svg",
-            "cards/2026-11-26/world/08.svg",
-            "cards/2026-11-26/world/09.svg"
+            "cards/2026-11-26/world/01.jpg",
+            "cards/2026-11-26/world/02.jpg",
+            "cards/2026-11-26/world/03.jpg",
+            "cards/2026-11-26/world/04.jpg",
+            "cards/2026-11-26/world/05.jpg",
+            "cards/2026-11-26/world/06.jpg",
+            "cards/2026-11-26/world/07.jpg",
+            "cards/2026-11-26/world/08.jpg",
+            "cards/2026-11-26/world/09.jpg",
+            "cards/2026-11-26/world/10.jpg",
+            "cards/2026-11-26/world/11.jpg",
+            "cards/2026-11-26/world/12.jpg"
           ]
         }
       ]
