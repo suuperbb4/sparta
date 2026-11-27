@@ -6,26 +6,37 @@
     "morning": {
       "name": "비티의 모닝 인사이트",
       "short": "모닝 인사이트",
-      "color": "#1b3a72",
+      "cat": "morning",
+      "color": "#E4572E",
       "order": 1
     },
     "market": {
       "name": "비티의 인사이트 노트 마켓",
       "short": "마켓",
-      "color": "#0f4a3a",
+      "cat": "market",
+      "color": "#B8324A",
       "order": 2
     },
     "world": {
       "name": "비티의 5분 세상읽기",
       "short": "5분 세상읽기",
-      "color": "#6a2333",
+      "cat": "world",
+      "color": "#F2B134",
       "order": 3
     },
     "weekly": {
       "name": "주간 비티",
-      "short": "주간",
-      "color": "#4a3a12",
+      "short": "주간 비티",
+      "cat": "etc",
+      "color": "#7C8BA1",
       "order": 4
+    },
+    "etc": {
+      "name": "비티 특집",
+      "short": "특집",
+      "cat": "etc",
+      "color": "#7C8BA1",
+      "order": 5
     }
   },
   "keys": [
@@ -33,5 +44,28 @@
       "label": "시범 코드",
       "hash": "2fa33339d35422653649987d63f2822b089f94b091931484b1332a07cad9a2c3"
     }
-  ]
+  ],
+  "categories": [
+    {
+      "id": "morning",
+      "name": "모닝 인사이트"
+    },
+    {
+      "id": "market",
+      "name": "마켓"
+    },
+    {
+      "id": "world",
+      "name": "5분 세상읽기"
+    },
+    {
+      "id": "etc",
+      "name": "기타"
+    }
+  ],
+  "membership": {
+    "naverPrice": "5,900",
+    "cardPrice": "4,900",
+    "trialDays": 7
+  }
 }
