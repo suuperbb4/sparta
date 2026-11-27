@@ -1,6 +1,8 @@
 /* 비티 카드: 프리미엄 다크. 검은 잉크 바탕 + 골드 포인트 + 시리즈별 색 */
 :root{--bg:#0b0e14;--surf:#131822;--surf2:#1a2130;--line:#232b3a;--edge:#2e3748;--ink:#f3f5f8;--soft:#c9d1de;--mute:#8a94a6;--gold:#f5c451;--goldink:#14110a;--nv:#03c75a;--red:#ff7a6a;color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+/* iOS 26 웹 앱: 화면 높이를 상태바만큼 짧게 잡는 버그 우회 (WebKit에 보고된 방법) */
+html{min-height:calc(100% + env(safe-area-inset-top,0px))}
 html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere;-webkit-tap-highlight-color:transparent}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
@@ -209,3 +211,7 @@ h2{font-size:18px;letter-spacing:-.01em;margin:26px 0 10px}
   .hello{font-size:24px}
   .rail .feat{flex-basis:84%}
 }
+
+/* 화면 진단 */
+.diag{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--soft);background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px;white-space:pre-line}
+.ver{font-size:12px;color:#5f6878;text-align:center;margin-top:18px}

@@ -9,6 +9,8 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
+  const VERSION = 'v12';
+  const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
 
@@ -82,7 +84,7 @@
 
   const tabs = () => `<nav class="tabs">${[['home', '오늘'], ['archive', '보관함'], ['news', '소식'], ['my', '내 정보']]
     .map(([k, l]) => `<button data-go="${k}" class="${S.route === k ? 'on' : ''}"><span class="${k === 'news' && unread() ? 'dot' : ''}">${ICON[k]}</span>${l}</button>`).join('')}</nav>`;
-  const topbar = () => `<div class="top"><div class="brand"><span class="logo">BT</span>비티 카드</div><span class="pro">PREMIUM</span></div>`;
+  const topbar = () => `<div class="top"><div class="brand"><span class="logo">BT</span>${esc(S.cfg.brand)}</div><span class="pro">PREMIUM</span></div>`;
   const chips = () => `<div class="chips">${[{ id: 'all', name: '전체' }].concat(S.cfg.categories)
     .map((c) => `<button data-cat="${c.id}" class="${S.cat === c.id ? 'on' : ''}">${esc(c.name)}</button>`).join('')}</div>`;
   const feat = (s, date) => `<button class="feat" data-open="${esc(s.series)}" data-date="${esc(date)}" style="--c:${info(s.series).color}">
@@ -95,7 +97,7 @@
     gate: () => `<div class="body pad">
       <div class="hero"><span class="logo">BT</span><h1>비티의 인사이트 노트<br>구독자 전용 카드</h1>
       <p class="muted">모닝 인사이트, 마켓, 5분 세상읽기를 한곳에서. 발행 즉시 가장 먼저 받아보세요.</p></div>
-      <div class="box">네이버 인사이트 노트 유료 글 맨 아래의 <b>"비티 카드 앱에서 넘겨보기"</b> 버튼을 누르면 바로 열려요.</div>
+      <div class="box">네이버 인사이트 노트 유료 글 맨 아래의 <b>"${B()} 앱에서 넘겨보기"</b> 버튼을 누르면 바로 열려요.</div>
       <form id="codeForm" autocomplete="off">
         <label class="muted" for="code">또는 연동 코드로 열기 (유료 글 하단에 있어요)</label>
         <input class="field" id="code" name="code" placeholder="BT-0000-XXX" autocapitalize="characters" spellcheck="false">
@@ -110,7 +112,7 @@
 
     welcome: () => `<div class="body pad">
       <div class="ok">✓</div>
-      <h1 style="margin-top:0">인사이트 노트 구독자님,<br>비티 카드가 열렸어요</h1>
+      <h1 style="margin-top:0">인사이트 노트 구독자님,<br>${B()}가 열렸어요</h1>
       <ul class="ben">
         <li><div><b>발행 즉시 가장 먼저</b>SNS·오픈채팅보다 반나절 먼저 전체 카드를 받아요</div></li>
         <li><div><b>세 가지 시리즈를 한곳에서</b>모닝 인사이트, 마켓, 5분 세상읽기와 캡션까지</div></li>
@@ -122,7 +124,7 @@
     </div>`,
 
     install: () => {
-      if (standalone()) return `<div class="body pad"><button class="back" data-go="home">‹ 뒤로</button><h1>이미 앱으로 쓰고 있어요</h1><p class="muted">홈 화면의 비티 카드 아이콘으로 열면 돼요.</p><button class="btn" data-go="home">카드 보러 가기</button></div>`;
+      if (standalone()) return `<div class="body pad"><button class="back" data-go="home">‹ 뒤로</button><h1>이미 앱으로 쓰고 있어요</h1><p class="muted">홈 화면의 ${B()} 아이콘으로 열면 돼요.</p><button class="btn" data-go="home">카드 보러 가기</button></div>`;
       const ios = S.os === 'ios';
       const iosSteps = [
         ['guide/ios-1.jpg', '<b>①</b> Safari 주소창 왼쪽의 메뉴 버튼을 눌러요'],
@@ -131,7 +133,7 @@
         ['guide/ios-4.jpg', '<b>④</b> <b>홈 화면에 추가</b>를 눌러요'],
         ['guide/ios-5.jpg', '<b>⑤</b> <b>웹 앱으로 열기</b>를 꼭 켜고 <b>⑥</b> 오른쪽 위 <b>추가</b>를 눌러요'],
       ];
-      const andSteps = ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', '설치된 비티 카드를 누르면 바로 열려요'];
+      const andSteps = ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', `설치된 ${B()}를 누르면 바로 열려요`];
       return `<div class="body pad">
         <button class="back" data-go="${valid() ? 'home' : 'gate'}">‹ 뒤로</button>
         <h1>홈 화면에 추가하기</h1>
@@ -140,7 +142,7 @@
         <div class="seg"><button data-os="ios" class="${ios ? 'on' : ''}">아이폰</button><button data-os="and" class="${ios ? '' : 'on'}">안드로이드</button></div>
         ${ios ? `<div class="box must"><b>"웹 앱으로 열기"를 꼭 켜 주세요.</b> 그래야 주소창 없는 전체 화면과 새 카드 알림까지, 최적의 상태로 이용할 수 있어요.</div>
           <ol class="gsteps">${iosSteps.map(([img, t]) => `<li><p>${t}</p><img src="${img}" alt="" loading="lazy"></li>`).join('')}</ol>
-          <div class="box">이제 홈 화면의 <b>비티 카드</b> 아이콘을 누르면 바로 열려요.</div>`
+          <div class="box">이제 홈 화면의 <b>${B()}</b> 아이콘을 누르면 바로 열려요.</div>`
         : `<ol class="ist">${andSteps.map((t, i) => `<li><span>${i + 1}</span><div>${t}</div></li>`).join('')}</ol>
           ${installPrompt ? '<button class="btn" data-act="install">지금 설치하기</button>' : ''}`}
         ${S.access ? `<p class="muted">혹시 아이콘으로 열었을 때 코드를 물으면 이 코드를 넣어 주세요 <span class="code">${esc(S.access.code)}</span></p>` : ''}
@@ -158,7 +160,7 @@
       return `<div class="body pad">
         ${S.date ? '<button class="back" data-act="toArchive">‹ 보관함</button>' : topbar()}
         <p class="hello">${day ? (today && !S.date ? '오늘의 인사이트' : longDay(day.date)) : '오늘의 인사이트'}</p>
-        <p class="sub">${day ? longDay(day.date) : ''} · ${S.member && !viaCode() ? (S.member.status === 'trial' ? `무료 체험 ${ymd(S.member.trialEnd)}까지` : '비티 카드 멤버십') : `구독 ${untilLabel(S.access.until)}까지`}</p>
+        <p class="sub">${day ? longDay(day.date) : ''} · ${S.member && !viaCode() ? (S.member.status === 'trial' ? `무료 체험 ${ymd(S.member.trialEnd)}까지` : `${B()} 멤버십`) : `구독 ${untilLabel(S.access.until)}까지`}</p>
         ${S.date ? '' : `<div class="stories">${S.cfg.categories.map((c) => {
           const l = latestOf(c.id); const color = l ? info(l.s.series).color : '#7C8BA1';
           const isNew = l && day && l.d.date === day.date;
@@ -193,7 +195,7 @@
       const m = S.member;
       const methodName = (id) => (S.cfg.membership.methods.find((x) => x.id === id) || {}).name || id;
       const memberCard = m ? `<div class="card">
-          <div class="row"><span>멤버십</span><span>비티 카드 ${m.plan === 'annual' ? '연간' : '월간'}${m.test ? ' <em class="tm">테스트</em>' : ''}</span></div>
+          <div class="row"><span>멤버십</span><span>${B()} ${m.plan === 'annual' ? '연간' : '월간'}${m.test ? ' <em class="tm">테스트</em>' : ''}</span></div>
           <div class="row"><span>상태</span><span>${m.status === 'trial' ? `무료 체험 중 · ${ymd(m.trialEnd)}까지` : m.status === 'canceled' ? `해지됨 · ${ymd(m.paidUntil)}까지 이용` : '이용 중'}</span></div>
           ${m.status === 'canceled' ? '' : `<div class="row"><span>다음 결제</span><span>${ymd(m.nextBill)} · ${priceOf(m.plan)}원</span></div>`}
           <div class="row"><span>결제수단</span><span>${esc(methodName(m.method))} · ${esc(m.phoneTail)}</span></div>
@@ -203,13 +205,16 @@
           <div class="row"><span>멤버십</span><span>네이버 인사이트 노트 구독자</span></div>
           <div class="row"><span>이용 기간</span><span>${untilLabel(S.access.until)}까지 · 자동 연장</span></div>
         </div>
-        <p class="muted">네이버 유료 글의 "비티 카드 앱에서 넘겨보기" 버튼을 누르거나 새 연동 코드를 입력하면 그날부터 ${S.cfg.accessDays}일로 연장돼요.</p>` : '';
+        <p class="muted">네이버 유료 글의 "${B()} 앱에서 넘겨보기" 버튼을 누르거나 새 연동 코드를 입력하면 그날부터 ${S.cfg.accessDays}일로 연장돼요.</p>` : '';
       return `<div class="body pad">${topbar()}<h1>내 정보</h1>
       ${naverCard}${memberCard}
       <div class="card"><div class="row"><span>실행 방식</span><span>${standalone() ? '홈 화면 앱' : '브라우저'}</span></div></div>
       ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하기</button>'}
       ${m ? '' : '<button class="btn ghost" data-go="plans">멤버십 안내</button>'}
       ${viaCode() ? '' : '<button class="btn ghost" data-go="gate">네이버 구독자 연동하기</button>'}
+      <button class="btn ghost" data-act="diag">화면 진단 (문제가 있을 때 캡처해서 보내 주세요)</button>
+      <div class="diag" id="diag" hidden></div>
+      <p class="ver">${esc(S.cfg.brand)} ${VERSION}</p>
       </div>${tabs()}`;
     },
 
@@ -217,18 +222,18 @@
       const m = S.cfg.membership; const annual = S.plan === 'annual';
       return `<div class="body pad">
       <button class="back" data-go="${valid() ? 'my' : 'gate'}">‹ 뒤로</button>
-      <h1>비티 카드 멤버십</h1>
+      <h1>${B()} 멤버십</h1>
       <p class="muted">매일 카드 전체를 발행 즉시, 가장 먼저. 첫 ${m.trialDays}일은 무료예요.</p>
       <div class="seg" style="margin-top:18px"><button data-plan="monthly" class="${annual ? '' : 'on'}">월간</button><button data-plan="annual" class="${annual ? 'on' : ''}">연간 <span class="save">2개월 무료</span></button></div>
       <div class="plan rec">
-        <span class="pt">${m.trialDays}일 무료 체험</span><h3>비티 카드 멤버십 · ${annual ? '연간' : '월간'}</h3>
+        <span class="pt">${m.trialDays}일 무료 체험</span><h3>${B()} 멤버십 · ${annual ? '연간' : '월간'}</h3>
         <div class="pr">${annual ? m.annualPrice : m.cardPrice}원 <small>/ ${annual ? '년' : '월'}</small></div>
         ${annual ? `<p class="muted" style="margin:0">월 ${m.annualMonthly}원꼴 · 월간보다 2개월 무료</p>` : ''}
         <ul><li>모닝 인사이트·마켓·5분 세상읽기 전체와 캡션</li><li>발행 즉시, SNS보다 반나절 먼저</li><li>보관함 · 공지</li><li>체험 중 해지하면 0원</li></ul>
         <button class="btn" data-go="checkout">${m.trialDays}일 무료로 시작하기</button>
       </div>
       <div class="plan"><span class="pt alt">칼럼까지</span><h3>네이버 인사이트 노트</h3><div class="pr">${m.naverPrice}원 <small>/ 월</small></div>
-        <ul><li>깊이 있는 칼럼 전체</li><li>비티 카드 앱 무료 포함</li></ul>
+        <ul><li>깊이 있는 칼럼 전체</li><li>${B()} 앱 무료 포함</li></ul>
         <a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버에서 구독하기</a>
         <button class="btn ghost" data-go="gate">이미 구독 중이에요</button></div>
       <details class="faq"><summary>자주 묻는 질문</summary>
@@ -248,7 +253,7 @@
       <button class="back" data-go="plans">‹ 요금제</button>
       <h1>결제 정보 확인</h1>
       <div class="sum">
-        <div class="sl"><span>비티 카드 멤버십 · ${annual ? '연간' : '월간'}</span><b>${price}원 / ${annual ? '년' : '월'}</b></div>
+        <div class="sl"><span>${B()} 멤버십 · ${annual ? '연간' : '월간'}</span><b>${price}원 / ${annual ? '년' : '월'}</b></div>
         <div class="today"><span>오늘 결제 금액</span><strong>0원</strong></div>
         <ol class="tl">
           <li class="on"><i></i><div><b>오늘</b> 무료 체험 시작 · 카드 전체 바로 열림</div></li>
@@ -264,7 +269,7 @@
       <h2>약관 동의</h2>
       <div class="agree">
         <label class="all"><input type="checkbox" data-agree="all" ${need.concat('mkt').every((k) => S.agree[k]) ? 'checked' : ''}><span>전체 동의</span></label>
-        ${ag('terms', '서비스 이용약관', true, '비티 카드 멤버십은 디지털 카드 콘텐츠를 열람하는 구독 서비스예요. 콘텐츠는 정보 제공·시황 정리 목적이며 투자자문이나 매매 권유가 아니에요. 콘텐츠의 무단 복제와 배포는 금지돼요.')}
+        ${ag('terms', '서비스 이용약관', true, `${B()} 멤버십은 디지털 카드 콘텐츠를 열람하는 구독 서비스예요. 콘텐츠는 정보 제공·시황 정리 목적이며 투자자문이나 매매 권유가 아니에요. 콘텐츠의 무단 복제와 배포는 금지돼요.`)}
         ${ag('privacy', '개인정보 수집·이용', true, '수집 항목: 휴대폰 번호, 결제수단 정보(결제대행사 보관). 이용 목적: 결제, 결제 알림, 무료 체험 중복 확인, 고객 문의 응대. 보관 기간: 해지 후 관련 법령에서 정한 기간.')}
         ${ag('billing', `정기결제 동의`, true, `무료 체험이 끝나는 ${ymd(end)}부터 ${annual ? '매년' : '매월'} ${price}원이 선택한 결제수단으로 자동 결제돼요. 결제 전 언제든 해지할 수 있고, 체험 중 해지하면 비용이 청구되지 않아요. 결제 후 7일 안에 콘텐츠를 열람하지 않았다면 전액 환불돼요.`)}
         ${ag('mkt', '혜택·이벤트 알림 받기', false, '')}
@@ -378,6 +383,7 @@
     if (d.act === 'prev') slide(S.idx - 1);
     if (d.act === 'next') slide(S.idx + 1);
     if (d.act === 'toArchive') { S.date = null; go('archive'); }
+    if (d.act === 'diag') { const x = document.getElementById('diag'); x.textContent = probe(); x.hidden = false; return; }
     if (d.act === 'startTrial') { startTrial(); return; }
     if (d.act === 'doCancel') {
       const until = S.member.status === 'trial' ? S.member.trialEnd : S.member.nextBill;
@@ -420,11 +426,36 @@
   addEventListener('appinstalled', () => toast('홈 화면에 추가됐어요'));
   addEventListener('resize', () => { const t = document.getElementById('track'); if (t) t.scrollLeft = S.idx * t.clientWidth; });
 
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function fitScreen() {
+    if (!(isIOS && standalone())) return;
+    const portrait = innerHeight > innerWidth;
+    const full = portrait ? Math.max(screen.height, screen.width) : Math.min(screen.height, screen.width);
+    $app.style.height = innerHeight < full - 1 ? `${full}px` : '';
+    $app.style.bottom = innerHeight < full - 1 ? 'auto' : '';
+  }
+  function probe() {
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;visibility:hidden;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';
+    document.body.appendChild(el); const cs = getComputedStyle(el);
+    const v = [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft].map((x) => parseInt(x, 10)); el.remove();
+    const r = $app.getBoundingClientRect(); const tb = document.querySelector('.tabs');
+    return [`버전 ${VERSION} · ${standalone() ? '웹 앱' : '브라우저'} · ${isIOS ? 'iOS' : 'Android 등'}`,
+      `화면 ${screen.width}×${screen.height} / 창 ${innerWidth}×${innerHeight}`,
+      `보이는 영역 ${visualViewport ? Math.round(visualViewport.height) : '-'} · 문서 ${document.documentElement.clientHeight}`,
+      `안전영역 위 ${v[0]} 아래 ${v[2]} 좌 ${v[3]} 우 ${v[1]}`,
+      `앱 틀 ${Math.round(r.top)}~${Math.round(r.bottom)} · 탭 아래끝 ${tb ? Math.round(tb.getBoundingClientRect().bottom) : '-'}`,
+      navigator.userAgent.replace(/^Mozilla\/5\.0 /, '')].join('\n');
+  }
+  addEventListener('resize', fitScreen);
+  addEventListener('orientationchange', () => setTimeout(fitScreen, 300));
+
   async function boot() {
+    fitScreen();
     try {
       S.cfg = await (await fetch('config.json', { cache: 'no-store' })).json();
     } catch {
-      $app.innerHTML = '<div class="body pad"><h1>비티 카드</h1><p class="muted">설정을 불러오지 못했어요. 잠시 후 다시 열어 주세요.</p></div>';
+      $app.innerHTML = '<div class="body pad"><h1>비티의 인사이트 노트</h1><p class="muted">설정을 불러오지 못했어요. 잠시 후 다시 열어 주세요.</p></div>';
       return;
     }
     try { S.feed = await (await fetch('feed.json', { cache: 'no-store' })).json(); } catch { S.feed = { days: [] }; }
