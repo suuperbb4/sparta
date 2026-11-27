@@ -167,7 +167,7 @@ function qstats(){
 const inSubj=(subj,sel)=>sel==='all'||(sel==='focus'?FOCUS.includes(subj):subj===sel);
 function pool(){
   const st=qstats(),stars=S.prefs.stars||[];
-  return allQ().filter(q=>SUBJ.find(s=>s.id===q.subj)?.exam===S.exam&&inSubj(q.subj,S.subj)&&(S.src==='all'||(S.src==='g'?isG(q):!isG(q)))&&(S.kind==='all'||q.kind===S.kind)).filter(q=>{
+  return allQ().filter(q=>SUBJ.find(s=>s.id===q.subj)?.exam===S.exam&&inSubj(q.subj,S.subj)&&(S.src==='all'||(S.src==='g'?isG(q)&&q.origin!=='book':S.src==='book'?q.origin==='book':!isG(q)))&&(S.kind==='all'||q.kind===S.kind)).filter(q=>{
     const s=st[q.id];
     if(S.mode==='new')return !s;if(S.mode==='review')return s&&s.isDue;if(S.mode==='wrong')return s&&s.open;if(S.mode==='star')return stars.includes(q.id);return true});
 }
@@ -185,7 +185,7 @@ function rail(){
   return `<aside class="rail">
   <div><h3>시험</h3>${segBtns('exam',S.exam,[['1차','1차'],['2차','2차']])}</div>
   <div><h3>과목</h3>${segBtns('subj',S.subj,so)}</div>
-  ${S.exam==='1차'?`<div><h3>출처</h3>${segBtns('src',S.src,[['all','전체'],['g','실제 기출'],['ai','AI 예상']])}</div>`:''}
+  ${S.exam==='1차'?`<div><h3>출처</h3>${segBtns('src',S.src,[['all','전체'],['g','실제 기출'],['book','내 문제집'],['ai','AI 예상']])}</div>`:''}
   <div><h3>유형</h3>${segBtns('kind',S.kind,S.exam==='1차'?[['all','전체'],['말','말문제'],['계산','계산문제']]:[['all','전체'],['계산','계산'],['서술','서술']])}</div>
   <div><h3>출제 방식</h3>${segBtns('mode',S.mode,MODES)}</div>
   <div class="count">조건에 맞는 문제 ${n}개 · 전체 ${allQ().length}개</div>
@@ -230,7 +230,7 @@ function result(q){
   if(q.type==='essay')head=`<div class="verdict ${d.correct?'ok':'no'}">키워드 ${Math.round(d.score*100)}% 반영</div>`;
   else if(isG(q))head=`<div class="verdict ${d.correct?'ok':'no'}">${d.correct?'정답입니다':'오답입니다'}</div><div>공식 정답: <b>${ansText(q)}</b> <span class="count">(큐넷 최종정답 A형)</span></div>`;
   else head=`<div class="verdict ${d.correct?'ok':'no'}">${d.correct?'정답입니다':'오답입니다'}</div>${d.correct?'':`<div>정답: <b>${q.type==='mc'?NUM[q.ans-1]+' '+esc(q.choices[q.ans-1]):esc(Number(q.ans).toLocaleString('ko-KR'))+' '+esc(q.unit||'')}</b></div>`}`;
-  const body=isG(q)?`${q.subj==='segae'&&q.year<2026?'<div class="note">출제 당시 법령 기준입니다. 이후 세법 개정으로 현행과 다를 수 있어요.</div>':''}${S.sample?`<div class="row" style="margin-top:10px"><button class="btn ghost" id="aiexp">AI 해설 보기</button></div>`:''}${aiBlock()}`
+  const body=isG(q)?`${q.exp?`<div class="exp">${esc(q.exp)}</div>`:''}${q.subj==='segae'&&q.year<2026&&q.origin!=='book'?'<div class="note">출제 당시 법령 기준입니다. 이후 세법 개정으로 현행과 다를 수 있어요.</div>':''}${S.sample?`<div class="row" style="margin-top:10px"><button class="btn ghost" id="aiexp">AI 해설 보기</button></div>`:''}${aiBlock()}`
     :q.type==='essay'?`<div class="exp">${esc(q.model)}</div>${aiBlock()}`:`<div class="exp">${esc(q.exp)}</div>`;
   return `<div class="res">${head}${body}
    ${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}
