@@ -66,6 +66,27 @@
   "membership": {
     "naverPrice": "5,900",
     "cardPrice": "4,900",
-    "trialDays": 7
+    "annualPrice": "49,000",
+    "annualMonthly": "4,083",
+    "trialDays": 7,
+    "testMode": true,
+    "methods": [
+      {
+        "id": "card",
+        "name": "신용·체크카드"
+      },
+      {
+        "id": "tosspay",
+        "name": "토스페이"
+      },
+      {
+        "id": "naverpay",
+        "name": "네이버페이"
+      },
+      {
+        "id": "kakaopay",
+        "name": "카카오페이"
+      }
+    ]
   }
 }

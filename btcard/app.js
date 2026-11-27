@@ -4,9 +4,10 @@
   const $app = document.getElementById('app');
   const KEY = 'btcard.access';
   const SEEN = 'btcard.seenNotice';
+  const MEMBER = 'btcard.member';
   const S = {
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
-    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '',
+    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
   let installPrompt = null;
   let lockUntil = 0;
@@ -22,7 +23,19 @@
   const dayLabel = (iso) => { const d = new Date(iso + 'T00:00:00'); return `${d.getMonth() + 1}월 ${d.getDate()}일 (${W[d.getDay()]})`; };
   const longDay = (iso) => { const d = new Date(iso + 'T00:00:00'); return `${d.getMonth() + 1}월 ${d.getDate()}일 ${W[d.getDay()]}요일`; };
   const untilLabel = (t) => { const d = new Date(t); return `${d.getMonth() + 1}월 ${d.getDate()}일`; };
-  const valid = () => S.access && S.access.until > Date.now();
+  const memberUntil = () => { const m = S.member; if (!m) return 0; return m.status === 'canceled' ? m.paidUntil : Infinity; };
+  const viaCode = () => S.access && S.access.until > Date.now();
+  const valid = () => viaCode() || memberUntil() > Date.now();
+  const won = (n) => n.toLocaleString('ko-KR');
+  const ymd = (t) => { const d = new Date(t); return `${d.getMonth() + 1}월 ${d.getDate()}일`; };
+  const priceOf = (plan) => (plan === 'annual' ? S.cfg.membership.annualPrice : S.cfg.membership.cardPrice);
+  const saveMember = () => ls.set(MEMBER, JSON.stringify(S.member));
+  // 결제대행사 연결 지점: 정식 오픈 때 이 함수만 토스페이먼츠 자동결제(빌링) 등록으로 바꾼다
+  async function startBilling({ plan, method, phone }) {
+    await new Promise((r) => setTimeout(r, 1200));
+    const now = Date.now(); const trialEnd = now + S.cfg.membership.trialDays * 864e5;
+    return { plan, method, phoneTail: phone.slice(-4), status: 'trial', start: now, trialEnd, nextBill: trialEnd, test: !!S.cfg.membership.testMode };
+  }
   const info = (id) => (S.cfg.series[id] || { name: id, short: id, cat: 'etc', color: '#7C8BA1', order: 99 });
   const catOf = (series) => info(series).cat || 'etc';
   const firstLine = (t) => String(t || '').split('\n').map((x) => x.trim()).find(Boolean) || '';
@@ -91,7 +104,8 @@
       </form>
       ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하는 방법 보기</button>'}
       <h2>아직 구독 전이라면</h2>
-      <button class="btn ghost" data-go="plans">멤버십 보기 · 월 ${S.cfg.membership.cardPrice}원부터</button>
+      <button class="btn" data-go="plans">${S.cfg.membership.trialDays}일 무료로 시작하기</button>
+      <p class="muted" style="text-align:center;margin-top:8px">이후 월 ${S.cfg.membership.cardPrice}원 · 언제든 해지</p>
     </div>`,
 
     welcome: () => `<div class="body pad">
@@ -144,7 +158,7 @@
       return `<div class="body pad">
         ${S.date ? '<button class="back" data-act="toArchive">‹ 보관함</button>' : topbar()}
         <p class="hello">${day ? (today && !S.date ? '오늘의 인사이트' : longDay(day.date)) : '오늘의 인사이트'}</p>
-        <p class="sub">${day ? longDay(day.date) : ''} · 구독 ${untilLabel(S.access.until)}까지</p>
+        <p class="sub">${day ? longDay(day.date) : ''} · ${S.member && !viaCode() ? (S.member.status === 'trial' ? `무료 체험 ${ymd(S.member.trialEnd)}까지` : '비티 카드 멤버십') : `구독 ${untilLabel(S.access.until)}까지`}</p>
         ${S.date ? '' : `<div class="stories">${S.cfg.categories.map((c) => {
           const l = latestOf(c.id); const color = l ? info(l.s.series).color : '#7C8BA1';
           const isNew = l && day && l.d.date === day.date;
@@ -175,31 +189,118 @@
         <h3>${esc(n.title)}</h3><p>${esc(n.body)}</p></article>`).join('') : '<div class="empty">아직 소식이 없어요.</div>'}</div>
       </div>${tabs()}`,
 
-    my: () => `<div class="body pad">${topbar()}<h1>내 정보</h1>
-      <div class="card">
-        <div class="row"><span>멤버십</span><span>네이버 인사이트 노트 구독자</span></div>
-        <div class="row"><span>이용 기간</span><span>${untilLabel(S.access.until)}까지 · 자동 연장</span></div>
-        <div class="row"><span>실행 방식</span><span>${standalone() ? '홈 화면 앱' : '브라우저'}</span></div>
-      </div>
-      <p class="muted">네이버 유료 글의 "비티 카드 앱에서 넘겨보기" 버튼을 누르거나 새 연동 코드를 입력하면 그날부터 ${S.cfg.accessDays}일로 연장돼요.</p>
-      ${standalone() ? '' : '<button class="btn" data-go="install">홈 화면에 추가하기</button>'}
-      <button class="btn ghost" data-go="plans">멤버십 안내</button>
-      <button class="btn ghost" data-go="gate">새 연동 코드 입력</button>
-      </div>${tabs()}`,
+    my: () => {
+      const m = S.member;
+      const methodName = (id) => (S.cfg.membership.methods.find((x) => x.id === id) || {}).name || id;
+      const memberCard = m ? `<div class="card">
+          <div class="row"><span>멤버십</span><span>비티 카드 ${m.plan === 'annual' ? '연간' : '월간'}${m.test ? ' <em class="tm">테스트</em>' : ''}</span></div>
+          <div class="row"><span>상태</span><span>${m.status === 'trial' ? `무료 체험 중 · ${ymd(m.trialEnd)}까지` : m.status === 'canceled' ? `해지됨 · ${ymd(m.paidUntil)}까지 이용` : '이용 중'}</span></div>
+          ${m.status === 'canceled' ? '' : `<div class="row"><span>다음 결제</span><span>${ymd(m.nextBill)} · ${priceOf(m.plan)}원</span></div>`}
+          <div class="row"><span>결제수단</span><span>${esc(methodName(m.method))} · ${esc(m.phoneTail)}</span></div>
+        </div>
+        ${m.status === 'canceled' ? '<button class="btn" data-act="resume">멤버십 다시 시작</button>' : '<button class="btn ghost" data-go="cancel">멤버십 해지</button>'}` : '';
+      const naverCard = viaCode() ? `<div class="card">
+          <div class="row"><span>멤버십</span><span>네이버 인사이트 노트 구독자</span></div>
+          <div class="row"><span>이용 기간</span><span>${untilLabel(S.access.until)}까지 · 자동 연장</span></div>
+        </div>
+        <p class="muted">네이버 유료 글의 "비티 카드 앱에서 넘겨보기" 버튼을 누르거나 새 연동 코드를 입력하면 그날부터 ${S.cfg.accessDays}일로 연장돼요.</p>` : '';
+      return `<div class="body pad">${topbar()}<h1>내 정보</h1>
+      ${naverCard}${memberCard}
+      <div class="card"><div class="row"><span>실행 방식</span><span>${standalone() ? '홈 화면 앱' : '브라우저'}</span></div></div>
+      ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하기</button>'}
+      ${m ? '' : '<button class="btn ghost" data-go="plans">멤버십 안내</button>'}
+      ${viaCode() ? '' : '<button class="btn ghost" data-go="gate">네이버 구독자 연동하기</button>'}
+      </div>${tabs()}`;
+    },
 
     plans: () => {
-      const m = S.cfg.membership;
+      const m = S.cfg.membership; const annual = S.plan === 'annual';
       return `<div class="body pad">
       <button class="back" data-go="${valid() ? 'my' : 'gate'}">‹ 뒤로</button>
       <h1>비티 카드 멤버십</h1>
-      <p class="muted">매일 아침 카드 전체를 가장 먼저. 한 달 1,000원 차이로 칼럼까지 볼 수 있어요.</p>
-      <div class="plan rec"><span class="pt">추천</span><h3>네이버 인사이트 노트</h3><div class="pr">${m.naverPrice}원 <small>/ 월</small></div>
-        <ul><li>칼럼 전체</li><li>비티 카드 앱 무료</li><li>발행 즉시 가장 먼저</li><li>전체 보관함</li></ul>
-        <a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버에서 구독하기</a></div>
-      <div class="plan"><h3>비티 카드 멤버십</h3><div class="pr">${m.cardPrice}원 <small>/ 월</small></div>
-        <ul><li>매일 카드 전체와 캡션</li><li>최근 30일 보관함</li><li>첫 ${m.trialDays}일 무료, 언제든 해지</li></ul>
-        <button class="btn" data-act="pay">${m.trialDays}일 무료로 시작하기</button>
-        <p class="test">시범 운영 중이라 아직 결제가 열리지 않았어요.</p></div>
+      <p class="muted">매일 카드 전체를 발행 즉시, 가장 먼저. 첫 ${m.trialDays}일은 무료예요.</p>
+      <div class="seg" style="margin-top:18px"><button data-plan="monthly" class="${annual ? '' : 'on'}">월간</button><button data-plan="annual" class="${annual ? 'on' : ''}">연간 <span class="save">2개월 무료</span></button></div>
+      <div class="plan rec">
+        <span class="pt">${m.trialDays}일 무료 체험</span><h3>비티 카드 멤버십 · ${annual ? '연간' : '월간'}</h3>
+        <div class="pr">${annual ? m.annualPrice : m.cardPrice}원 <small>/ ${annual ? '년' : '월'}</small></div>
+        ${annual ? `<p class="muted" style="margin:0">월 ${m.annualMonthly}원꼴 · 월간보다 2개월 무료</p>` : ''}
+        <ul><li>모닝 인사이트·마켓·5분 세상읽기 전체와 캡션</li><li>발행 즉시, SNS보다 반나절 먼저</li><li>보관함 · 공지</li><li>체험 중 해지하면 0원</li></ul>
+        <button class="btn" data-go="checkout">${m.trialDays}일 무료로 시작하기</button>
+      </div>
+      <div class="plan"><span class="pt alt">칼럼까지</span><h3>네이버 인사이트 노트</h3><div class="pr">${m.naverPrice}원 <small>/ 월</small></div>
+        <ul><li>깊이 있는 칼럼 전체</li><li>비티 카드 앱 무료 포함</li></ul>
+        <a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버에서 구독하기</a>
+        <button class="btn ghost" data-go="gate">이미 구독 중이에요</button></div>
+      <details class="faq"><summary>자주 묻는 질문</summary>
+        <p><b>언제 결제되나요?</b><br>무료 체험이 끝나는 날 첫 결제가 되고, 이후 ${annual ? '1년' : '한 달'}마다 자동 결제돼요. 결제 전에 알림을 보내드려요.</p>
+        <p><b>해지는 어떻게 하나요?</b><br>내 정보 → 멤버십 해지에서 바로 할 수 있어요. 해지해도 결제한 기간 끝까지 볼 수 있어요.</p>
+        <p><b>무료 체험은 몇 번 되나요?</b><br>결제수단과 휴대폰 번호 기준으로 한 번이에요.</p></details>
+      </div>`;
+    },
+
+    checkout: () => {
+      const m = S.cfg.membership; const annual = S.plan === 'annual';
+      const price = priceOf(S.plan); const now = Date.now(); const end = now + m.trialDays * 864e5;
+      const need = ['terms', 'privacy', 'billing'];
+      const ready = need.every((k) => S.agree[k]) && /^01\d{8,9}$/.test(S.phone.replace(/\D/g, ''));
+      const ag = (k, label, req, text) => `<div class="ag"><label><input type="checkbox" data-agree="${k}" ${S.agree[k] ? 'checked' : ''}><span>${req ? '<b>[필수]</b>' : '[선택]'} ${label}</span></label>${text ? `<details><summary>보기</summary><p>${text}</p></details>` : ''}</div>`;
+      return `<div class="body pad co">
+      <button class="back" data-go="plans">‹ 요금제</button>
+      <h1>결제 정보 확인</h1>
+      <div class="sum">
+        <div class="sl"><span>비티 카드 멤버십 · ${annual ? '연간' : '월간'}</span><b>${price}원 / ${annual ? '년' : '월'}</b></div>
+        <div class="today"><span>오늘 결제 금액</span><strong>0원</strong></div>
+        <ol class="tl">
+          <li class="on"><i></i><div><b>오늘</b> 무료 체험 시작 · 카드 전체 바로 열림</div></li>
+          <li><i></i><div><b>${ymd(end - 2 * 864e5)}</b> 결제 전 알림</div></li>
+          <li><i></i><div><b>${ymd(end)}</b> 첫 결제 ${price}원 · 이후 ${annual ? '매년' : '매월'} 자동 결제</div></li>
+        </ol>
+      </div>
+      <h2>결제수단</h2>
+      <div class="methods">${m.methods.map((x) => `<button class="mt ${S.method === x.id ? 'on' : ''}" data-method="${x.id}"><i></i>${esc(x.name)}</button>`).join('')}</div>
+      <h2>휴대폰 번호</h2>
+      <input class="field plain" id="phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" value="${esc(S.phone)}" autocomplete="tel">
+      <p class="muted" style="margin-top:-4px">결제 알림과 영수증을 보내고, 무료 체험 중복을 확인하는 데만 써요.</p>
+      <h2>약관 동의</h2>
+      <div class="agree">
+        <label class="all"><input type="checkbox" data-agree="all" ${need.concat('mkt').every((k) => S.agree[k]) ? 'checked' : ''}><span>전체 동의</span></label>
+        ${ag('terms', '서비스 이용약관', true, '비티 카드 멤버십은 디지털 카드 콘텐츠를 열람하는 구독 서비스예요. 콘텐츠는 정보 제공·시황 정리 목적이며 투자자문이나 매매 권유가 아니에요. 콘텐츠의 무단 복제와 배포는 금지돼요.')}
+        ${ag('privacy', '개인정보 수집·이용', true, '수집 항목: 휴대폰 번호, 결제수단 정보(결제대행사 보관). 이용 목적: 결제, 결제 알림, 무료 체험 중복 확인, 고객 문의 응대. 보관 기간: 해지 후 관련 법령에서 정한 기간.')}
+        ${ag('billing', `정기결제 동의`, true, `무료 체험이 끝나는 ${ymd(end)}부터 ${annual ? '매년' : '매월'} ${price}원이 선택한 결제수단으로 자동 결제돼요. 결제 전 언제든 해지할 수 있고, 체험 중 해지하면 비용이 청구되지 않아요. 결제 후 7일 안에 콘텐츠를 열람하지 않았다면 전액 환불돼요.`)}
+        ${ag('mkt', '혜택·이벤트 알림 받기', false, '')}
+      </div>
+      <p class="test">${m.testMode ? '테스트 모드 · 실제 결제는 일어나지 않아요' : ''}</p>
+      <p class="biz">사업자 정보와 환불 정책 전문은 정식 오픈 때 이 자리에 표시돼요.</p>
+      </div>
+      <div class="paybar"><button class="btn" data-act="startTrial" ${ready && !S.busy ? '' : 'disabled'}>${S.busy ? '처리 중…' : `오늘 0원 · ${m.trialDays}일 무료 체험 시작`}</button></div>`;
+    },
+
+    done: () => {
+      const mm = S.member;
+      return `<div class="body pad">
+      <div class="ok">✓</div>
+      <h1 style="margin-top:0">${S.cfg.membership.trialDays}일 무료 체험이<br>시작됐어요</h1>
+      <div class="card">
+        <div class="row"><span>체험 기간</span><span>${ymd(mm.start)} ~ ${ymd(mm.trialEnd)}</span></div>
+        <div class="row"><span>첫 결제</span><span>${ymd(mm.nextBill)} · ${priceOf(mm.plan)}원</span></div>
+        <div class="row"><span>해지</span><span>내 정보에서 언제든</span></div>
+      </div>
+      ${mm.test ? '<p class="test">테스트 모드라 실제 결제수단은 등록되지 않았어요.</p>' : ''}
+      ${standalone() ? '' : '<div class="box">홈 화면에 추가하면 매일 앱처럼 바로 열 수 있어요. 추가할 때 <b>"웹 앱으로 열기"</b>를 꼭 켜 주세요.</div><button class="btn" data-go="install">홈 화면에 추가하기</button>'}
+      <button class="btn ghost" data-go="home">카드 보러 가기</button>
+      </div>`;
+    },
+
+    cancel: () => {
+      const mm = S.member; const until = mm.status === 'trial' ? mm.trialEnd : mm.nextBill;
+      return `<div class="body pad">
+      <button class="back" data-go="my">‹ 내 정보</button>
+      <h1>정말 해지할까요?</h1>
+      <p class="muted">${mm.status === 'trial' ? '지금 해지하면 비용은 청구되지 않아요.' : '해지해도 결제한 기간 끝까지 볼 수 있어요.'} ${ymd(until)}까지 이용할 수 있어요.</p>
+      <div class="card lose"><p class="muted" style="margin:0 0 8px">해지하면 이런 것들을 받을 수 없어요</p>
+        <ul><li>매일 모닝 인사이트·마켓·5분 세상읽기 전체</li><li>SNS보다 반나절 먼저 받는 카드</li><li>지난 카드 보관함</li></ul></div>
+      <button class="btn" data-go="my">계속 이용하기</button>
+      <button class="btn ghost" data-act="doCancel">해지하기</button>
       </div>`;
     },
   };
@@ -217,7 +318,7 @@
   }
 
   function render() {
-    const needAccess = ['home', 'archive', 'news', 'my', 'welcome'];
+    const needAccess = ['home', 'archive', 'news', 'my', 'welcome', 'done', 'cancel'];
     if (needAccess.includes(S.route) && !valid()) S.route = 'gate';
     let h = V[S.route]();
     if (S.open) h += viewer();
@@ -259,10 +360,12 @@
   }
 
   $app.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day],[data-cat]');
+    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day],[data-cat],[data-plan],[data-method]');
     if (!el) return;
     const d = el.dataset;
     if (d.cat) { S.cat = d.cat; render(); return; }
+    if (d.plan) { S.plan = d.plan; render(); return; }
+    if (d.method) { S.method = d.method; render(); return; }
     if (d.go) {
       S.open = null; S.date = null;
       if (d.go === 'news' && S.notices.length) { S.seen = S.notices[0].id; ls.set(SEEN, S.seen); }
@@ -275,9 +378,37 @@
     if (d.act === 'prev') slide(S.idx - 1);
     if (d.act === 'next') slide(S.idx + 1);
     if (d.act === 'toArchive') { S.date = null; go('archive'); }
-    if (d.act === 'pay') toast('결제는 정식 오픈 때 열려요. 지금은 네이버 구독으로 이용해 주세요');
+    if (d.act === 'startTrial') { startTrial(); return; }
+    if (d.act === 'doCancel') {
+      const until = S.member.status === 'trial' ? S.member.trialEnd : S.member.nextBill;
+      S.member = { ...S.member, status: 'canceled', paidUntil: until }; saveMember(); go('my'); toast(`해지했어요. ${ymd(until)}까지 볼 수 있어요`); return;
+    }
+    if (d.act === 'resume') { S.member = { ...S.member, status: S.member.trialEnd > Date.now() ? 'trial' : 'active' }; delete S.member.paidUntil; saveMember(); render(); toast('멤버십을 다시 시작했어요'); return; }
     if (d.act === 'install' && installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; render(); }); }
   });
+  $app.addEventListener('change', (e) => {
+    const k = e.target.dataset && e.target.dataset.agree; if (!k) return;
+    if (k === 'all') ['terms', 'privacy', 'billing', 'mkt'].forEach((x) => { S.agree[x] = e.target.checked; });
+    else S.agree[k] = e.target.checked;
+    keepScroll();
+  });
+  $app.addEventListener('input', (e) => {
+    if (e.target.id !== 'phone') return;
+    const v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    S.phone = v.length > 7 ? `${v.slice(0, 3)}-${v.slice(3, v.length - 4)}-${v.slice(-4)}` : v.length > 3 ? `${v.slice(0, 3)}-${v.slice(3)}` : v;
+    e.target.value = S.phone; refreshPay();
+  });
+  function refreshPay() {
+    const b = document.querySelector('[data-act=startTrial]'); if (!b) return;
+    const ok = ['terms', 'privacy', 'billing'].every((k) => S.agree[k]) && /^01\d{8,9}$/.test(S.phone.replace(/\D/g, ''));
+    b.disabled = !ok || S.busy;
+  }
+  function keepScroll() { const y = document.querySelector('.body') ? document.querySelector('.body').scrollTop : 0; render(); const b = document.querySelector('.body'); if (b) b.scrollTop = y; }
+  async function startTrial() {
+    if (S.busy) return; S.busy = true; keepScroll();
+    try { S.member = await startBilling({ plan: S.plan, method: S.method, phone: S.phone.replace(/\D/g, '') }); saveMember(); S.busy = false; go('done'); }
+    catch { S.busy = false; keepScroll(); toast('결제수단 등록에 실패했어요. 다시 시도해 주세요'); }
+  }
   addEventListener('popstate', closeViewer);
   addEventListener('keydown', (e) => {
     if (!S.open) return;
@@ -300,6 +431,7 @@
     try { S.notices = (await (await fetch('notices.json', { cache: 'no-store' })).json()).notices || []; } catch { S.notices = []; }
     S.notices.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date));
     try { S.access = JSON.parse(ls.get(KEY) || 'null'); } catch { S.access = null; }
+    try { S.member = JSON.parse(ls.get(MEMBER) || 'null'); } catch { S.member = null; }
     S.seen = ls.get(SEEN) || '';
 
     const k = new URLSearchParams(location.search).get('k');
