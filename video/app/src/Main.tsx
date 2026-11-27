@@ -90,8 +90,8 @@ const SourceLine: React.FC<{text?: string; top?: number}> = ({text, top = 40}) =
   const frame = useCurrentFrame();
   if (!text) return null;
   return (
-    <div style={{position: 'absolute', top, left: 50, fontFamily: MONO, fontSize: 22, color: C.dim, opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
-      SRC <span style={{color: C.muted, fontFamily: "'Pretendard'"}}>{text}</span>
+    <div style={{position: 'absolute', top, left: 50, fontFamily: "'Pretendard'", fontWeight: 600, fontSize: 21, color: 'rgba(200,210,230,0.7)', textShadow: '0 1px 6px rgba(0,0,0,0.8)', opacity: interpolate(frame, [4, 14], [0, 1], {extrapolateRight: 'clamp'})}}>
+      출처 · <span style={{color: C.muted}}>{text}</span>
     </div>
   );
 };
@@ -116,13 +116,13 @@ const Ticker: React.FC<{items: string[]}> = ({items: base}) => {
 };
 
 // ── 배경 영상: 남색으로 덮어 그래픽이 잘 보이게 ──────────
-const Backdrop: React.FC<{f: Footage; dim?: number}> = ({f, dim = 1}) => {
+const Backdrop: React.FC<{f: Footage; dim?: number; soft?: boolean}> = ({f, dim = 1, soft = false}) => {
   const frame = useCurrentFrame();
   const zoom = 1.05 + frame * 0.0004; // 느린 줌인
   return (
     <AbsoluteFill>
       <Loop durationInFrames={Math.floor(f.seconds * FPS)}>
-        <OffthreadVideo src={staticFile(f.clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`}} />
+        <OffthreadVideo src={staticFile(f.clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`, filter: soft ? 'blur(5px) saturate(0.9)' : 'none'}} />
       </Loop>
       <AbsoluteFill style={{background: `linear-gradient(rgba(10,15,28,${Math.min(0.9, 0.34 * dim)}), rgba(10,15,28,${Math.min(0.92, 0.5 * dim)}))`}} />
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10,15,28,0.5) 100%)'}} />
@@ -150,6 +150,9 @@ const Letterbox: React.FC = () => {
   );
 };
 
+// 글씨·차트가 많은 장면 → 배경을 살짝 흐리고 어둡게 해서 내용이 또렷하게
+const DATA_SCENES = ['doc', 'bars', 'compare', 'calc', 'checklist', 'hbars', 'leverage', 'crash', 'cycle', 'gap', 'bigNumber', 'rateSteps', 'vote'];
+
 const SceneView: React.FC<{ep: Episode; scene: Scene; dur: number}> = ({ep, scene, dur}) => {
   const frame = useCurrentFrame();
   const fadeIn = interpolate(frame, [0, scene.cinematic ? 10 : 6], [0, 1], {extrapolateRight: 'clamp'});
@@ -161,7 +164,7 @@ const SceneView: React.FC<{ep: Episode; scene: Scene; dur: number}> = ({ep, scen
     <AbsoluteFill>
       {scene.bg ? (
         <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut)}}>
-          <Backdrop f={scene.bg} dim={scene.bgDim} />
+          <Backdrop f={scene.bg} dim={(scene.bgDim ?? 1) + (DATA_SCENES.includes(scene.visual.type) ? 0.15 : 0)} soft={DATA_SCENES.includes(scene.visual.type)} />
         </AbsoluteFill>
       ) : null}
       <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut), transform: 'translateY(-10px)'}}>
@@ -186,7 +189,7 @@ const SceneView: React.FC<{ep: Episode; scene: Scene; dur: number}> = ({ep, scen
 const TickerUnlessCinematic: React.FC<{ep: Episode; items: ReturnType<typeof layout>}> = ({ep, items}) => {
   const frame = useCurrentFrame();
   const cur = items.find((it) => frame >= it.from && frame < it.from + it.dur);
-  if (cur?.scene.cinematic || cur?.scene.noTicker) return null;
+  if (!ep.ticker.length || cur?.scene.cinematic || cur?.scene.noTicker) return null;
   return <Ticker items={ep.ticker} />;
 };
 

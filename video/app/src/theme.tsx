@@ -19,7 +19,7 @@ export const C = {
 };
 
 export const SANS = "'Pretendard', sans-serif";
-export const MONO = "'JBM', 'Pretendard', monospace"; // 숫자·영문은 JetBrains Mono, 한글은 Pretendard
+export const MONO = "'Pretendard', sans-serif"; // (예전 이름 유지) 숫자도 일반 글꼴로 — 코딩 화면 같은 느낌을 피함
 
 const faces: [string, string, number][] = [
   ['Pretendard', 'Pretendard-Regular.woff2', 400],
@@ -30,6 +30,9 @@ const faces: [string, string, number][] = [
   ['Pretendard', 'Pretendard-Black.woff2', 900],
   ['JBM', 'jetbrains-mono-latin-500-normal.woff2', 500],
   ['JBM', 'jetbrains-mono-latin-800-normal.woff2', 800],
+  ['NanumPen', 'nanum-pen-script-korean-400-normal.woff2', 400],
+  ['NotoSerifKR', 'noto-serif-kr-korean-700-normal.woff2', 700],
+  ['NotoSerifKR', 'noto-serif-kr-korean-900-normal.woff2', 900],
 ];
 
 export const FontFaces: React.FC = () => (
@@ -82,9 +85,9 @@ export const Screen: React.FC<{children?: React.ReactNode}> = ({children}) => {
 
 // ── 패널 ───────────────────────────────────
 export const Panel: React.FC<{label?: string; children: React.ReactNode; style?: React.CSSProperties; right?: React.ReactNode}> = ({label, children, style, right}) => (
-  <div style={{background: C.panel, border: `1px solid ${C.border}`, borderRadius: 6, position: 'relative', ...style}}>
+  <div style={{background: 'rgba(12,18,34,0.78)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 14, position: 'relative', boxShadow: '0 24px 60px rgba(0,0,0,0.35)', ...style}}>
     {label && (
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontFamily: MONO, fontSize: 24, color: C.muted, padding: '22px 34px 0', letterSpacing: 1}}>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 28, color: C.muted, padding: '24px 36px 0'}}>
         <span>{label}</span>
         {right}
       </div>
@@ -97,22 +100,20 @@ export const Panel: React.FC<{label?: string; children: React.ReactNode; style?:
 export const Subtitle: React.FC<{text: string}> = ({text}) => {
   if (!text) return null;
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, bottom: 100, display: 'flex', justifyContent: 'center'}}>
+    <div style={{position: 'absolute', left: 0, right: 0, bottom: 70, display: 'flex', justifyContent: 'center'}}>
       <div
         style={{
-          background: 'rgba(10,15,28,0.92)',
-          border: `1px solid ${C.border}`,
-          borderLeft: `6px solid ${C.accent}`,
           color: '#FFFFFF',
           fontFamily: SANS,
-          fontWeight: 700,
-          fontSize: 46,
+          fontWeight: 800,
+          fontSize: 50,
           lineHeight: 1.35,
-          padding: '14px 32px',
-          borderRadius: 4,
-          maxWidth: 1600,
+          maxWidth: 1640,
           textAlign: 'center',
           letterSpacing: -0.5,
+          WebkitTextStroke: '6px rgba(5,8,15,0.92)',
+          paintOrder: 'stroke fill',
+          textShadow: '0 4px 14px rgba(0,0,0,0.7)',
         }}
       >
         {text}

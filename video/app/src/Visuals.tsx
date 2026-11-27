@@ -3,6 +3,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {C, clamp01, countUp, Highlighted, MONO, Panel, rise, useEnter} from './theme';
 import {Headline, Visual} from './types';
 import {useEpisode} from './Main';
+import {HAND, HandCheck, HandCircle, HandNote, HandUnderline, INK, Marker, SERIF} from './hand';
 import {Crash, Cycle, HBars, Leverage, Stamp, TitleCard, YearFlash} from './VisualsEp02';
 
 const center: React.CSSProperties = {display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'};
@@ -121,46 +122,28 @@ const Headlines: React.FC<Extract<Visual, {type: 'headlines'}>> = ({items, stamp
   );
 };
 
-// ── 챕터 ───────────────────────────────────
+// ── 챕터: 손글씨 소제목 + 큰 제목 + 손으로 그은 밑줄 ─────────────
+const ORDINAL = ['첫 번째', '두 번째', '세 번째', '네 번째', '다섯 번째', '여섯 번째', '일곱 번째'];
 const Chapter: React.FC<{index: number}> = ({index}) => {
   const frame = useCurrentFrame();
   const PARTS = useEpisode().parts;
   const title = PARTS[index - 1];
-  const typed = Math.floor(clamp01(frame, 8, 8 + title.length * 2.2) * title.length);
+  const a = clamp01(frame, 0, 10);
+  const wipe = clamp01(frame, 6, 22);
+  const line = clamp01(frame, 20, 40);
   return (
-    <AbsoluteFill style={{...center, alignItems: 'flex-start', paddingLeft: 180}}>
-      <div style={{fontFamily: MONO, fontSize: 36, fontWeight: 800, color: C.accent, opacity: clamp01(frame, 0, 6)}}>
-        &gt; CHAPTER_{String(index).padStart(2, '0')}
+    <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 170}}>
+      <div style={{fontFamily: HAND, fontSize: 88, color: INK.yellow, opacity: a, transform: `rotate(-3deg) translateY(${(1 - a) * 10}px)`, marginLeft: 6}}>
+        {ORDINAL[index - 1]} 이야기
       </div>
-      <div style={{fontSize: 150, fontWeight: 900, letterSpacing: -5, marginTop: 18, minHeight: 190}}>
-        {title.slice(0, typed)}
-        <Cursor />
+      <div style={{position: 'relative', display: 'inline-block', alignSelf: 'flex-start', marginTop: 6}}>
+        <div style={{fontSize: 150, fontWeight: 900, letterSpacing: -5, clipPath: `inset(0 ${(1 - wipe) * 100}% 0 0)`}}>{title}</div>
+        <HandUnderline w={Math.min(1100, title.length * 120)} progress={line} seed={index * 3} color={INK.red} stroke={9} style={{left: 0, bottom: -18}} />
       </div>
-      <div style={{display: 'flex', gap: 14, marginTop: 50}}>
-        {PARTS.map((name, i) => {
-          const active = i + 1 === index;
-          const done = i + 1 < index;
-          const q = clamp01(frame, 4 + i * 3, 14 + i * 3);
-          return (
-            <div
-              key={name}
-              style={{
-                opacity: q,
-                fontFamily: MONO,
-                fontSize: 26,
-                fontWeight: active ? 800 : 500,
-                padding: '16px 26px',
-                borderRadius: 6,
-                border: `1px solid ${active ? C.accent : C.border}`,
-                background: active ? C.accent : C.panel,
-                color: active ? C.bg : done ? C.muted : C.dim,
-              }}
-            >
-              {String(i + 1).padStart(2, '0')} {name}
-              {done ? ' ✓' : ''}
-            </div>
-          );
-        })}
+      <div style={{display: 'flex', gap: 10, marginTop: 70, alignItems: 'center'}}>
+        {PARTS.map((name, i) => (
+          <div key={name} style={{width: i + 1 === index ? 90 : 34, height: 6, borderRadius: 3, background: i + 1 === index ? INK.yellow : i + 1 < index ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.18)', opacity: clamp01(frame, 8 + i * 2, 16 + i * 2)}} />
+        ))}
       </div>
     </AbsoluteFill>
   );
@@ -292,30 +275,54 @@ const Vote: React.FC<Extract<Visual, {type: 'vote'}>> = ({yes, no, noNames}) => 
   );
 };
 
-// ── 뉴스 터미널 창 ───────────────────────────
+// ── 기사·문서 스크랩: 종이 질감 + 손으로 칠한 형광펜 ───────────────
+const withMarker = (text: string, mark: string | undefined, progress: number, seed: number) => {
+  if (!mark || !text.includes(mark)) return text;
+  const i = text.indexOf(mark);
+  return (
+    <>
+      {text.slice(0, i)}
+      <Marker progress={progress} seed={seed}>{mark}</Marker>
+      {text.slice(i + mark.length)}
+    </>
+  );
+};
+
 const Doc: React.FC<Extract<Visual, {type: 'doc'}>> = ({outlet, date, title, body, highlight}) => {
   const frame = useCurrentFrame();
   const p = useEnter(0, 22);
-  const hl = clamp01(frame, 30, 52);
+  const hl = clamp01(frame, 28, 50);
+  const seed = title.length;
+  const rot = ((seed % 5) - 2) * 0.6;
+  // 위쪽 가장자리를 살짝 찢어진 종이처럼
+  const tear = Array.from({length: 24}, (_, k) => `${(k / 23) * 100}% ${(Math.sin(k * 2.7 + seed) * 0.5 + 0.5) * 1.6}%`).join(', ');
+  const drift = clamp01(frame, 0, 300) * 12;
   return (
-    <AbsoluteFill style={{...center}}>
-      <div style={{...rise(p, 40), width: 1360, background: C.panel, border: `1px solid ${C.border}`, borderRadius: 8, overflow: 'hidden', boxShadow: '0 30px 80px rgba(0,0,0,0.45)'}}>
-        <div style={{height: 58, background: C.panel2, borderBottom: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', padding: '0 28px', gap: 20, fontFamily: MONO, fontSize: 24}}>
-          <span style={{color: C.bg, background: C.accent, padding: '2px 12px', borderRadius: 3, fontWeight: 800}}>NEWS</span>
-          <span style={{color: C.text}}>{outlet}</span>
-          <span style={{color: C.dim, marginLeft: 'auto'}}>{date}</span>
+    <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
+      <div
+        style={{
+          ...rise(p, 40),
+          transform: `translateY(${(1 - p) * 40 - drift}px) rotate(${rot}deg) scale(${1 + clamp01(frame, 0, 300) * 0.02})`,
+          width: 1300,
+          background: 'linear-gradient(180deg, #F6F2E8 0%, #EEE8DA 100%)',
+          color: '#1C1B1F',
+          borderRadius: 4,
+          padding: '56px 76px 60px',
+          boxShadow: '0 30px 70px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3)',
+          clipPath: `polygon(${tear}, 100% 100%, 0% 100%)`,
+          textShadow: 'none',
+        }}
+      >
+        <div style={{display: 'flex', gap: 18, alignItems: 'baseline', fontSize: 26, fontWeight: 700, color: '#6B655A', borderBottom: '2px solid #1C1B1F', paddingBottom: 14, marginBottom: 30}}>
+          <span style={{color: '#1C1B1F'}}>{outlet}</span>
+          <span style={{marginLeft: 'auto'}}>{date}</span>
         </div>
-        <div style={{padding: '46px 70px 56px'}}>
-          <div style={{fontSize: 60, fontWeight: 800, letterSpacing: -1.5, marginBottom: 28}}>
-            <Highlighted text={title} mark={highlight} progress={hl} />
+        <div style={{fontFamily: SERIF, fontSize: 60, fontWeight: 900, letterSpacing: -1.5, lineHeight: 1.3, marginBottom: 26}}>{withMarker(title, highlight, hl, seed)}</div>
+        {body.map((line, i) => (
+          <div key={i} style={{fontFamily: SERIF, fontSize: 38, fontWeight: 700, lineHeight: 1.75, color: '#2E2C30', opacity: clamp01(frame, 10 + i * 6, 22 + i * 6)}}>
+            {withMarker(line, highlight, hl, seed + i + 1)}
           </div>
-          {body.map((line, i) => (
-            <div key={i} style={{fontSize: 40, lineHeight: 1.7, color: '#C9D4E6', fontWeight: 500, opacity: clamp01(frame, 10 + i * 6, 22 + i * 6)}}>
-              <span style={{fontFamily: MONO, color: C.dim, marginRight: 22, fontSize: 28}}>{String(i + 1).padStart(2, '0')}</span>
-              <Highlighted text={line} mark={highlight} progress={hl} />
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
     </AbsoluteFill>
   );
@@ -441,42 +448,52 @@ const Gap: React.FC<{kr: number; us: number}> = ({kr, us}) => {
   );
 };
 
-// ── 질문: 프롬프트 타이핑 ─────────────────────
+// ── 질문: 앞부분은 큰 글씨, '→' 뒤는 손으로 쓴 답 ─────────────
 const Question: React.FC<{text: string}> = ({text}) => {
   const frame = useCurrentFrame();
-  const chars = Math.floor(clamp01(frame, 4, 4 + text.length * 1.6) * text.length);
+  const [q, a] = text.split('→').map((t) => t.trim());
+  const words = q.split(' ');
+  const ansP = clamp01(frame, 18 + words.length * 4, 34 + words.length * 4);
+  const circleP = clamp01(frame, 30 + words.length * 4, 50 + words.length * 4);
   return (
-    <AbsoluteFill style={{...center, alignItems: 'flex-start', paddingLeft: 180, paddingRight: 180}}>
-      <div style={{fontFamily: MONO, fontSize: 32, color: C.accent, fontWeight: 800, marginBottom: 24}}>&gt; QUERY</div>
-      <div style={{fontSize: 96, fontWeight: 900, letterSpacing: -3, lineHeight: 1.25}}>
-        {text.slice(0, chars)}
-        <Cursor />
+    <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 170, paddingRight: 170}}>
+      <div style={{fontSize: 100, fontWeight: 900, letterSpacing: -3, lineHeight: 1.2}}>
+        {words.map((w, i) => (
+          <span key={i} style={{display: 'inline-block', marginRight: 26, opacity: clamp01(frame, 4 + i * 4, 12 + i * 4), transform: `translateY(${(1 - clamp01(frame, 4 + i * 4, 12 + i * 4)) * 14}px)`}}>
+            {w}
+          </span>
+        ))}
       </div>
+      {a && (
+        <div style={{position: 'relative', alignSelf: 'flex-start', marginTop: 40, marginLeft: 20}}>
+          <div style={{fontFamily: HAND, fontSize: 190, color: INK.red, transform: `rotate(-4deg) translateY(${(1 - ansP) * 16}px)`, opacity: ansP, lineHeight: 1, padding: '10px 30px'}}>{a}</div>
+          <HandCircle w={Math.max(300, a.length * 120)} h={220} progress={circleP} seed={a.length} color={INK.yellow} stroke={6} style={{left: -10, top: -14}} />
+        </div>
+      )}
     </AbsoluteFill>
   );
 };
 
-// ── 체크리스트 ─────────────────────────────
+// ── 체크리스트: 손글씨 제목 + 손으로 그리는 체크 ────────────────
 const Checklist: React.FC<{title: string; items: string[]}> = ({title, items}) => {
   const frame = useCurrentFrame();
-  const p = useEnter(0);
+  const tp = clamp01(frame, 0, 12);
   return (
-    <AbsoluteFill style={{...center}}>
-      <Panel label={title} style={{...rise(p), width: 1300, padding: '10px 60px 40px'}}>
-        {items.map((it, i) => {
-          const q = clamp01(frame, 14 + i * 14, 28 + i * 14);
-          return (
-            <div key={it} style={{display: 'flex', alignItems: 'center', gap: 28, fontSize: 46, fontWeight: 700, padding: '22px 0', borderBottom: i < items.length - 1 ? `1px solid ${C.border}` : 'none', opacity: q, transform: `translateX(${(1 - q) * 30}px)`}}>
-              <span style={{fontFamily: MONO, fontSize: 34, fontWeight: 800, color: C.green}}>[✓]</span>
-              {it}
-            </div>
-          );
-        })}
-      </Panel>
+    <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 230}}>
+      <div style={{fontFamily: HAND, fontSize: 96, color: INK.yellow, opacity: tp, transform: 'rotate(-2deg)', marginBottom: 26}}>{title}</div>
+      {items.map((it, i) => {
+        const q = clamp01(frame, 14 + i * 16, 26 + i * 16);
+        const ck = clamp01(frame, 20 + i * 16, 32 + i * 16);
+        return (
+          <div key={it} style={{display: 'flex', alignItems: 'center', gap: 26, fontSize: 50, fontWeight: 800, padding: '16px 0', opacity: q, transform: `translateX(${(1 - q) * 24}px)`}}>
+            <HandCheck size={52} progress={ck} seed={i + 2} />
+            {it}
+          </div>
+        );
+      })}
     </AbsoluteFill>
   );
 };
-
 
 // ── 클로징 (오른쪽은 유튜브 최종 화면용 여백) ─────────────
 const Closing: React.FC<{brand: string; kakao: string}> = ({brand, kakao}) => {
@@ -485,11 +502,11 @@ const Closing: React.FC<{brand: string; kakao: string}> = ({brand, kakao}) => {
   const c = useEnter(30);
   return (
     <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 140}}>
-      <div style={{...rise(a), fontFamily: MONO, fontSize: 30, fontWeight: 800, color: C.accent}}>&gt; END_OF_REPORT</div>
+      <div style={{...rise(a), fontFamily: HAND, fontSize: 84, color: INK.yellow, transform: 'rotate(-3deg)'}}>오늘 이야기는 여기까지</div>
       <div style={{...rise(a), fontSize: 104, fontWeight: 900, letterSpacing: -4, lineHeight: 1.15, marginTop: 18}}>
         시청해 주셔서
         <br />
-        감사합니다<Cursor />
+        감사합니다
       </div>
       <div style={{...rise(b), display: 'flex', alignItems: 'center', gap: 18, marginTop: 50}}>
         <span style={{background: '#FEE500', color: '#191919', fontSize: 34, fontWeight: 900, padding: '10px 22px', borderRadius: 10}}>💬 {kakao}</span>

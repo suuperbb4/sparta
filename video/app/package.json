@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.1.1",
+    "@fontsource/nanum-pen-script": "^5.1.0",
     "@fontsource/noto-serif-kr": "^5.1.1",
     "@remotion/cli": "^4.0.242",
     "@types/react": "^18.3.12",

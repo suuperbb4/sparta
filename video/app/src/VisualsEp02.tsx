@@ -3,6 +3,7 @@ import React from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {C, clamp01, countUp, MONO, rise, useEnter} from './theme';
 import {Visual} from './types';
+import {HAND, HandCircle, HandNote, HandUnderline, INK} from './hand';
 
 const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 const fmtInt = (v: number) => Math.round(v).toLocaleString('en-US');
@@ -26,15 +27,17 @@ export const Stamp: React.FC<Extract<Visual, {type: 'stamp'}>> = ({date, value, 
   const glow = tone === 'red' ? 'rgba(255,77,94,0.55)' : 'rgba(255,194,51,0.35)';
   return (
     <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-      <div style={{fontFamily: MONO, fontSize: 40, fontWeight: 800, color: C.accent, letterSpacing: 4, minHeight: 52}}>
+      <div style={{fontFamily: MONO, fontSize: 40, fontWeight: 700, color: C.accent, letterSpacing: 2, minHeight: 52}}>
         {date.slice(0, dateChars)}
-        <span style={{opacity: Math.floor(frame / 12) % 2 ? 0 : 1}}>▍</span>
       </div>
       <div style={{display: 'flex', alignItems: 'baseline', gap: 18, marginTop: 20, filter: `blur(${blur}px)`, color, textShadow: `0 0 60px ${glow}`}}>
         <span style={{fontFamily: MONO, fontSize: 230, fontWeight: 800, letterSpacing: -10, lineHeight: 1}}>{shown}</span>
         {unit && <span style={{fontSize: 90, fontWeight: 900}}>{unit}</span>}
       </div>
-      <div style={{...rise(lp, 16), marginTop: 30, fontSize: 46, fontWeight: 800, color: '#E6EDF7', borderTop: `2px solid ${C.border}`, paddingTop: 22}}>{label}</div>
+      <div style={{position: 'relative', marginTop: 34}}>
+        <div style={{...rise(lp, 16), fontSize: 46, fontWeight: 800, color: '#F2F4F8'}}>{label}</div>
+        <HandUnderline w={Math.min(900, label.length * 44)} progress={clamp01(frame, 56, 74)} seed={label.length} color={tone === 'red' ? INK.red : INK.yellow} stroke={6} style={{left: 0, bottom: -16}} />
+      </div>
     </AbsoluteFill>
   );
 };
@@ -112,24 +115,9 @@ export const Crash: React.FC<Extract<Visual, {type: 'crash'}>> = ({points, note,
           )}
         </svg>
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          right: 200,
-          top: 300,
-          transform: `rotate(-6deg) scale(${2.2 - stamp * 1.2})`,
-          opacity: stamp,
-          border: `10px solid ${C.up}`,
-          color: C.up,
-          fontFamily: MONO,
-          fontWeight: 800,
-          fontSize: 120,
-          padding: '0 30px',
-          borderRadius: 12,
-          background: 'rgba(10,15,28,0.6)',
-        }}
-      >
-        {dropLabel}
+      <div style={{position: 'absolute', right: 230, top: 250, opacity: stamp, transform: `rotate(-7deg) scale(${1.3 - stamp * 0.3})`}}>
+        <div style={{fontFamily: HAND, fontSize: 170, color: INK.red, lineHeight: 1, textShadow: '0 4px 16px rgba(0,0,0,0.8)'}}>{dropLabel}</div>
+        <HandUnderline w={260} progress={clamp01(frame, 10 + Math.min(110, durationInFrames * 0.55) + 10, 10 + Math.min(110, durationInFrames * 0.55) + 22)} seed={7} color={INK.red} stroke={8} style={{left: 10, bottom: -6}} />
       </div>
       <div style={{position: 'absolute', right: 60, top: 140, fontSize: 22, color: C.dim, fontWeight: 600}}>※ {note}</div>
     </AbsoluteFill>
@@ -223,9 +211,9 @@ export const Cycle: React.FC<Extract<Visual, {type: 'cycle'}>> = ({nodes, center
               top: cy + R * Math.sin(a),
               transform: `translate(-50%,-50%) scale(${0.8 + p * 0.2})`,
               opacity: p,
-              background: C.panel,
-              border: `2px solid ${i === n - 1 ? C.up : C.border}`,
-              borderRadius: 12,
+              background: 'rgba(12,18,34,0.82)',
+              border: `2px solid ${i === n - 1 ? C.up : 'rgba(255,255,255,0.12)'}`,
+              borderRadius: 16,
               padding: '18px 30px',
               fontSize: 40,
               fontWeight: 800,
@@ -233,12 +221,11 @@ export const Cycle: React.FC<Extract<Visual, {type: 'cycle'}>> = ({nodes, center
               boxShadow: '0 20px 50px rgba(0,0,0,0.45)',
             }}
           >
-            <span style={{fontFamily: MONO, color: C.accent, marginRight: 12, fontSize: 30}}>{i + 1}</span>
             {t}
           </div>
         );
       })}
-      <div style={{position: 'absolute', left: cx, top: cy, transform: 'translate(-50%,-50%)', textAlign: 'center', fontSize: 50, fontWeight: 900, color: C.up, opacity: clamp01(frame, 20 + n * 14, 34 + n * 14)}}>{center}</div>
+      <div style={{position: 'absolute', left: cx, top: cy, transform: 'translate(-50%,-50%) rotate(-5deg)', textAlign: 'center', fontFamily: HAND, fontSize: 130, color: C.up, opacity: clamp01(frame, 20 + n * 14, 34 + n * 14)}}>{center}</div>
     </AbsoluteFill>
   );
 };
@@ -272,33 +259,19 @@ export const Leverage: React.FC<Extract<Visual, {type: 'leverage'}>> = ({own, bo
       <div style={{display: 'flex', gap: 80, marginTop: 44, alignItems: 'flex-end'}}>
         <Metric label="주가 변화" value={`-${Math.round(d * 100)}%`} color={C.down} />
         <Metric label="담보비율 (주식 ÷ 빌린 돈)" value={`${Math.round(ratio * 100)}%`} color={hit ? C.up : '#fff'} sub={`기준 ${Math.round(threshold * 100)}%`} />
-        <Metric label="내 돈 변화" value={`${equity >= own ? '' : '-'}${Math.round(((own - equity) / own) * 100)}%`} color={C.up} />
+        <Metric label="내 돈 변화" value={`${equity >= own ? '' : '-'}${Math.round(((own - equity) / own) * 100)}%`} color={C.up} circle={hit ? clamp01(frame, 134, 152) : 0} />
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          top: 230,
-          right: 260,
-          transform: `rotate(7deg) scale(${2 - stamp})`,
-          opacity: stamp,
-          border: `8px solid ${C.up}`,
-          color: C.up,
-          fontSize: 72,
-          fontWeight: 900,
-          padding: '2px 24px',
-          borderRadius: 10,
-          background: 'rgba(10,15,28,0.7)',
-        }}
-      >
-        반대매매
-      </div>
+      <HandNote progress={stamp} size={120} color={INK.red} rotate={-6} style={{top: 210, right: 250}}>
+        반대매매!
+      </HandNote>
       <div style={{position: 'absolute', top: 120, fontSize: 26, color: C.muted, fontWeight: 700, background: 'rgba(15,23,41,0.85)', padding: '8px 18px', borderRadius: 6}}>※ {note}</div>
     </AbsoluteFill>
   );
 };
 
-const Metric: React.FC<{label: string; value: string; color: string; sub?: string}> = ({label, value, color, sub}) => (
-  <div style={{textAlign: 'center', minWidth: 300}}>
+const Metric: React.FC<{label: string; value: string; color: string; sub?: string; circle?: number}> = ({label, value, color, sub, circle}) => (
+  <div style={{textAlign: 'center', minWidth: 300, position: 'relative'}}>
+    {circle !== undefined && <HandCircle w={300} h={150} progress={circle} seed={11} color={INK.yellow} stroke={6} style={{left: 0, top: 18}} />}
     <div style={{fontSize: 26, fontWeight: 700, color: C.muted}}>{label}</div>
     <div style={{fontFamily: MONO, fontSize: 96, fontWeight: 800, color, lineHeight: 1.1}}>{value}</div>
     {sub && <div style={{fontSize: 24, color: C.dim, fontWeight: 700}}>{sub}</div>}
