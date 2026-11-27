@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v12';
+  const VERSION = 'v13';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;

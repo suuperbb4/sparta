@@ -215,3 +215,6 @@ h2{font-size:18px;letter-spacing:-.01em;margin:26px 0 10px}
 /* 화면 진단 */
 .diag{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--soft);background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px;white-space:pre-line}
 .ver{font-size:12px;color:#5f6878;text-align:center;margin-top:18px}
+
+/* 상태바 자리 단색 막대: 전체 폭, 6px 이상, 흐림(backdrop-filter) 없이 */
+.edge{position:fixed;top:0;left:0;right:0;height:max(env(safe-area-inset-top,0px),6px);background:#0b0e14;z-index:50;pointer-events:none}
