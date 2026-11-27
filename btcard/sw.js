@@ -1,5 +1,5 @@
 // 비티 노트 서비스 워커: 앱 화면은 캐시, 카드 목록은 항상 최신 우선
-const VERSION = 'btcard-v18';
+const VERSION = 'btcard-v19';
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'config.json', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {

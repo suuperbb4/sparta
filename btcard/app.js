@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v18';
+  const VERSION = 'v19';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -208,7 +208,8 @@
         <p class="muted">네이버 유료 글의 "${B()} 앱에서 넘겨보기" 버튼을 누르거나 새 연동 코드를 입력하면 그날부터 ${S.cfg.accessDays}일로 연장돼요.</p>` : '';
       return `<div class="body pad">${topbar()}<h1>내 정보</h1>
       ${naverCard}${memberCard}
-      <div class="card"><div class="row"><span>실행 방식</span><span>${standalone() ? '홈 화면 앱' : '브라우저'}</span></div></div>
+      <div class="card"><div class="row"><span>이 기기</span><span>${DEVICE_NAME[deviceType()]} · ${esc(deviceLabel())}</span></div>
+        <div class="row"><span>기기 등록</span><span>폰 1 · 태블릿 1 · PC 1 (정식 오픈 때 적용)</span></div></div>
       ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하기</button>'}
       ${m ? '' : '<button class="btn ghost" data-go="plans">멤버십 안내</button>'}
       ${viaCode() ? '' : '<button class="btn ghost" data-go="gate">네이버 구독자 연동하기</button>'}
@@ -435,6 +436,24 @@
   addEventListener('resize', () => { const t = document.getElementById('track'); if (t) t.scrollLeft = S.idx * t.clientWidth; });
 
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // 기기 종류 판별: 폰 / 태블릿 / PC (기기 관리에서 종류별 1대씩 허용하는 데 쓴다)
+  function deviceType() {
+    const ua = navigator.userAgent; const touch = navigator.maxTouchPoints || 0;
+    if (/iPad/.test(ua)) return 'tablet';
+    if (/Macintosh/.test(ua)) return touch > 1 ? 'tablet' : 'pc'; // 아이패드는 맥처럼 보고하므로 터치로 구분
+    if (/iPhone|iPod/.test(ua)) return 'phone';
+    if (/Android/.test(ua)) return /Mobile/.test(ua) ? 'phone' : 'tablet';      // 안드로이드 태블릿은 Mobile이 없다
+    if (navigator.userAgentData && navigator.userAgentData.mobile) return 'phone';
+    return 'pc';
+  }
+  const DEVICE_NAME = { phone: '폰', tablet: '태블릿', pc: 'PC' };
+  function deviceLabel() {
+    const ua = navigator.userAgent;
+    const os = /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'iPad' : /iPhone/.test(ua) ? 'iPhone' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS X/.test(ua) ? 'Mac' : /CrOS/.test(ua) ? 'Chromebook' : '기타';
+    const br = /SamsungBrowser/.test(ua) ? '삼성 인터넷' : /NAVER/.test(ua) ? '네이버 앱' : /KAKAOTALK/.test(ua) ? '카카오톡' : /Edg\//.test(ua) ? 'Edge' : /CriOS|Chrome/.test(ua) ? 'Chrome' : /Firefox|FxiOS/.test(ua) ? 'Firefox' : /Safari/.test(ua) ? 'Safari' : '브라우저';
+    return `${os} · ${standalone() ? '홈 화면 앱' : br}`;
+  }
+
   function fitScreen() {
     if (!(isIOS && standalone())) return;
     const portrait = innerHeight > innerWidth;
@@ -448,7 +467,7 @@
     document.body.appendChild(el); const cs = getComputedStyle(el);
     const v = [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft].map((x) => parseInt(x, 10)); el.remove();
     const r = $app.getBoundingClientRect(); const tb = document.querySelector('.tabs');
-    return [`버전 ${VERSION} · ${standalone() ? '웹 앱' : '브라우저'} · ${isIOS ? 'iOS' : 'Android 등'}`,
+    return [`버전 ${VERSION} · ${standalone() ? '웹 앱' : '브라우저'} · 기기 ${DEVICE_NAME[deviceType()]} (${deviceLabel()})`,
       `화면 ${screen.width}×${screen.height} / 창 ${innerWidth}×${innerHeight}`,
       `보이는 영역 ${visualViewport ? Math.round(visualViewport.height) : '-'} · 문서 ${document.documentElement.clientHeight}`,
       `안전영역 위 ${v[0]} 아래 ${v[2]} 좌 ${v[3]} 우 ${v[1]}`,
