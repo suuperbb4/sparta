@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v17';
+  const VERSION = 'v18';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -84,7 +84,7 @@
 
   const tabs = () => `<nav class="tabs">${[['home', '오늘'], ['archive', '보관함'], ['news', '소식'], ['my', '내 정보']]
     .map(([k, l]) => `<button data-go="${k}" class="${S.route === k ? 'on' : ''}"><span class="${k === 'news' && unread() ? 'dot' : ''}">${ICON[k]}</span>${l}</button>`).join('')}</nav>`;
-  const topbar = () => `<div class="top"><div class="brand"><span class="logo">BT</span>${esc(S.cfg.brand)}</div><span class="pro">PREMIUM</span></div>`;
+  const topbar = () => `<div class="top"><div class="brand"><img class="logo" src="icon-192.png" alt="">${esc(S.cfg.brand)}</div><span class="pro">PREMIUM</span></div>`;
   const chips = () => `<div class="chips">${[{ id: 'all', name: '전체' }].concat(S.cfg.categories)
     .map((c) => `<button data-cat="${c.id}" class="${S.cat === c.id ? 'on' : ''}">${esc(c.name)}</button>`).join('')}</div>`;
   const feat = (s, date) => `<button class="feat" data-open="${esc(s.series)}" data-date="${esc(date)}" style="--c:${info(s.series).color}">
@@ -95,7 +95,7 @@
 
   const V = {
     gate: () => `<div class="body pad">
-      <div class="hero"><span class="logo">BT</span><h1>비티의 인사이트 노트<br>구독자 전용 카드</h1>
+      <div class="hero"><img class="logo" src="icon-192.png" alt=""><h1>비티의 인사이트 노트<br>구독자 전용 카드</h1>
       <p class="muted">모닝 인사이트, 마켓, 5분 세상읽기를 한곳에서. 발행 즉시 가장 먼저 받아보세요.</p></div>
       <div class="box">네이버 인사이트 노트 유료 글 맨 아래의 <b>"${B()} 앱에서 넘겨보기"</b> 버튼을 누르면 바로 열려요.</div>
       <form id="codeForm" autocomplete="off">
