@@ -3,7 +3,7 @@
 {
   const $app = document.getElementById('app');
   const KEY = 'btcard.access';
-  const S = { cfg: null, feed: { days: [] }, access: null, route: 'gate', date: null, open: null, idx: 0, os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '' };
+  const S = { cfg: null, feed: { days: [] }, access: null, route: 'gate', date: null, open: null, idx: 0, os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false };
   let installPrompt = null;
   let lockUntil = 0;
 
@@ -18,6 +18,13 @@
   const untilLabel = (t) => { const d = new Date(t); return `${d.getMonth() + 1}월 ${d.getDate()}일`; };
   const valid = () => S.access && S.access.until > Date.now();
   const seriesInfo = (id) => (S.cfg.series[id] || { name: id, color: '#1b3a72', order: 99 });
+  const firstLine = (t) => String(t).split('\n').map((x) => x.trim()).find(Boolean) || '';
+  const chips = () => {
+    const present = new Set(S.feed.days.flatMap((d) => d.sets.map((x) => x.series)));
+    const keys = Object.keys(S.cfg.series).filter((k) => present.has(k)).sort((a, b) => seriesInfo(a).order - seriesInfo(b).order);
+    return `<div class="chips">${[['all', '전체']].concat(keys.map((k) => [k, seriesInfo(k).short || seriesInfo(k).name]))
+      .map(([k, l]) => `<button data-cat="${esc(k)}" class="${S.cat === k ? 'on' : ''}">${esc(l)}</button>`).join('')}</div>`;
+  };
   const sortSets = (sets) => sets.slice().sort((a, b) => seriesInfo(a.series).order - seriesInfo(b.series).order);
 
   async function sha256(text) {
@@ -107,29 +114,35 @@
 
     home: () => {
       const days = S.feed.days;
-      const latest = days[0];
-      const day = days.find((d) => d.date === S.date) || latest;
-      const isLatest = day && latest && day.date === latest.date;
+      const has = (d) => S.cat === 'all' || d.sets.some((x) => x.series === S.cat);
+      const latest = days.find(has);
+      const day = (S.date && days.find((d) => d.date === S.date)) || latest;
+      const isLatest = day && day === days[0];
+      const sets = day ? sortSets(day.sets).filter((x) => S.cat === 'all' || x.series === S.cat) : [];
       return `<div class="body pad">
         <div class="hd">
-          ${isLatest ? '' : '<button class="back" data-act="toArchive">‹ 보관함</button>'}
+          ${S.date ? '<button class="back" data-act="toArchive">‹ 보관함</button>' : ''}
           <div class="muted">${day ? dayLabel(day.date) : ''}</div>
-          <h1 style="margin:2px 0 6px">${isLatest ? '오늘의 카드' : '지난 카드'}</h1>
+          <h1 style="margin:2px 0 6px">${isLatest ? '오늘의 카드' : S.date ? '지난 카드' : '가장 최근 카드'}</h1>
           <span class="badge">인사이트 노트 구독자 · ${untilLabel(S.access.until)}까지</span>
         </div>
-        ${day ? sortSets(day.sets).map((s) => `<button class="set" data-open="${esc(s.series)}" data-date="${esc(day.date)}">
-          <img src="${esc(s.cards[0])}" alt="" loading="lazy">
-          <div><h3>${esc(seriesInfo(s.series).name)}</h3><div class="d">${s.cards.length}장${s.text ? ' · 짧은 글' : ''}</div>${s.text ? `<div class="ex">${esc(s.text.split('\n')[0])}</div>` : ''}</div></button>`).join('')
+        ${S.date ? '' : chips()}
+        ${sets.length ? sets.map((x) => `<button class="set" data-open="${esc(x.series)}" data-date="${esc(day.date)}">
+          <img src="${esc(x.cards[0])}" alt="" loading="lazy">
+          <div><span class="tag">${esc(seriesInfo(x.series).short || '')}</span><h3>${esc(seriesInfo(x.series).name)}</h3><div class="d">${x.cards.length}장${x.text ? ' · 캡션' : ''}</div>${x.text ? `<div class="ex">${esc(firstLine(x.text))}</div>` : ''}</div></button>`).join('')
           : '<div class="empty">아직 올라온 카드가 없어요.</div>'}
         ${standalone() ? '' : '<div class="box">홈 화면에 추가하면 앱처럼 바로 열 수 있어요. <button class="lnk" data-go="install">추가하는 방법</button></div>'}
       </div>${tabs()}`;
     },
 
-    archive: () => `<div class="body pad"><h1>보관함</h1>
-      ${S.feed.days.length ? S.feed.days.map((d) => `<button class="day" data-day="${esc(d.date)}"><span>${dayLabel(d.date)}</span>
-        <small>${sortSets(d.sets).map((s) => `${esc(seriesInfo(s.series).name)} ${s.cards.length}`).join(' · ')}</small></button>`).join('')
-        : '<div class="empty">아직 올라온 카드가 없어요.</div>'}
-      </div>${tabs()}`,
+    archive: () => {
+      const days = S.feed.days.filter((d) => S.cat === 'all' || d.sets.some((x) => x.series === S.cat));
+      return `<div class="body pad"><h1>보관함</h1>${chips()}
+      ${days.length ? days.map((d) => `<button class="day" data-day="${esc(d.date)}"><span>${dayLabel(d.date)}</span>
+        <small>${sortSets(d.sets).filter((x) => S.cat === 'all' || x.series === S.cat).map((x) => `${esc(seriesInfo(x.series).short || seriesInfo(x.series).name)} ${x.cards.length}`).join(' · ')}</small></button>`).join('')
+        : '<div class="empty">이 분류의 카드가 아직 없어요.</div>'}
+      </div>${tabs()}`;
+    },
 
     my: () => `<div class="body pad"><h1>내 정보</h1>
       <div class="row"><span>멤버십</span><span>네이버 인사이트 노트 구독자</span></div>
@@ -143,13 +156,14 @@
 
   function viewer() {
     const day = S.feed.days.find((d) => d.date === S.open.date);
-    const set = day && day.sets.find((s) => s.series === S.open.series);
+    const set = day && day.sets.find((x) => x.series === S.open.series);
     if (!set) return '';
     return `<div class="vw" role="dialog" aria-label="${esc(seriesInfo(set.series).name)}">
-      <div class="vbar"><button data-act="close">닫기</button><b>${esc(seriesInfo(set.series).name)}</b><span class="muted" style="min-width:56px;text-align:right" id="cnt">${S.idx + 1}/${set.cards.length + (set.text ? 1 : 0)}</span></div>
-      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false"></div>`).join('')}${set.text ? `<div class="slide"><div class="txt"><b>비티의 한마디</b>${esc(set.text)}</div></div>` : ''}</div>
+      <div class="vbar"><button data-act="close">닫기</button><b>${esc(seriesInfo(set.series).name)}</b><span class="muted" style="min-width:56px;text-align:right" id="cnt">${S.idx + 1}/${set.cards.length}</span></div>
+      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false"></div>`).join('')}</div>
+      ${set.text ? `<div class="cap ${S.capOpen ? 'open' : ''}"><div class="capt short">${esc(set.text.replace(/\s*\n\s*/g, ' '))}</div><div class="capt full">${esc(set.text)}</div><button class="lnk" data-act="cap">${S.capOpen ? '접기' : '더 보기'}</button></div>` : ''}
       <div class="vfoot"><button data-act="prev" aria-label="이전 카드">‹</button>
-        <div class="dots">${set.cards.concat(set.text ? [''] : []).map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('')}</div>
+        <div class="dots">${set.cards.map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('')}</div>
         <button data-act="next" aria-label="다음 카드">›</button></div></div>`;
   }
 
@@ -183,7 +197,7 @@
     lockUntil = Date.now() + 500;
     t.scrollTo({ left: S.idx * t.clientWidth, behavior: busy ? 'auto' : 'smooth' }); syncDots();
   }
-  function openViewer(date, series) { S.open = { date, series }; S.idx = 0; history.pushState({ viewer: 1 }, ''); render(); }
+  function openViewer(date, series) { S.open = { date, series }; S.idx = 0; S.capOpen = false; history.pushState({ viewer: 1 }, ''); render(); }
   function closeViewer() { if (S.open) { S.open = null; render(); } }
 
   async function onCode(e) {
@@ -197,14 +211,16 @@
   }
 
   $app.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day]');
+    const el = e.target.closest('[data-go],[data-open],[data-act],[data-os],[data-day],[data-cat]');
     if (!el) return;
     const d = el.dataset;
-    if (d.go) { S.open = null; go(d.go); return; }
+    if (d.cat) { S.cat = d.cat; S.date = null; render(); return; }
+    if (d.go) { S.open = null; if (d.go === 'home') S.date = null; go(d.go); return; }
     if (d.os) { S.os = d.os; render(); return; }
     if (d.day) { S.date = d.day; go('home'); return; }
     if (d.open) { openViewer(d.date, d.open); return; }
     if (d.act === 'close') { history.back(); return; }
+    if (d.act === 'cap') { S.capOpen = !S.capOpen; const c = document.querySelector('.cap'); if (c) { c.classList.toggle('open', S.capOpen); el.textContent = S.capOpen ? '접기' : '더 보기'; } return; }
     if (d.act === 'prev') slide(S.idx - 1);
     if (d.act === 'next') slide(S.idx + 1);
     if (d.act === 'latest') { S.date = null; render(); }

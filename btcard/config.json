@@ -5,21 +5,25 @@
   "series": {
     "morning": {
       "name": "비티의 모닝 인사이트",
+      "short": "모닝 인사이트",
       "color": "#1b3a72",
       "order": 1
     },
     "market": {
-      "name": "비티의 마켓",
+      "name": "비티의 인사이트 노트 마켓",
+      "short": "마켓",
       "color": "#0f4a3a",
       "order": 2
     },
     "world": {
       "name": "비티의 5분 세상읽기",
+      "short": "5분 세상읽기",
       "color": "#6a2333",
       "order": 3
     },
     "weekly": {
       "name": "주간 비티",
+      "short": "주간",
       "color": "#4a3a12",
       "order": 4
     }
