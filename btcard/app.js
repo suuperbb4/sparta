@@ -25,7 +25,10 @@
     return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
   }
   async function checkCode(raw) {
-    const code = String(raw || '').trim().toUpperCase();
+    // 아이폰 키보드가 바꿔 넣는 대시·공백을 정리하고, 하이픈 없이 써도 받아 준다 (BT1127K7Q → BT-1127-K7Q)
+    let code = String(raw || '').toUpperCase().replace(/[\u2010-\u2015\u2212\u30FC\uFF0D_.·]/g, '-').replace(/\s+/g, '').replace(/-+/g, '-');
+    const bare = code.replace(/-/g, '');
+    if (/^BT\d{4}[A-Z0-9]{3}$/.test(bare)) code = `BT-${bare.slice(2, 6)}-${bare.slice(6)}`;
     if (!code) return null;
     const h = await sha256(code);
     return S.cfg.keys.some((k) => k.hash === h) ? code : null;
