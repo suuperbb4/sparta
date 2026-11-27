@@ -152,14 +152,14 @@ code{color:var(--gold)}
   function alertLog(id, msg) { const el = $(id); el.textContent = msg; el.classList.toggle('on', !!msg); }
 
   // 이미지: 가로 1080px 이하 JPEG로 줄여서 올린다
-  function toJpegB64(file) {
+  function toJpegB64(file, max = 1080, q = 0.88) {
     return new Promise((ok, no) => {
       const img = new Image(); const url = URL.createObjectURL(file);
       img.onload = () => {
-        const w = Math.min(1080, img.naturalWidth), h = Math.round(img.naturalHeight * w / img.naturalWidth);
+        const w = Math.min(max, img.naturalWidth), h = Math.round(img.naturalHeight * w / img.naturalWidth);
         const c = document.createElement('canvas'); c.width = w; c.height = h;
         const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); x.drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.88).split(',')[1]);
+        URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', q).split(',')[1]);
       };
       img.onerror = () => no(new Error(`${file.name}을 읽지 못했어요.`)); img.src = url;
     });
@@ -199,13 +199,14 @@ code{color:var(--gold)}
         files.push({ path: `${dir}/${name}`, b64: await toJpegB64(picked[i].f) });
         alertLog('logCard', `이미지 ${i + 1}/${picked.length} 준비 완료`);
       }
+      files.push({ path: `${dir}/thumb.jpg`, b64: await toJpegB64(picked[0].f, 720, 0.78) }); // 홈·보관함용 가벼운 미리보기
       if (caption) files.push({ path: `${dir}/text.txt`, b64: b64text(caption + '\n') });
       // feed.json도 같은 커밋에서 고친다 (같은 경로의 기존 항목은 지움)
       const feed = (await readJson(`${ROOT}/feed.json`)) || { days: [] };
       let day = feed.days.find((d) => d.date === date);
       if (!day) { day = { date, sets: [] }; feed.days.push(day); }
       day.sets = day.sets.filter((s) => s.series !== series);
-      day.sets.push({ series, cards: names, ...(caption ? { text: caption } : {}) });
+      day.sets.push({ series, cards: names, thumb: `cards/${date}/${series}/thumb.jpg`, ...(caption ? { text: caption } : {}) });
       feed.days.sort((a, b) => b.date.localeCompare(a.date));
       files.push({ path: `${ROOT}/feed.json`, b64: b64text(JSON.stringify(feed, null, 2) + '\n') });
       // 덮어쓰는 경로는 삭제 목록에서 뺀다

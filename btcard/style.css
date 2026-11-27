@@ -221,5 +221,7 @@ h2{font-size:18px;letter-spacing:-.01em;margin:26px 0 10px}
 /* 단색 띠 아래 10px은 부드럽게 사라지게 해서, 내려간 내용이 칼로 자른 듯 끊기지 않게 */
 .edge::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px;background:linear-gradient(#0b0e14,rgba(11,14,20,0))}
 /* 띠만큼 본문 시작을 내린다 */
-.body{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
+.body{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}
 .vbar{padding-top:calc(18px + env(safe-area-inset-top,0px))}
+.rail .feat,.grid .tile{content-visibility:auto;contain-intrinsic-size:auto 420px}
+.body,.track,.rail{will-change:scroll-position}

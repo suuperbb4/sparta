@@ -23,8 +23,9 @@ const days = dirs(CARDS)
         const txt = join(dir, 'text.txt');
         return {
           series,
-          cards: readdirSync(dir).filter((f) => IMG.test(f)).sort(byName).map((f) => `cards/${date}/${series}/${f}`),
+          cards: readdirSync(dir).filter((f) => IMG.test(f) && !/^thumb\./.test(f)).sort(byName).map((f) => `cards/${date}/${series}/${f}`),
           // 함께 올리는 짧은 글(쓰레드 글 등). 없으면 생략
+          ...(existsSync(join(dir, 'thumb.jpg')) ? { thumb: `cards/${date}/${series}/thumb.jpg` } : {}),
           ...(existsSync(txt) ? { text: readFileSync(txt, 'utf-8').trim() } : {}),
         };
       })

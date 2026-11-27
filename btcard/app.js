@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v14';
+  const VERSION = 'v15';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -88,7 +88,7 @@
   const chips = () => `<div class="chips">${[{ id: 'all', name: '전체' }].concat(S.cfg.categories)
     .map((c) => `<button data-cat="${c.id}" class="${S.cat === c.id ? 'on' : ''}">${esc(c.name)}</button>`).join('')}</div>`;
   const feat = (s, date) => `<button class="feat" data-open="${esc(s.series)}" data-date="${esc(date)}" style="--c:${info(s.series).color}">
-      <div class="ph"><img src="${esc(s.cards[0])}" alt="" loading="lazy"><span class="cnt">${s.cards.length}장</span></div>
+      <div class="ph"><img src="${esc(s.thumb || s.cards[0])}" alt="" loading="lazy" decoding="async"><span class="cnt">${s.cards.length}장</span></div>
       <div class="meta"><span class="tag">${esc(info(s.series).short)}</span>
         <h3>${esc(headline(s.text) || info(s.series).name)}</h3>
         <p>${s.text ? esc(firstLine(s.text)) : esc(info(s.series).name)}</p></div></button>`;
@@ -165,7 +165,7 @@
           const l = latestOf(c.id); const color = l ? info(l.s.series).color : '#7C8BA1';
           const isNew = l && day && l.d.date === day.date;
           return `<button class="story" ${l ? `data-open="${esc(l.s.series)}" data-date="${esc(l.d.date)}"` : 'data-go="news"'} style="--c:${color}">
-            <div class="ring ${isNew ? 'new' : ''}"><i ${l ? `style="background-image:url('${esc(l.s.cards[0])}')"` : ''}>${l ? '' : '+'}</i></div>${esc(c.name)}</button>`;
+            <div class="ring ${isNew ? 'new' : ''}"><i ${l ? `style="background-image:url('${esc(l.s.thumb || l.s.cards[0])}')"` : ''}>${l ? '' : '+'}</i></div>${esc(c.name)}</button>`;
         }).join('')}</div>`}
         ${pin && !S.date ? `<button class="pin" data-go="news"><b>공지</b><span>${esc(pin.title)}</span>›</button>` : ''}
         <div class="sec"><h2>${S.date ? '이날 발행' : '오늘 발행'}</h2><span class="muted">${sets.length > 1 ? '옆으로 넘겨 보기 ›' : ''}</span></div>
@@ -180,7 +180,7 @@
       return `<div class="body pad">${topbar()}<h1>보관함</h1>${chips()}
       ${days.length ? days.map(({ d, sets }) => `<div class="dh">${dayLabel(d.date)}</div><div class="grid">${sets.map((s) => `
         <button class="tile" data-open="${esc(s.series)}" data-date="${esc(d.date)}" style="--c:${info(s.series).color}">
-          <div class="ph"><img src="${esc(s.cards[0])}" alt="" loading="lazy"><span class="cnt">${s.cards.length}장</span></div>
+          <div class="ph"><img src="${esc(s.thumb || s.cards[0])}" alt="" loading="lazy" decoding="async"><span class="cnt">${s.cards.length}장</span></div>
           <span class="tag">${esc(info(s.series).short)}</span></button>`).join('')}</div>`).join('')
         : `<div class="empty">${S.cat === 'etc' ? '주간 비티·특집 카드가 올라오면 여기에 모여요.' : '이 분류의 카드가 아직 없어요.'}</div>`}
       </div>${tabs()}`;
@@ -317,7 +317,7 @@
     return `<div class="vw" role="dialog" aria-label="${esc(info(set.series).name)}">
       <div class="vbar"><button data-act="close">닫기</button><div class="vt"><b>${esc(info(set.series).short)}</b><small>${dayLabel(day.date)}</small></div><span id="cnt">${S.idx + 1}/${set.cards.length}</span></div>
       <div class="prog">${set.cards.map((_, i) => `<i class="${i <= S.idx ? 'on' : ''}"></i>`).join('')}</div>
-      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false"></div>`).join('')}</div>
+      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}></div>`).join('')}</div>
       ${set.text ? `<div class="cap ${S.capOpen ? 'open' : ''}"><div class="short">${esc(set.text.replace(/\s*\n\s*/g, ' '))}</div><div class="full">${esc(set.text)}</div><button class="lnk" data-act="cap">${S.capOpen ? '접기' : '더 보기'}</button></div>` : ''}
       <div class="vfoot"><button data-act="prev" aria-label="이전 카드">‹</button><span>옆으로 밀어서 넘기기</span><button data-act="next" aria-label="다음 카드">›</button></div></div>`;
   }

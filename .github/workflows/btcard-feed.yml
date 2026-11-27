@@ -22,15 +22,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - run: pip install --quiet pillow && python3 scripts/make-thumbs.py
       - run: node scripts/build-feed.mjs
       - name: 바뀐 목록 저장
         run: |
-          if git diff --quiet -- btcard/feed.json; then
+          if git add -A btcard/cards && git diff --cached --quiet && git diff --quiet -- btcard/feed.json; then
             echo "변경 없음"
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-            git add btcard/feed.json
+            git add btcard/feed.json btcard/cards
             git commit -m "비티 카드 목록 갱신"
             git push
           fi
