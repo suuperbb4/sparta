@@ -124,8 +124,8 @@ const Backdrop: React.FC<{f: Footage; dim?: number}> = ({f, dim = 1}) => {
       <Loop durationInFrames={Math.floor(f.seconds * FPS)}>
         <OffthreadVideo src={staticFile(f.clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`}} />
       </Loop>
-      <AbsoluteFill style={{background: `linear-gradient(rgba(10,15,28,${0.62 * dim}), rgba(10,15,28,${0.8 * dim}))`}} />
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10,15,28,0.7) 100%)'}} />
+      <AbsoluteFill style={{background: `linear-gradient(rgba(10,15,28,${Math.min(0.9, 0.34 * dim)}), rgba(10,15,28,${Math.min(0.92, 0.5 * dim)}))`}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10,15,28,0.5) 100%)'}} />
       <div style={{position: 'absolute', right: 40, bottom: 70, fontSize: 20, fontWeight: 600, color: 'rgba(230,237,247,0.75)', fontFamily: "'Pretendard'"}}>{f.credit}</div>
     </AbsoluteFill>
   );

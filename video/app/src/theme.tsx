@@ -65,7 +65,7 @@ export const Screen: React.FC<{children?: React.ReactNode}> = ({children}) => {
   const frame = useCurrentFrame();
   const scan = (frame * 4) % 1300;
   return (
-    <AbsoluteFill style={{background: C.bg, fontFamily: SANS, color: C.text}}>
+    <AbsoluteFill style={{background: C.bg, fontFamily: SANS, color: C.text, textShadow: '0 2px 12px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6)'}}>
       <AbsoluteFill
         style={{
           backgroundImage: `linear-gradient(${C.grid} 1px, transparent 1px), linear-gradient(90deg, ${C.grid} 1px, transparent 1px)`,
