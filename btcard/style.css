@@ -265,3 +265,18 @@ img.logo{display:block;object-fit:cover;background:none;border:1px solid #232b3a
 .cbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
 .cbar .btn+.btn{margin-top:0}
 .btn.danger{background:none;border:1px solid #6b3030;color:#ff9b8f;font-weight:700}
+
+/* 등록 기기 */
+.dev{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.dev b{display:block;font-size:15px}
+.dev small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.dev .dt{display:inline-block;font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px}
+.dev button{flex:none;background:none;border:1px solid var(--edge);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:13px}
+.dev.empty{justify-content:flex-start}
+.dev.empty>div{text-align:left}
+.dev.empty b{color:#6f7889}
+.dev.pend{border-color:#5a4a1f;background:#1a170d}
+.dev.pend small{color:#e9c46a}
+.confirm{background:var(--surf2);border:1px solid var(--edge);border-radius:16px;padding:16px;margin:6px 0 12px}
+.confirm b{font-size:15px}.confirm p{font-size:14px;color:var(--soft);line-height:1.65;margin:8px 0}
+.confirm .cbar{margin-top:12px}

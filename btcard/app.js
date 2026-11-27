@@ -5,11 +5,12 @@
   const KEY = 'btcard.access';
   const SEEN = 'btcard.seenNotice';
   const MEMBER = 'btcard.member';
+  const DEVS = 'btcard.devices';
   const S = {
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
-    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, reason: '', plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
+    os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, reason: '', devs: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v20';
+  const VERSION = 'v21';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -200,7 +201,7 @@
           ${m.status === 'canceled' ? '' : `<div class="row"><span>다음 결제</span><span>${ymd(m.nextBill)} · ${m.discount ? `<s class="muted">${priceOf(m.plan)}원</s> ${won(Math.round(parseInt(priceOf(m.plan).replace(/,/g, ''), 10) * (100 - m.discount) / 100))}원` : `${priceOf(m.plan)}원`}</span></div>`}
           <div class="row"><span>결제수단</span><span>${esc(methodName(m.method))} · ${esc(m.phoneTail)}</span></div>
         </div>
-        ${m.status === 'canceled' ? '<button class="btn" data-act="resume">멤버십 다시 시작</button>' : '<button class="btn ghost" data-go="cancel">멤버십 해지</button>'}` : '';
+        ${m.status === 'canceled' ? '<button class="btn" data-act="resume">멤버십 다시 시작</button>' : ''}` : '';
       const naverCard = viaCode() ? `<div class="card">
           <div class="row"><span>멤버십</span><span>네이버 인사이트 노트 구독자</span></div>
           <div class="row"><span>이용 기간</span><span>${untilLabel(S.access.until)}까지 · 자동 연장</span></div>
@@ -209,13 +210,18 @@
       return `<div class="body pad">${topbar()}<h1>내 정보</h1>
       ${naverCard}${memberCard}
       <div class="card"><div class="row"><span>이 기기</span><span>${DEVICE_NAME[deviceType()]} · ${esc(deviceLabel())}</span></div>
-        <button class="row rowb" data-go="help"><span>기기 등록</span><span>폰 1 · 태블릿 1 · PC 1 ›</span></button></div>
-      <button class="btn ghost" data-go="help">이용 안내 (기기 등록·해지·환불)</button>
+        <button class="row rowb" data-go="devices"><span>등록 기기</span><span>${S.devs.list.length} / 3대${S.devs.list.some((x) => x.pending) ? ' · 해제 대기 1' : ''} ›</span></button></div>
       ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하기</button>'}
       ${m ? '' : '<button class="btn ghost" data-go="plans">멤버십 안내</button>'}
       ${viaCode() ? '' : '<button class="btn ghost" data-go="gate">네이버 구독자 연동하기</button>'}
       <button class="btn ghost" data-act="diag">화면 진단 (문제가 있을 때 캡처해서 보내 주세요)</button>
       <div class="diag" id="diag" hidden></div>
+      <h2>멤버십 관리</h2>
+      <div class="card">
+        <button class="row rowb" data-go="help"><span>이용 안내</span><span>기기·해지·환불 ›</span></button>
+        ${m && m.status !== 'canceled' ? '<button class="row rowb" data-go="cancel"><span>멤버십 해지</span><span>›</span></button>' : ''}
+        ${viaCode() ? '<button class="row rowb" data-go="cancelNaver"><span>구독 해지 · 연동 해제</span><span>›</span></button>' : ''}
+      </div>
       <p class="ver">${esc(S.cfg.brand)} ${VERSION}</p>
       </div>${tabs()}`;
     },
@@ -299,6 +305,45 @@
       </div>`;
     },
 
+    devices: () => {
+      const D = S.devs; const left = S.cfg.devices.releasesPerMonth - D.used.n; const [h1, h2] = S.cfg.devices.releaseHours;
+      const slot = ([t, l]) => {
+        const d = D.list.find((x) => x.type === t);
+        if (!d) return `<div class="dev empty"><div><span class="dt">${l}</span><b>비어 있음</b><small>이 종류의 기기에서 열면 자동으로 등록돼요</small></div></div>`;
+        const act = d.cur ? '<span class="badge" style="margin:0">이 기기</span>'
+          : d.pending ? `<button data-act="relCancel" data-id="${d.id}">요청 취소</button>`
+          : `<button data-act="relAsk" data-id="${d.id}">해제 요청</button>`;
+        return `<div class="dev ${d.pending ? 'pend' : ''}"><div><span class="dt">${l}</span><b>${esc(d.name)}${d.sample ? ' <em class="tm">예시</em>' : ''}</b>
+          <small>${d.pending ? `해제 대기 · ${hm(d.pending.due)}쯤 자동 해제돼요` : `${ymd(d.since)}부터 사용`}</small></div>${act}</div>`;
+      };
+      const ask = S.relAsk && D.list.find((x) => x.id === S.relAsk);
+      return `<div class="body pad">
+      <button class="back" data-go="my">‹ 내 정보</button>
+      <h1>등록 기기</h1>
+      <p class="muted">폰 1대 · 태블릿 1대 · PC 1대까지 볼 수 있어요.</p>
+      <div style="margin-top:14px">${[['phone', '폰'], ['tablet', '태블릿'], ['pc', 'PC']].map(slot).join('')}</div>
+      ${ask ? `<div class="confirm"><b>${esc(ask.name)} 해제를 요청할까요?</b>
+        <p>요청하면 확인을 거쳐 <b>${h1}~${h2}시간 안에 자동으로 해제</b>돼요. 해제되면 그 기기에서는 다시 로그인해야 볼 수 있고, 그 칸에 새 기기를 등록할 수 있어요. 처리 전에는 언제든 요청을 취소할 수 있어요.</p>
+        <p class="muted">이번 달 남은 해제 횟수: ${left}번 → 요청하면 ${left - 1}번</p>
+        <div class="cbar"><button class="btn ghost" data-act="relNo">취소</button><button class="btn" data-act="relYes">해제 요청</button></div></div>` : ''}
+      <div class="box">기기 해제는 <b>한 달에 ${S.cfg.devices.releasesPerMonth}번</b>까지 할 수 있어요. 신중하게 해제해 주세요. (이번 달 남은 횟수 ${left}번)</div>
+      ${S.cfg.membership.testMode && D.list.some((x) => x.pending) ? '<button class="lnk" data-act="relNow" style="font-size:13px">테스트: 대기 중인 해제 지금 처리하기</button>' : ''}
+      ${S.cfg.membership.testMode ? '<p class="test">시범 운영 중이라 기기 수 제한은 아직 적용되지 않고, 예시 기기로 해제 과정을 체험할 수 있어요.</p>' : ''}
+      </div>${tabs()}`;
+    },
+
+    cancelNaver: () => `<div class="body pad">
+      <button class="back" data-go="my">‹ 내 정보</button>
+      <h1>구독 해지 · 연동 해제</h1>
+      <div class="hp"><h2>네이버 인사이트 노트 구독 해지</h2>
+        <ul><li>구독과 결제는 네이버에서 관리돼요. 네이버 프리미엄콘텐츠의 <b>구독 관리</b>에서 해지할 수 있어요.</li>
+          <li>네이버 구독을 해지하면 새 연동 버튼을 볼 수 없어, 이 앱은 <b>${untilLabel(S.access.until)}</b>까지 열리고 그 뒤 자동으로 닫혀요.</li></ul>
+        <a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버에서 구독 관리하기</a></div>
+      <div class="hp"><h2>이 기기에서만 연동 해제</h2>
+        <ul><li>구독은 그대로 두고, 이 기기에서만 ${B()}를 닫아요. 다시 보려면 네이버 유료 글의 버튼을 누르면 돼요.</li></ul>
+        <button class="btn danger" data-act="unlink">이 기기 연동 해제</button></div>
+    </div>`,
+
     help: () => `<div class="body pad">
       <button class="back" data-go="my">‹ 내 정보</button>
       <h1>이용 안내</h1>
@@ -339,9 +384,10 @@
         ['price', '가격이 부담돼요'], ['time', '볼 시간이 없어요'], ['naver', '네이버 인사이트 노트로 볼게요'],
         ['content', '내용이 기대와 달라요'], ['etc', '기타'],
       ];
+      const OF = S.cfg.membership.offers || {};
       const offer = {
-        price: `<div class="offer"><b>다음 결제 50% 할인</b><p>한 달 더 ${won(Math.round(parseInt(priceOf(mm.plan).replace(/,/g, ''), 10) / 2))}원에 이용해 보세요. 이후엔 원래 요금으로 돌아가고, 언제든 해지할 수 있어요.</p><button class="btn" data-act="offerDiscount">50% 할인 받고 계속 이용</button></div>`,
-        time: `<div class="offer"><b>한 달 쉬어가기</b><p>결제를 한 달 미루고 쉬어가요. 보관함은 그대로 남고, ${ymd(until + 30 * 864e5)}에 자동으로 다시 시작해요.</p><button class="btn" data-act="offerPause">한 달 쉬어가기</button></div>`,
+        price: !OF.discount ? `<div class="offer"><b>연간 멤버십은 월 ${S.cfg.membership.annualMonthly}원꼴이에요</b><p>2개월 무료인 연간 멤버십으로 바꾸면 부담이 줄어요. 지금 결제한 기간이 끝난 뒤부터 적용돼요.</p><button class="btn" data-act="offerAnnual">연간으로 바꾸기</button></div>` : `<div class="offer"><b>다음 결제 50% 할인</b><p>한 달 더 ${won(Math.round(parseInt(priceOf(mm.plan).replace(/,/g, ''), 10) / 2))}원에 이용해 보세요. 이후엔 원래 요금으로 돌아가고, 언제든 해지할 수 있어요.</p><button class="btn" data-act="offerDiscount">50% 할인 받고 계속 이용</button></div>`,
+        time: !OF.pause ? '' : `<div class="offer"><b>한 달 쉬어가기</b><p>결제를 한 달 미루고 쉬어가요. 보관함은 그대로 남고, ${ymd(until + 30 * 864e5)}에 자동으로 다시 시작해요.</p><button class="btn" data-act="offerPause">한 달 쉬어가기</button></div>`,
         naver: `<div class="offer"><b>네이버 구독자는 앱이 무료예요</b><p>네이버 인사이트 노트를 구독하시면 이 앱을 별도 결제 없이 연동해서 볼 수 있어요. 이 멤버십은 해지하셔도 돼요.</p><a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버 인사이트 노트 보기</a></div>`,
         content: `<div class="offer"><b>어떤 점이 아쉬웠는지 알려 주세요</b><p>비티가 직접 읽고 카드에 반영해요. 오픈채팅방 '비티의 경제'에서도 바로 이야기 나눌 수 있어요.</p><textarea class="fb" placeholder="예: 마켓 카드가 더 짧았으면 좋겠어요"></textarea></div>`,
         etc: '',
@@ -404,7 +450,8 @@
   }
 
   function render() {
-    const needAccess = ['home', 'archive', 'news', 'my', 'welcome', 'done', 'cancel', 'canceled', 'help'];
+    if (S.devs && S.devs.list.some((x) => x.pending && x.pending.due <= Date.now())) { loadDevs(); toast('요청하신 기기 해제가 처리됐어요'); return; }
+    const needAccess = ['home', 'archive', 'news', 'my', 'welcome', 'done', 'cancel', 'canceled', 'help', 'devices', 'cancelNaver'];
     if (needAccess.includes(S.route) && !valid()) S.route = 'gate';
     let h = V[S.route]();
     if (S.open) h += viewer();
@@ -471,6 +518,18 @@
       const until = S.member.status === 'trial' ? S.member.trialEnd : S.member.status === 'paused' ? S.member.pausedFrom : S.member.nextBill;
       S.member = { ...S.member, status: 'canceled', paidUntil: until, cancelReason: S.reason || '' }; saveMember(); S.reason = ''; go('canceled'); return;
     }
+    if (d.act === 'relAsk') { S.relAsk = d.id; keepScroll(); return; }
+    if (d.act === 'relNo') { S.relAsk = null; keepScroll(); return; }
+    if (d.act === 'relYes') {
+      const [a, b2] = S.cfg.devices.releaseHours; const due = Date.now() + (a + Math.random() * (b2 - a)) * 3600e3;
+      if (S.devs.used.n >= S.cfg.devices.releasesPerMonth) { S.relAsk = null; keepScroll(); toast('이번 달 해제 횟수를 모두 썼어요'); return; }
+      S.devs.list = S.devs.list.map((x) => (x.id === S.relAsk ? { ...x, pending: { at: Date.now(), due } } : x)); S.devs.used.n += 1; S.relAsk = null; saveDevs();
+      keepScroll(); toast(`해제를 요청했어요. ${hm(due)}쯤 자동으로 해제돼요`); return;
+    }
+    if (d.act === 'relCancel') { S.devs.list = S.devs.list.map((x) => (x.id === d.id ? (({ pending, ...r }) => r)(x) : x)); S.devs.used.n = Math.max(0, S.devs.used.n - 1); saveDevs(); keepScroll(); toast('해제 요청을 취소했어요'); return; }
+    if (d.act === 'relNow') { S.devs.list.forEach((x) => { if (x.pending) x.pending.due = Date.now() - 1; }); saveDevs(); loadDevs(); keepScroll(); toast('해제가 처리됐어요'); return; }
+    if (d.act === 'unlink') { S.access = null; ls.set(KEY, 'null'); history.replaceState(null, '', location.pathname); go(valid() ? 'my' : 'gate'); toast('이 기기에서 연동을 해제했어요'); return; }
+    if (d.act === 'offerAnnual') { S.member = { ...S.member, nextPlan: 'annual' }; saveMember(); S.reason = ''; go('my'); toast('다음 결제부터 연간 멤버십으로 바뀌어요'); return; }
     if (d.act === 'offerDiscount') { S.member = { ...S.member, discount: 50 }; saveMember(); S.reason = ''; go('my'); toast('다음 결제가 50% 할인돼요. 고마워요!'); return; }
     if (d.act === 'offerPause') { { const from = S.member.status === 'trial' ? S.member.trialEnd : S.member.nextBill; S.member = { ...S.member, status: 'paused', pausedFrom: from, nextBill: from + 30 * 864e5 }; } saveMember(); S.reason = ''; go('my'); toast(`한 달 쉬어가요. ${ymd(S.member.nextBill)}에 다시 시작해요`); return; }
     if (d.act === 'resume') { S.member = { ...S.member, status: S.member.trialEnd > Date.now() ? 'trial' : 'active', ...(S.member.pausedFrom ? { nextBill: S.member.pausedFrom } : {}) }; delete S.member.pausedFrom; delete S.member.paidUntil; saveMember(); go('my'); toast('멤버십을 다시 시작했어요'); return; }
@@ -529,6 +588,24 @@
     return `${os} · ${standalone() ? '홈 화면 앱' : br}`;
   }
 
+  const monthKey = () => new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 7);
+  const hm = (t) => { const d = new Date(t); const h = d.getHours(); return `${d.getMonth() + 1}월 ${d.getDate()}일 ${h < 12 ? '오전' : '오후'} ${((h + 11) % 12) + 1}시 ${String(d.getMinutes()).padStart(2, '0')}분`; };
+  function loadDevs() {
+    let v = null; try { v = JSON.parse(ls.get(DEVS) || 'null'); } catch { v = null; }
+    if (!v) {
+      const t = deviceType(); const now = Date.now();
+      v = { list: [{ id: 'this', type: t, name: deviceLabel(), since: now, cur: true }], used: { month: monthKey(), n: 0 } };
+      // 시범 운영: 다른 칸에 예시 기기를 하나 넣어 해제 과정을 체험할 수 있게 한다
+      const other = t === 'pc' ? 'phone' : 'pc';
+      v.list.push({ id: 'sample', type: other, name: other === 'pc' ? 'Windows · Chrome' : 'Galaxy · 삼성 인터넷', since: now - 6 * 864e5, sample: true });
+    }
+    if (v.used.month !== monthKey()) v.used = { month: monthKey(), n: 0 };
+    // 해제 예정 시간이 지난 기기는 자동으로 해제
+    const before = v.list.length; v.list = v.list.filter((d) => !(d.pending && d.pending.due <= Date.now()));
+    S.devs = v; if (before !== v.list.length) saveDevs();
+  }
+  const saveDevs = () => ls.set(DEVS, JSON.stringify(S.devs));
+
   function fitScreen() {
     if (!(isIOS && standalone())) return;
     const portrait = innerHeight > innerWidth;
@@ -566,6 +643,7 @@
     try { S.access = JSON.parse(ls.get(KEY) || 'null'); } catch { S.access = null; }
     try { S.member = JSON.parse(ls.get(MEMBER) || 'null'); } catch { S.member = null; }
     S.seen = ls.get(SEEN) || '';
+    loadDevs();
 
     const k = new URLSearchParams(location.search).get('k');
     if (k) {
