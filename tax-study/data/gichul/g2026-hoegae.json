@@ -1,0 +1,567 @@
+{
+"subject": "hoegae",
+"year": 2026,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2026-hoegae-01",
+"topic": "종업원급여",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 1,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문1",
+"img": [
+"/_blob/2cc30d62b11e9deb898e15150b928ebd"
+]
+},
+{
+"id": "g2026-hoegae-02",
+"topic": "법인세회계",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 2,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문2",
+"img": [
+"/_blob/6d90cd3ee7fdb8eedc7c7042b434c778"
+]
+},
+{
+"id": "g2026-hoegae-03",
+"topic": "재고자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 3,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문3",
+"img": [
+"/_blob/3d93e6007f112016bf0a1898f9fefe87"
+]
+},
+{
+"id": "g2026-hoegae-04",
+"topic": "재고자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 4,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문4",
+"img": [
+"/_blob/8b03e1a464234a3b2aa1456a9c03acba"
+]
+},
+{
+"id": "g2026-hoegae-05",
+"topic": "법인세회계",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 5,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문5",
+"img": [
+"/_blob/ff053792cb02c0b533c6c84620b00c88"
+]
+},
+{
+"id": "g2026-hoegae-06",
+"topic": "공정가치 측정",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 6,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문6",
+"img": [
+"/_blob/fcd061d28f593d5e6a0a8fdb0ccd263b"
+]
+},
+{
+"id": "g2026-hoegae-07",
+"topic": "환율",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 7,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문7",
+"img": [
+"/_blob/4548d2c1f6f72f6e04df8bbc76ab5bae"
+]
+},
+{
+"id": "g2026-hoegae-08",
+"topic": "수익",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 8,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문8",
+"img": [
+"/_blob/5dc26e52efd9f77a86a200e7517471d9"
+]
+},
+{
+"id": "g2026-hoegae-09",
+"topic": "수익",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 9,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문9",
+"img": [
+"/_blob/5c0be154d39b80b7721c1904fa4cf9bb"
+]
+},
+{
+"id": "g2026-hoegae-10",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 10,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문10",
+"img": [
+"/_blob/a5ae471dca5cdc988d981311e019459b"
+]
+},
+{
+"id": "g2026-hoegae-11",
+"topic": "차입원가",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 11,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문11",
+"img": [
+"/_blob/6901dcef41c99e351274398fbcd87346"
+]
+},
+{
+"id": "g2026-hoegae-12",
+"topic": "자본",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 12,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문12",
+"img": [
+"/_blob/2eb6188e7324c389ec677e06bc0a5586"
+]
+},
+{
+"id": "g2026-hoegae-13",
+"topic": "무형자산",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 13,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문13",
+"img": [
+"/_blob/fcb698a4562fc02083497e3b57bd9cca"
+]
+},
+{
+"id": "g2026-hoegae-14",
+"topic": "투자부동산",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 14,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문14",
+"img": [
+"/_blob/5c58955054127ed7fba5f238a4c21561"
+]
+},
+{
+"id": "g2026-hoegae-15",
+"topic": "농림어업",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 15,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문15",
+"img": [
+"/_blob/0c3914d5a10fb7115c68e5719cd8d131"
+]
+},
+{
+"id": "g2026-hoegae-16",
+"topic": "주당이익",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 16,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문16",
+"img": [
+"/_blob/533ee299214c38c43e5d00f03c878ba7"
+]
+},
+{
+"id": "g2026-hoegae-17",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 17,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문17",
+"img": [
+"/_blob/612b455b3877aab8794a19bbe6d3b33a"
+]
+},
+{
+"id": "g2026-hoegae-18",
+"topic": "회계변경·오류수정",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 18,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문18",
+"img": [
+"/_blob/20b76bf407285712f1f5ac25b667f21f"
+]
+},
+{
+"id": "g2026-hoegae-19",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 19,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문19",
+"img": [
+"/_blob/be6f4597ad1afd180d183eccecc193bc"
+]
+},
+{
+"id": "g2026-hoegae-20",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 20,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문20",
+"img": [
+"/_blob/42731ac3fcb32a7fae7e7b5d7757e7b8"
+]
+},
+{
+"id": "g2026-hoegae-21",
+"topic": "충당부채",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 21,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문21",
+"img": [
+"/_blob/6ad434311460722544442aed5ef263eb"
+]
+},
+{
+"id": "g2026-hoegae-22",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 22,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문22",
+"img": [
+"/_blob/2dbc124549091b92f4de4eb83bed0a4b"
+]
+},
+{
+"id": "g2026-hoegae-23",
+"topic": "관계기업·사업결합",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 23,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문23",
+"img": [
+"/_blob/41d1a6c66e9505e0b80b893ab7fe2e67"
+]
+},
+{
+"id": "g2026-hoegae-24",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 24,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문24",
+"img": [
+"/_blob/cbec1d9c7646ea8a7b1785a6f312f44f"
+]
+},
+{
+"id": "g2026-hoegae-25",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 25,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문25",
+"img": [
+"/_blob/c27a8483c9511073e3ccec430320140f"
+]
+},
+{
+"id": "g2026-hoegae-26",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 26,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문26",
+"img": [
+"/_blob/e2ba537a70611f714a7d51fcc7b75c98"
+]
+},
+{
+"id": "g2026-hoegae-27",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 27,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문27",
+"img": [
+"/_blob/fea4ea037adc7eb398b95a8a5769b7bf"
+]
+},
+{
+"id": "g2026-hoegae-28",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 28,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문28",
+"img": [
+"/_blob/1b6ca9f05d020871ee80711d9d198493"
+]
+},
+{
+"id": "g2026-hoegae-29",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 29,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문29",
+"img": [
+"/_blob/69a57c1ee786e9743d65734ebcc1e0cd"
+]
+},
+{
+"id": "g2026-hoegae-30",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 30,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문30",
+"img": [
+"/_blob/6a7660894eaee377a3c1ccff440cc008"
+]
+},
+{
+"id": "g2026-hoegae-31",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 31,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문31",
+"img": [
+"/_blob/a4bc91373d62afa8649b7157eacbaad6"
+]
+},
+{
+"id": "g2026-hoegae-32",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 32,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문32",
+"img": [
+"/_blob/c539b5d18ad94638e1067c3bcf2baf5d"
+]
+},
+{
+"id": "g2026-hoegae-33",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 33,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문33",
+"img": [
+"/_blob/8cbe284f62b7c6439428ee487f760661"
+]
+},
+{
+"id": "g2026-hoegae-34",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 34,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문34",
+"img": [
+"/_blob/da832299caaa5a689695c376caa6013d"
+]
+},
+{
+"id": "g2026-hoegae-35",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 35,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문35",
+"img": [
+"/_blob/ccde363cdd13217a009519b7fc837077"
+]
+},
+{
+"id": "g2026-hoegae-36",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 36,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문36",
+"img": [
+"/_blob/35053c39815709c6e588e8d8e544ce25"
+]
+},
+{
+"id": "g2026-hoegae-37",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 37,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문37",
+"img": [
+"/_blob/09a92e34fba591ae3d810ac4f7b25f1f"
+]
+},
+{
+"id": "g2026-hoegae-38",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 38,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문38",
+"img": [
+"/_blob/b7faa45694f7f6bc770ae793fbb5e15b"
+]
+},
+{
+"id": "g2026-hoegae-39",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 39,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문39",
+"img": [
+"/_blob/9157e5ab876a12dd5f67b5dbd80ba192"
+]
+},
+{
+"id": "g2026-hoegae-40",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 40,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문40",
+"img": [
+"/_blob/76fd2d6e2108d49216ec29c637e25e2a"
+]
+}
+]
+}

@@ -1,0 +1,567 @@
+{
+"subject": "segae",
+"year": 2023,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2023-segae-41",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 41,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문41",
+"img": [
+"img/2023/segae-41.png"
+]
+},
+{
+"id": "g2023-segae-42",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 42,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문42",
+"img": [
+"img/2023/segae-42.png"
+]
+},
+{
+"id": "g2023-segae-43",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 43,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문43",
+"img": [
+"img/2023/segae-43.png"
+]
+},
+{
+"id": "g2023-segae-44",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 44,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문44",
+"img": [
+"img/2023/segae-44.png"
+]
+},
+{
+"id": "g2023-segae-45",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 45,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문45",
+"img": [
+"img/2023/segae-45.png"
+]
+},
+{
+"id": "g2023-segae-46",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 46,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문46",
+"img": [
+"img/2023/segae-46.png"
+]
+},
+{
+"id": "g2023-segae-47",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 47,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문47",
+"img": [
+"img/2023/segae-47.png"
+]
+},
+{
+"id": "g2023-segae-48",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 48,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문48",
+"img": [
+"img/2023/segae-48.png"
+]
+},
+{
+"id": "g2023-segae-49",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 49,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문49",
+"img": [
+"img/2023/segae-49.png"
+]
+},
+{
+"id": "g2023-segae-50",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 50,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문50",
+"img": [
+"img/2023/segae-50.png"
+]
+},
+{
+"id": "g2023-segae-51",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 51,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문51",
+"img": [
+"img/2023/segae-51.png"
+]
+},
+{
+"id": "g2023-segae-52",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 52,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문52",
+"img": [
+"img/2023/segae-52.png"
+]
+},
+{
+"id": "g2023-segae-53",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 53,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문53",
+"img": [
+"img/2023/segae-53.png"
+]
+},
+{
+"id": "g2023-segae-54",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 54,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문54",
+"img": [
+"img/2023/segae-54.png"
+]
+},
+{
+"id": "g2023-segae-55",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 55,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문55",
+"img": [
+"img/2023/segae-55.png"
+]
+},
+{
+"id": "g2023-segae-56",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 56,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문56",
+"img": [
+"img/2023/segae-56.png"
+]
+},
+{
+"id": "g2023-segae-57",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 57,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문57",
+"img": [
+"img/2023/segae-57.png"
+]
+},
+{
+"id": "g2023-segae-58",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 58,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문58",
+"img": [
+"img/2023/segae-58.png"
+]
+},
+{
+"id": "g2023-segae-59",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 59,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문59",
+"img": [
+"img/2023/segae-59.png"
+]
+},
+{
+"id": "g2023-segae-60",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 60,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문60",
+"img": [
+"img/2023/segae-60.png"
+]
+},
+{
+"id": "g2023-segae-61",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 61,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문61",
+"img": [
+"img/2023/segae-61.png"
+]
+},
+{
+"id": "g2023-segae-62",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 62,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문62",
+"img": [
+"img/2023/segae-62.png"
+]
+},
+{
+"id": "g2023-segae-63",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 63,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문63",
+"img": [
+"img/2023/segae-63.png"
+]
+},
+{
+"id": "g2023-segae-64",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 64,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문64",
+"img": [
+"img/2023/segae-64.png"
+]
+},
+{
+"id": "g2023-segae-65",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 65,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문65",
+"img": [
+"img/2023/segae-65.png"
+]
+},
+{
+"id": "g2023-segae-66",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 66,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문66",
+"img": [
+"img/2023/segae-66.png"
+]
+},
+{
+"id": "g2023-segae-67",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 67,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문67",
+"img": [
+"img/2023/segae-67.png"
+]
+},
+{
+"id": "g2023-segae-68",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 68,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문68",
+"img": [
+"img/2023/segae-68.png"
+]
+},
+{
+"id": "g2023-segae-69",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 69,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문69",
+"img": [
+"img/2023/segae-69.png"
+]
+},
+{
+"id": "g2023-segae-70",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 70,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문70",
+"img": [
+"img/2023/segae-70.png"
+]
+},
+{
+"id": "g2023-segae-71",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 71,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문71",
+"img": [
+"img/2023/segae-71.png"
+]
+},
+{
+"id": "g2023-segae-72",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 72,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문72",
+"img": [
+"img/2023/segae-72.png"
+]
+},
+{
+"id": "g2023-segae-73",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 73,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문73",
+"img": [
+"img/2023/segae-73.png"
+]
+},
+{
+"id": "g2023-segae-74",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 74,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문74",
+"img": [
+"img/2023/segae-74.png"
+]
+},
+{
+"id": "g2023-segae-75",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 75,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문75",
+"img": [
+"img/2023/segae-75.png"
+]
+},
+{
+"id": "g2023-segae-76",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 76,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문76",
+"img": [
+"img/2023/segae-76.png"
+]
+},
+{
+"id": "g2023-segae-77",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 77,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문77",
+"img": [
+"img/2023/segae-77.png"
+]
+},
+{
+"id": "g2023-segae-78",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 78,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문78",
+"img": [
+"img/2023/segae-78.png"
+]
+},
+{
+"id": "g2023-segae-79",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 79,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문79",
+"img": [
+"img/2023/segae-79.png"
+]
+},
+{
+"id": "g2023-segae-80",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 80,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문80",
+"img": [
+"img/2023/segae-80.png"
+]
+}
+]
+}

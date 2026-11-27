@@ -1,0 +1,567 @@
+{
+"subject": "jae",
+"year": 2023,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2023-jae-01",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 1,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문1",
+"img": [
+"img/2023/jae-01.png"
+]
+},
+{
+"id": "g2023-jae-02",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 2,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문2",
+"img": [
+"img/2023/jae-02.png"
+]
+},
+{
+"id": "g2023-jae-03",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 3,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문3",
+"img": [
+"img/2023/jae-03.png"
+]
+},
+{
+"id": "g2023-jae-04",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 4,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문4",
+"img": [
+"img/2023/jae-04.png"
+]
+},
+{
+"id": "g2023-jae-05",
+"topic": "소비·재산·기타세",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 5,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문5",
+"img": [
+"img/2023/jae-05.png"
+]
+},
+{
+"id": "g2023-jae-06",
+"topic": "법인세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 6,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문6",
+"img": [
+"img/2023/jae-06.png"
+]
+},
+{
+"id": "g2023-jae-07",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 7,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문7",
+"img": [
+"img/2023/jae-07.png"
+]
+},
+{
+"id": "g2023-jae-08",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 8,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문8",
+"img": [
+"img/2023/jae-08.png"
+]
+},
+{
+"id": "g2023-jae-09",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 9,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문9",
+"img": [
+"img/2023/jae-09.png"
+]
+},
+{
+"id": "g2023-jae-10",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 10,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문10",
+"img": [
+"img/2023/jae-10.png"
+]
+},
+{
+"id": "g2023-jae-11",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 11,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문11",
+"img": [
+"img/2023/jae-11.png"
+]
+},
+{
+"id": "g2023-jae-12",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 12,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문12",
+"img": [
+"img/2023/jae-12.png"
+]
+},
+{
+"id": "g2023-jae-13",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 13,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문13",
+"img": [
+"img/2023/jae-13.png"
+]
+},
+{
+"id": "g2023-jae-14",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 14,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문14",
+"img": [
+"img/2023/jae-14.png"
+]
+},
+{
+"id": "g2023-jae-15",
+"topic": "재정정책·공채",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 15,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문15",
+"img": [
+"img/2023/jae-15.png"
+]
+},
+{
+"id": "g2023-jae-16",
+"topic": "공기업·가격",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 16,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문16",
+"img": [
+"img/2023/jae-16.png"
+]
+},
+{
+"id": "g2023-jae-17",
+"topic": "기타",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 17,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문17",
+"img": [
+"img/2023/jae-17.png"
+]
+},
+{
+"id": "g2023-jae-18",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 18,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문18",
+"img": [
+"img/2023/jae-18.png"
+]
+},
+{
+"id": "g2023-jae-19",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 19,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문19",
+"img": [
+"img/2023/jae-19.png"
+]
+},
+{
+"id": "g2023-jae-20",
+"topic": "소득세",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 20,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문20",
+"img": [
+"img/2023/jae-20.png"
+]
+},
+{
+"id": "g2023-jae-21",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 21,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문21",
+"img": [
+"img/2023/jae-21.png"
+]
+},
+{
+"id": "g2023-jae-22",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 22,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문22",
+"img": [
+"img/2023/jae-22.png"
+]
+},
+{
+"id": "g2023-jae-23",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 23,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문23",
+"img": [
+"img/2023/jae-23.png"
+]
+},
+{
+"id": "g2023-jae-24",
+"topic": "외부성",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 24,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문24",
+"img": [
+"img/2023/jae-24.png"
+]
+},
+{
+"id": "g2023-jae-25",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 25,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문25",
+"img": [
+"img/2023/jae-25.png"
+]
+},
+{
+"id": "g2023-jae-26",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 26,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문26",
+"img": [
+"img/2023/jae-26.png"
+]
+},
+{
+"id": "g2023-jae-27",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 27,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문27",
+"img": [
+"img/2023/jae-27.png"
+]
+},
+{
+"id": "g2023-jae-28",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 28,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문28",
+"img": [
+"img/2023/jae-28.png"
+]
+},
+{
+"id": "g2023-jae-29",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 29,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문29",
+"img": [
+"img/2023/jae-29.png"
+]
+},
+{
+"id": "g2023-jae-30",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 30,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문30",
+"img": [
+"img/2023/jae-30.png"
+]
+},
+{
+"id": "g2023-jae-31",
+"topic": "기타",
+"type": "gichul",
+"kind": "계산",
+"year": 2023,
+"no": 31,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문31",
+"img": [
+"img/2023/jae-31.png"
+]
+},
+{
+"id": "g2023-jae-32",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 32,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문32",
+"img": [
+"img/2023/jae-32.png"
+]
+},
+{
+"id": "g2023-jae-33",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 33,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문33",
+"img": [
+"img/2023/jae-33.png"
+]
+},
+{
+"id": "g2023-jae-34",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 34,
+"ans": 5,
+"diff": 2,
+"src": "제60회(2023) 1차 문34",
+"img": [
+"img/2023/jae-34.png"
+]
+},
+{
+"id": "g2023-jae-35",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 35,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문35",
+"img": [
+"img/2023/jae-35.png"
+]
+},
+{
+"id": "g2023-jae-36",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 36,
+"ans": 3,
+"diff": 2,
+"src": "제60회(2023) 1차 문36",
+"img": [
+"img/2023/jae-36.png"
+]
+},
+{
+"id": "g2023-jae-37",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 37,
+"ans": 1,
+"diff": 2,
+"src": "제60회(2023) 1차 문37",
+"img": [
+"img/2023/jae-37.png"
+]
+},
+{
+"id": "g2023-jae-38",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 38,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문38",
+"img": [
+"img/2023/jae-38.png"
+]
+},
+{
+"id": "g2023-jae-39",
+"topic": "비용편익분석",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 39,
+"ans": 4,
+"diff": 2,
+"src": "제60회(2023) 1차 문39",
+"img": [
+"img/2023/jae-39.png"
+]
+},
+{
+"id": "g2023-jae-40",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2023,
+"no": 40,
+"ans": 2,
+"diff": 2,
+"src": "제60회(2023) 1차 문40",
+"img": [
+"img/2023/jae-40.png"
+]
+}
+]
+}

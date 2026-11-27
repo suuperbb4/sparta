@@ -1,0 +1,570 @@
+{
+"subject": "jae",
+"year": 2026,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2026-jae-01",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 1,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문1",
+"img": [
+"/_blob/b70921a40b47c15ddc28c4bfbc8e425e"
+]
+},
+{
+"id": "g2026-jae-02",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 2,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문2",
+"img": [
+"/_blob/65e1f77d4cede0e53b04819b267ddaad"
+]
+},
+{
+"id": "g2026-jae-03",
+"topic": "탈세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 3,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문3",
+"img": [
+"/_blob/b016f5855f019301520aab144809a2b7"
+]
+},
+{
+"id": "g2026-jae-04",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 4,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문4",
+"img": [
+"/_blob/a7a5eb9fe604e681852fa94d615ce303"
+]
+},
+{
+"id": "g2026-jae-05",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 5,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문5",
+"img": [
+"/_blob/3ed5d23160158cd47561b4fbfdd5027f"
+]
+},
+{
+"id": "g2026-jae-06",
+"topic": "소비·재산·기타세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 6,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문6",
+"img": [
+"/_blob/c36d4b04572e0eb868413624e8b56929"
+]
+},
+{
+"id": "g2026-jae-07",
+"topic": "법인세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 7,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문7",
+"img": [
+"/_blob/20750e451e2fd79945073ceeee469b2d"
+]
+},
+{
+"id": "g2026-jae-08",
+"topic": "법인세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 8,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문8",
+"img": [
+"/_blob/e16aed682ba3b71e03872fb254a58c50"
+]
+},
+{
+"id": "g2026-jae-09",
+"topic": "소비·재산·기타세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 9,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문9",
+"img": [
+"/_blob/4693fbc853ff822dda0cec8e2f834b8b"
+]
+},
+{
+"id": "g2026-jae-10",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 10,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문10",
+"img": [
+"/_blob/e1c6127ea19c1561eb0bbaaf14347a06"
+]
+},
+{
+"id": "g2026-jae-11",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 11,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문11",
+"img": [
+"/_blob/cfd40cb9accba880c368d8364caa090b"
+]
+},
+{
+"id": "g2026-jae-12",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 12,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문12",
+"img": [
+"/_blob/dea3a6dd5acff1cb8a806df8273dcb14"
+]
+},
+{
+"id": "g2026-jae-13",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 13,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문13",
+"img": [
+"/_blob/38d1936d8fdef0e05bb43fcc9e1a3957"
+]
+},
+{
+"id": "g2026-jae-14",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 14,
+"ans": [
+3,
+5
+],
+"diff": 2,
+"src": "제63회(2026) 1차 문14",
+"img": [
+"/_blob/754006b012d7fe76b96fa1f000f5eebe"
+]
+},
+{
+"id": "g2026-jae-15",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 15,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문15",
+"img": [
+"/_blob/dbbafae08282b3af65fa1d8c641e0a49"
+]
+},
+{
+"id": "g2026-jae-16",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 16,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문16",
+"img": [
+"/_blob/c07830bc4fbe61f23f5c77ede9217a03"
+]
+},
+{
+"id": "g2026-jae-17",
+"topic": "재정정책·공채",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 17,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문17",
+"img": [
+"/_blob/d3c989a4d95162951006f948af9ae893"
+]
+},
+{
+"id": "g2026-jae-18",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 18,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문18",
+"img": [
+"/_blob/653c8f44a4a54142653ce0b0f828e20c"
+]
+},
+{
+"id": "g2026-jae-19",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 19,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문19",
+"img": [
+"/_blob/3e488d2a57d560a48392fc099cc43a1b"
+]
+},
+{
+"id": "g2026-jae-20",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 20,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문20",
+"img": [
+"/_blob/31a72a0bd6026ec913722e4e7c4fed11"
+]
+},
+{
+"id": "g2026-jae-21",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 21,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문21",
+"img": [
+"/_blob/afbc246c36faa72040ec3b92a4ef9fd7"
+]
+},
+{
+"id": "g2026-jae-22",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 22,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문22",
+"img": [
+"/_blob/d8cb9b8ab76118708f97a19893a4011c"
+]
+},
+{
+"id": "g2026-jae-23",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 23,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문23",
+"img": [
+"/_blob/24954598118ecc56a6257b713c53aaa6"
+]
+},
+{
+"id": "g2026-jae-24",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 24,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문24",
+"img": [
+"/_blob/18cfc1105780b1b182d661e06c300387"
+]
+},
+{
+"id": "g2026-jae-25",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 25,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문25",
+"img": [
+"/_blob/a3ba4de4f5e2c1041cf02dee38697d42"
+]
+},
+{
+"id": "g2026-jae-26",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 26,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문26",
+"img": [
+"/_blob/97c336ed225ed35f43de4f923b3d53a8"
+]
+},
+{
+"id": "g2026-jae-27",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 27,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문27",
+"img": [
+"/_blob/7827289249c0cd12c278b83c7f41c398"
+]
+},
+{
+"id": "g2026-jae-28",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 28,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문28",
+"img": [
+"/_blob/57e3c4d535a64a07ac74f151fcfde74c"
+]
+},
+{
+"id": "g2026-jae-29",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 29,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문29",
+"img": [
+"/_blob/a985f15e1cecdbca5e4f2be0cf086807"
+]
+},
+{
+"id": "g2026-jae-30",
+"topic": "외부성",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 30,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문30",
+"img": [
+"/_blob/e76ebf3058fa95d782dc42c81bf719ba"
+]
+},
+{
+"id": "g2026-jae-31",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 31,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문31",
+"img": [
+"/_blob/8caac0e23b1a85952937fc0aa4430a69"
+]
+},
+{
+"id": "g2026-jae-32",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 32,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문32",
+"img": [
+"/_blob/dc2710ecd3b872939c960fafc5480571"
+]
+},
+{
+"id": "g2026-jae-33",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 33,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문33",
+"img": [
+"/_blob/1c36402b1b8f8e5ad64f304390075338"
+]
+},
+{
+"id": "g2026-jae-34",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 34,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문34",
+"img": [
+"/_blob/ca8d74ac233d5f206a6f5b524186c0b2"
+]
+},
+{
+"id": "g2026-jae-35",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 35,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문35",
+"img": [
+"/_blob/7a7881dbc55082c9e375f07bffe1dbe4"
+]
+},
+{
+"id": "g2026-jae-36",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 36,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문36",
+"img": [
+"/_blob/6747655abfb12352650da2666e1ff670"
+]
+},
+{
+"id": "g2026-jae-37",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 37,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문37",
+"img": [
+"/_blob/f910df3fba0778fbd6473f203e86a1ca"
+]
+},
+{
+"id": "g2026-jae-38",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 38,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문38",
+"img": [
+"/_blob/c2e37b49910cdd3ef092b4506b8c904d"
+]
+},
+{
+"id": "g2026-jae-39",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 39,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문39",
+"img": [
+"/_blob/1f15b9a0f2f76767d7e9f584811fb15a"
+]
+},
+{
+"id": "g2026-jae-40",
+"topic": "비용편익분석",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 40,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문40",
+"img": [
+"/_blob/c2272977a5502113319aa6875f0c2b98"
+]
+}
+]
+}

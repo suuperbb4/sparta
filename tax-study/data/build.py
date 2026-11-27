@@ -4,11 +4,11 @@ import json, os
 D = os.path.dirname(os.path.abspath(__file__))
 
 def mc(id, topic, q, choices, ans, exp, memo='', diff=2, src='AI 예상'):
-    return dict(id=id, topic=topic, type='mc', q=q, choices=choices, ans=ans, exp=exp, memo=memo, diff=diff, src=src)
+    return dict(id=id, topic=topic, type='mc', kind='말', q=q, choices=choices, ans=ans, exp=exp, memo=memo, diff=diff, src=src)
 def num(id, topic, q, ans, unit, exp, memo='', tol=0, diff=2, src='AI 예상'):
-    return dict(id=id, topic=topic, type='num', q=q, ans=ans, unit=unit, tol=tol, exp=exp, memo=memo, diff=diff, src=src)
+    return dict(id=id, topic=topic, type='num', kind='계산', q=q, ans=ans, unit=unit, tol=tol, exp=exp, memo=memo, diff=diff, src=src)
 def essay(id, topic, q, model, keys, memo='', diff=3, src='AI 예상'):
-    return dict(id=id, topic=topic, type='essay', q=q, model=model, keys=keys, memo=memo, diff=diff, src=src)
+    return dict(id=id, topic=topic, type='essay', kind='서술', q=q, model=model, keys=keys, memo=memo, diff=diff, src=src)
 
 Q = {}
 Q['jae'] = [

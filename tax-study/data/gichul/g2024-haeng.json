@@ -1,0 +1,567 @@
+{
+"subject": "haeng",
+"year": 2024,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2024-haeng-41",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 41,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문41",
+"img": [
+"img/2024/haeng-41.png"
+]
+},
+{
+"id": "g2024-haeng-42",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 42,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문42",
+"img": [
+"img/2024/haeng-42.png"
+]
+},
+{
+"id": "g2024-haeng-43",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 43,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문43",
+"img": [
+"img/2024/haeng-43.png"
+]
+},
+{
+"id": "g2024-haeng-44",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 44,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문44",
+"img": [
+"img/2024/haeng-44.png"
+]
+},
+{
+"id": "g2024-haeng-45",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 45,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문45",
+"img": [
+"img/2024/haeng-45.png"
+]
+},
+{
+"id": "g2024-haeng-46",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 46,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문46",
+"img": [
+"img/2024/haeng-46.png"
+]
+},
+{
+"id": "g2024-haeng-47",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 47,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문47",
+"img": [
+"img/2024/haeng-47.png"
+]
+},
+{
+"id": "g2024-haeng-48",
+"topic": "집행정지·가처분",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 48,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문48",
+"img": [
+"img/2024/haeng-48.png"
+]
+},
+{
+"id": "g2024-haeng-49",
+"topic": "민중·기관소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 49,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문49",
+"img": [
+"img/2024/haeng-49.png"
+]
+},
+{
+"id": "g2024-haeng-50",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 50,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문50",
+"img": [
+"img/2024/haeng-50.png"
+]
+},
+{
+"id": "g2024-haeng-51",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 51,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문51",
+"img": [
+"img/2024/haeng-51.png"
+]
+},
+{
+"id": "g2024-haeng-52",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 52,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문52",
+"img": [
+"img/2024/haeng-52.png"
+]
+},
+{
+"id": "g2024-haeng-53",
+"topic": "부작위위법확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 53,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문53",
+"img": [
+"img/2024/haeng-53.png"
+]
+},
+{
+"id": "g2024-haeng-54",
+"topic": "제소기간",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 54,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문54",
+"img": [
+"img/2024/haeng-54.png"
+]
+},
+{
+"id": "g2024-haeng-55",
+"topic": "당사자소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 55,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문55",
+"img": [
+"img/2024/haeng-55.png"
+]
+},
+{
+"id": "g2024-haeng-56",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 56,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문56",
+"img": [
+"img/2024/haeng-56.png"
+]
+},
+{
+"id": "g2024-haeng-57",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 57,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문57",
+"img": [
+"img/2024/haeng-57.png"
+]
+},
+{
+"id": "g2024-haeng-58",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 58,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문58",
+"img": [
+"img/2024/haeng-58.png"
+]
+},
+{
+"id": "g2024-haeng-59",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 59,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문59",
+"img": [
+"img/2024/haeng-59.png"
+]
+},
+{
+"id": "g2024-haeng-60",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 60,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문60",
+"img": [
+"img/2024/haeng-60.png"
+]
+},
+{
+"id": "g2024-haeng-61",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 61,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문61",
+"img": [
+"img/2024/haeng-61.png"
+]
+},
+{
+"id": "g2024-haeng-62",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 62,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문62",
+"img": [
+"img/2024/haeng-62.png"
+]
+},
+{
+"id": "g2024-haeng-63",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 63,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문63",
+"img": [
+"img/2024/haeng-63.png"
+]
+},
+{
+"id": "g2024-haeng-64",
+"topic": "소송참가",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 64,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문64",
+"img": [
+"img/2024/haeng-64.png"
+]
+},
+{
+"id": "g2024-haeng-65",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 65,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문65",
+"img": [
+"img/2024/haeng-65.png"
+]
+},
+{
+"id": "g2024-haeng-66",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 66,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문66",
+"img": [
+"img/2024/haeng-66.png"
+]
+},
+{
+"id": "g2024-haeng-67",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 67,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문67",
+"img": [
+"img/2024/haeng-67.png"
+]
+},
+{
+"id": "g2024-haeng-68",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 68,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문68",
+"img": [
+"img/2024/haeng-68.png"
+]
+},
+{
+"id": "g2024-haeng-69",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 69,
+"ans": 3,
+"diff": 2,
+"src": "제61회(2024) 1차 문69",
+"img": [
+"img/2024/haeng-69.png"
+]
+},
+{
+"id": "g2024-haeng-70",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 70,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문70",
+"img": [
+"img/2024/haeng-70.png"
+]
+},
+{
+"id": "g2024-haeng-71",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 71,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문71",
+"img": [
+"img/2024/haeng-71.png"
+]
+},
+{
+"id": "g2024-haeng-72",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 72,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문72",
+"img": [
+"img/2024/haeng-72.png"
+]
+},
+{
+"id": "g2024-haeng-73",
+"topic": "제소기간",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 73,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문73",
+"img": [
+"img/2024/haeng-73.png"
+]
+},
+{
+"id": "g2024-haeng-74",
+"topic": "행정심판 전치",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 74,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문74",
+"img": [
+"img/2024/haeng-74.png"
+]
+},
+{
+"id": "g2024-haeng-75",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 75,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문75",
+"img": [
+"img/2024/haeng-75.png"
+]
+},
+{
+"id": "g2024-haeng-76",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 76,
+"ans": 5,
+"diff": 2,
+"src": "제61회(2024) 1차 문76",
+"img": [
+"img/2024/haeng-76.png"
+]
+},
+{
+"id": "g2024-haeng-77",
+"topic": "행정심판 전치",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 77,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문77",
+"img": [
+"img/2024/haeng-77.png"
+]
+},
+{
+"id": "g2024-haeng-78",
+"topic": "대상적격(처분성)",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 78,
+"ans": 4,
+"diff": 2,
+"src": "제61회(2024) 1차 문78",
+"img": [
+"img/2024/haeng-78.png"
+]
+},
+{
+"id": "g2024-haeng-79",
+"topic": "대상적격(처분성)",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 79,
+"ans": 1,
+"diff": 2,
+"src": "제61회(2024) 1차 문79",
+"img": [
+"img/2024/haeng-79.png"
+]
+},
+{
+"id": "g2024-haeng-80",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2024,
+"no": 80,
+"ans": 2,
+"diff": 2,
+"src": "제61회(2024) 1차 문80",
+"img": [
+"img/2024/haeng-80.png"
+]
+}
+]
+}

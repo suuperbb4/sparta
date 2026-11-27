@@ -1,0 +1,567 @@
+{
+"subject": "segae",
+"year": 2026,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2026-segae-41",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 41,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문41",
+"img": [
+"/_blob/6dfec6d1180c426a51351d3b24e6262b"
+]
+},
+{
+"id": "g2026-segae-42",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 42,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문42",
+"img": [
+"/_blob/11716997f32b7664a573b2ca6fa7d1c3"
+]
+},
+{
+"id": "g2026-segae-43",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 43,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문43",
+"img": [
+"/_blob/0741c02e4e077d6b292a5ed49e0545c4"
+]
+},
+{
+"id": "g2026-segae-44",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 44,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문44",
+"img": [
+"/_blob/1b13b57b21bdf834c9aeabc2c831107d"
+]
+},
+{
+"id": "g2026-segae-45",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 45,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문45",
+"img": [
+"/_blob/735f49f4f7b55e447828ede5bdf903b8"
+]
+},
+{
+"id": "g2026-segae-46",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 46,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문46",
+"img": [
+"/_blob/4d5200a613b82d3a0c2cc9198837bc11"
+]
+},
+{
+"id": "g2026-segae-47",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 47,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문47",
+"img": [
+"/_blob/708dcbe2ec40de17d85ade141346ac48"
+]
+},
+{
+"id": "g2026-segae-48",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 48,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문48",
+"img": [
+"/_blob/cfd45329363f75278ba7250d6e7b0ea7"
+]
+},
+{
+"id": "g2026-segae-49",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 49,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문49",
+"img": [
+"/_blob/8c471c4a0cf078b995577b8a3f3575a9"
+]
+},
+{
+"id": "g2026-segae-50",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 50,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문50",
+"img": [
+"/_blob/8cd468c166b9ff0833cff853feca1dc4"
+]
+},
+{
+"id": "g2026-segae-51",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 51,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문51",
+"img": [
+"/_blob/b603445808fe6b2ff0ce8d88a356c6d5"
+]
+},
+{
+"id": "g2026-segae-52",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 52,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문52",
+"img": [
+"/_blob/609085a7d15a608e1c5b732d79abf979"
+]
+},
+{
+"id": "g2026-segae-53",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 53,
+"ans": "A",
+"diff": 2,
+"src": "제63회(2026) 1차 문53",
+"img": [
+"/_blob/ac4c66268ecb308c80a2817fb1c86598"
+]
+},
+{
+"id": "g2026-segae-54",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 54,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문54",
+"img": [
+"/_blob/127127aa36da3b22624fb4195243d257"
+]
+},
+{
+"id": "g2026-segae-55",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 55,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문55",
+"img": [
+"/_blob/6c05f6cf110c20867e43c9ed4c2ac0a4"
+]
+},
+{
+"id": "g2026-segae-56",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 56,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문56",
+"img": [
+"/_blob/026113bfce73d994cfa525c623e2cc04"
+]
+},
+{
+"id": "g2026-segae-57",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 57,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문57",
+"img": [
+"/_blob/6fd451677ee6c668165493161290fe28"
+]
+},
+{
+"id": "g2026-segae-58",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 58,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문58",
+"img": [
+"/_blob/40688f579a77f29b67a5fd5ae2996fd4"
+]
+},
+{
+"id": "g2026-segae-59",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 59,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문59",
+"img": [
+"/_blob/9eac18eaf63ffdec0d8af1f4c6c29f34"
+]
+},
+{
+"id": "g2026-segae-60",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 60,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문60",
+"img": [
+"/_blob/08d8fa50e319a7c7ddf1bbf016c7bc72"
+]
+},
+{
+"id": "g2026-segae-61",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 61,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문61",
+"img": [
+"/_blob/264d0f6faa84fb7e9dcdf104aed3b35d"
+]
+},
+{
+"id": "g2026-segae-62",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 62,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문62",
+"img": [
+"/_blob/4fcc77262f517ae58a84867ba9b16b97"
+]
+},
+{
+"id": "g2026-segae-63",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 63,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문63",
+"img": [
+"/_blob/e7af7a1c344353d04fbdd55a66ee4674"
+]
+},
+{
+"id": "g2026-segae-64",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 64,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문64",
+"img": [
+"/_blob/6926bf424349f318c775f223fe590a35"
+]
+},
+{
+"id": "g2026-segae-65",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 65,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문65",
+"img": [
+"/_blob/bb400436a64150bfab8512f51a3a2474"
+]
+},
+{
+"id": "g2026-segae-66",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 66,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문66",
+"img": [
+"/_blob/5926c71abf919e7706c1a6b44e501738"
+]
+},
+{
+"id": "g2026-segae-67",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 67,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문67",
+"img": [
+"/_blob/7a658084718cc1f6ce3e68bd2fb000fd"
+]
+},
+{
+"id": "g2026-segae-68",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 68,
+"ans": 2,
+"diff": 2,
+"src": "제63회(2026) 1차 문68",
+"img": [
+"/_blob/ab150cda7565c2b5aa2ba0b145911146"
+]
+},
+{
+"id": "g2026-segae-69",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 69,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문69",
+"img": [
+"/_blob/e8f4a5be61076d18c049c2529d4b7eea"
+]
+},
+{
+"id": "g2026-segae-70",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 70,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문70",
+"img": [
+"/_blob/88825910f09c1f1a1f1ab623774b106b"
+]
+},
+{
+"id": "g2026-segae-71",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 71,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문71",
+"img": [
+"/_blob/7007ed04e3ca18dcefaa75f488460b6f"
+]
+},
+{
+"id": "g2026-segae-72",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 72,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문72",
+"img": [
+"/_blob/f83a71a1fb098c39ae5ead7012e3b44f"
+]
+},
+{
+"id": "g2026-segae-73",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 73,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문73",
+"img": [
+"/_blob/78a8b1a9042a4a3091b78262859cac31"
+]
+},
+{
+"id": "g2026-segae-74",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 74,
+"ans": 1,
+"diff": 2,
+"src": "제63회(2026) 1차 문74",
+"img": [
+"/_blob/dddec71250eb9ef6e616376ae8730053"
+]
+},
+{
+"id": "g2026-segae-75",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 75,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문75",
+"img": [
+"/_blob/f2d6759b7c3cf2f41a798d724ccd78c9"
+]
+},
+{
+"id": "g2026-segae-76",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 76,
+"ans": 4,
+"diff": 2,
+"src": "제63회(2026) 1차 문76",
+"img": [
+"/_blob/039c824cad9be1bad671bb434cc6211d"
+]
+},
+{
+"id": "g2026-segae-77",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 77,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문77",
+"img": [
+"/_blob/606d6ac54ba1383a4df753d3da918a16"
+]
+},
+{
+"id": "g2026-segae-78",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2026,
+"no": 78,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문78",
+"img": [
+"/_blob/01b148ef997afdc91097ffa2735d3258"
+]
+},
+{
+"id": "g2026-segae-79",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 79,
+"ans": 5,
+"diff": 2,
+"src": "제63회(2026) 1차 문79",
+"img": [
+"/_blob/f707c02b7be7b73e977ad10217a8641a"
+]
+},
+{
+"id": "g2026-segae-80",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2026,
+"no": 80,
+"ans": 3,
+"diff": 2,
+"src": "제63회(2026) 1차 문80",
+"img": [
+"/_blob/2e6dcc0e8e1a24819e41a81cc5a8de41"
+]
+}
+]
+}

@@ -5,7 +5,7 @@
 <style>
 /* VOICE everyday study tool, calm and dense
    IDEA a Korean exam paper with its red-lined OMR answer card
-   PICTURE the question sheet itself, large, with OMR bubbles you mark
+   PICTURE the original question sheet itself, large, with OMR bubbles you mark
    COLOUR paper white, ink navy, OMR red as accent, pale pink fields
    TYPE Nanum Myeongjo for questions + IBM Plex Sans KR for UI
    LAYOUT laptop: header with D-day, filter rail left, sheet right; phone: header, sheet, filters below */
@@ -14,7 +14,7 @@
 *{box-sizing:border-box;min-width:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans KR",system-ui,sans-serif;margin:0;overflow-x:clip}
 .wrap{max-width:1240px;margin:0 auto;padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
-header{background:var(--ink);color:var(--bg);margin-top:calc(-1*env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 22px);padding-bottom:0}
+header{background:var(--ink);color:var(--bg);margin-top:calc(-1*env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 22px)}
 .top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between}
 h1{font:800 clamp(28px,4vw,40px)/1.05 "Nanum Myeongjo",serif;letter-spacing:-.02em;margin:0}
 .sub{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:14px;margin-top:6px}
@@ -23,29 +23,41 @@ h1{font:800 clamp(28px,4vw,40px)/1.05 "Nanum Myeongjo",serif;letter-spacing:-.02
 .dd b{display:block;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
 .dd span{font-size:13px;opacity:.8}
 nav{display:flex;gap:4px;margin-top:18px;overflow-x:auto}
-nav button{background:none;border:0;color:inherit;opacity:.7;font:500 16px "IBM Plex Sans KR";padding:12px 16px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button{background:none;border:0;color:inherit;opacity:.7;font:500 16px "IBM Plex Sans KR";padding:12px 14px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
 nav button[aria-selected=true]{opacity:1;border-color:var(--omr);font-weight:700}
 main{padding-block:24px 64px}
-.grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:start}
+.grid{display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;align-items:start}
 .rail{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:16px;display:grid;gap:14px;position:sticky;top:12px}
 .rail h3{font-size:14px;margin:0 0 6px;color:var(--mute);font-weight:500}
 .seg{display:flex;flex-wrap:wrap;gap:6px}
 .seg button,.chip{font:14px "IBM Plex Sans KR";border:1px solid var(--edge);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer;min-height:36px}
 .seg button[aria-pressed=true],.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .count{font-size:13px;color:var(--mute)}
-.sheet{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--omr);border-radius:4px 10px 10px 4px;padding:clamp(18px,3vw,36px);min-height:420px}
-.meta{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--mute);margin-bottom:14px}
+.sheet{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--omr);border-radius:4px 10px 10px 4px;padding:clamp(16px,3vw,32px);min-height:420px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--mute);margin-bottom:14px;align-items:center}
 .meta span{background:var(--pink);color:var(--omr);padding:2px 10px;border-radius:4px}
+.meta span.src{background:var(--ink);color:var(--bg)}
+.meta span.ai{background:var(--panel);color:var(--mute);border:1px dashed var(--edge)}
 .qtext{font:700 clamp(18px,2vw,21px)/1.7 "Nanum Myeongjo",serif;white-space:pre-wrap;margin:0 0 20px}
+.orig{display:grid;gap:4px;margin-bottom:18px;background:#fff;border:1px solid var(--edge);border-radius:6px;padding:8px}
+.orig img{width:100%;height:auto;display:block}
+:root[data-theme=dark] .orig img{filter:invert(.9) hue-rotate(180deg)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .orig img{filter:invert(.9) hue-rotate(180deg)}:root:not([data-theme=light]) .orig{background:#161616}}
+:root[data-theme=dark] .orig{background:#161616}
+.omr{display:flex;gap:10px;flex-wrap:wrap}
+.omr button{width:52px;height:52px;border-radius:50%;border:2px solid var(--omr);background:none;color:var(--omr);font:700 20px "IBM Plex Sans KR";cursor:pointer}
+.omr button.sel{background:var(--omr);color:var(--paper)}
+.omr button.right{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.omr button.wrong{background:var(--pink)}
 .opts{display:grid;gap:8px}
 .opt{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;text-align:left;font:17px/1.6 "Nanum Myeongjo",serif;color:var(--ink);background:none;border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer;white-space:pre-wrap}
 .opt:hover{background:var(--pink)}
-.bub{width:30px;height:30px;border:2px solid var(--omr);border-radius:50%;display:grid;place-items:center;color:var(--omr);font:700 14px "IBM Plex Sans KR";margin-top:-1px}
+.bub{width:30px;height:30px;border:2px solid var(--omr);border-radius:50%;display:grid;place-items:center;color:var(--omr);font:700 14px "IBM Plex Sans KR"}
 .opt.sel .bub{background:var(--omr);color:var(--paper)}
 .opt.right{background:var(--okbg);border-color:var(--ok)}
 .opt.right .bub{border-color:var(--ok);background:var(--ok);color:var(--paper)}
 .opt.wrong{background:var(--pink);border-color:var(--bad)}
-input,textarea,select{font:16px "IBM Plex Sans KR";color:var(--ink);background:var(--bg);border:1px solid var(--edge);border-radius:8px;padding:10px 12px}
+input,textarea{font:16px "IBM Plex Sans KR";color:var(--ink);background:var(--bg);border:1px solid var(--edge);border-radius:8px;padding:10px 12px}
 textarea{width:100%;min-height:200px;font-family:"Nanum Myeongjo",serif;line-height:1.7}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
 .btn{font:700 16px "IBM Plex Sans KR";background:var(--omr);color:#fff;border:0;border-radius:8px;padding:12px 22px;cursor:pointer;min-height:44px}
@@ -57,8 +69,17 @@ textarea{width:100%;min-height:200px;font-family:"Nanum Myeongjo",serif;line-hei
 .exp{white-space:pre-wrap;margin:10px 0}
 .memo{background:var(--pink);border-radius:8px;padding:12px 14px;margin-top:12px;white-space:pre-wrap}
 .memo b{color:var(--omr)}
+.aibox{border:1px dashed var(--edge);border-radius:8px;padding:12px 14px;margin-top:12px;white-space:pre-wrap;background:var(--panel)}
+.aibox b{display:block;font-size:13px;color:var(--mute);margin-bottom:6px}
 .empty{color:var(--mute);text-align:center;padding:60px 10px}
 .empty b{display:block;color:var(--ink);font:800 22px "Nanum Myeongjo",serif;margin-bottom:8px}
+.oxcard{max-width:760px;margin:0 auto}
+.oxs{font:700 clamp(19px,2.4vw,23px)/1.75 "Nanum Myeongjo",serif;margin:8px 0 24px}
+.ctx{font-size:15px;color:var(--mute)}
+.oxbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.oxbtns button{font:800 40px "IBM Plex Sans KR";height:96px;border-radius:12px;border:2px solid var(--edge);background:var(--bg);color:var(--ink);cursor:pointer}
+.oxbtns button.right{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.oxbtns button.wrong{background:var(--pink);border-color:var(--bad);color:var(--bad)}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:12px;margin-bottom:24px}
 .kpi{border-top:3px solid var(--ink);padding-top:8px}
 .kpi b{display:block;font:800 clamp(28px,4vw,38px)/1.1 "Nanum Myeongjo",serif;font-variant-numeric:tabular-nums}
@@ -66,12 +87,18 @@ textarea{width:100%;min-height:200px;font-family:"Nanum Myeongjo",serif;line-hei
 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .card{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:18px}
 .card h2{font:800 20px/1.3 "Nanum Myeongjo",serif;margin:0 0 14px}
-.bar{display:grid;grid-template-columns:7.5em minmax(0,1fr) 4.5em;gap:10px;align-items:center;font-size:14px;margin-bottom:8px}
+.bar{display:grid;grid-template-columns:8em minmax(0,1fr) 4.8em;gap:10px;align-items:center;font-size:14px;margin-bottom:8px}
 .track{height:14px;background:var(--bg);border:1px solid var(--edge);border-radius:3px;overflow:hidden}
 .fill{height:100%;background:var(--omr)}
 .bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .heat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px}
 .heat i{aspect-ratio:1;border-radius:2px;background:var(--bg);border:1px solid var(--edge)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--edge);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{color:var(--mute);font-weight:500}
+td i{font-style:normal;color:var(--omr)}
 .list{display:grid;gap:12px}
 .item{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
 .item .qtext{font-size:16px;margin-bottom:8px}
@@ -82,21 +109,22 @@ textarea{width:100%;min-height:200px;font-family:"Nanum Myeongjo",serif;line-hei
 .fc.open p{color:var(--ink)}
 .report{white-space:pre-wrap}
 .note{font-size:13px;color:var(--mute);margin-top:10px}
-.toast{font-size:14px;color:var(--mute)}
+h2.sec{font:800 22px "Nanum Myeongjo",serif;margin:28px 0 12px}
 @media(max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}.rail{position:static;order:2}.two{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:520px){.bar{grid-template-columns:5.5em minmax(0,1fr) 4em}.dd b{font-size:20px}}
+@media(max-width:520px){.bar{grid-template-columns:6em minmax(0,1fr) 4.4em}.dd b{font-size:20px}.omr button{width:48px;height:48px}table{font-size:13px}th,td{padding:6px 4px}}
 </style>
 
 <header><div class="wrap">
   <div class="top">
-    <div><h1>세무사 동차 학습실</h1><div class="sub" id="who">2027년 동차 합격 · 1차 선택 행정소송법</div></div>
+    <div><h1>세무사 동차 학습실</h1><div class="sub">2027년 동차 합격 · 1차 선택 행정소송법 · 기출은 큐넷 원본·최종정답</div></div>
     <div class="dd" id="dday"></div>
   </div>
   <nav role="tablist" id="tabs">
     <button data-t="solve" aria-selected="true">문제 풀기</button>
+    <button data-t="ox" aria-selected="false">OX</button>
     <button data-t="wrong" aria-selected="false">오답노트</button>
     <button data-t="memo" aria-selected="false">암기노트</button>
-    <button data-t="stat" aria-selected="false">분석</button>
+    <button data-t="stat" aria-selected="false">분석·출제경향</button>
   </nav>
 </div></header>
 
@@ -108,16 +136,22 @@ const SUBJ=[
  {id:'jae',exam:'1차',name:'재정학'},{id:'segae',exam:'1차',name:'세법학개론'},{id:'hoegae',exam:'1차',name:'회계학개론'},{id:'haeng',exam:'1차',name:'행정소송법'},
  {id:'h1',exam:'2차',name:'회계학 1부'},{id:'h2',exam:'2차',name:'회계학 2부'},{id:'s1',exam:'2차',name:'세법학 1부'},{id:'s2',exam:'2차',name:'세법학 2부'}];
 const SN=Object.fromEntries(SUBJ.map(s=>[s.id,s.name]));
+const FOCUS=['segae','hoegae'];
 const MODES=[['new','안 푼 문제'],['review','오늘 복습'],['wrong','틀린 문제'],['star','별표'],['all','전체 랜덤']];
 const REASONS=['개념 부족','암기 부족','계산 실수','문제 오독','찍음'];
 const GAP=[1,3,7,14,30];
 const NUM='①②③④⑤';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=s=>document.querySelector(s);
-const S={qsets:{},notes:{},reports:[],att:[],prefs:{},tab:'solve',exam:'1차',subj:'all',mode:'new',cur:null,sel:null,done:null,t0:0,memoSubj:'all',open:{},msg:'',loading:true};
+const S={qsets:{},oxsets:{},notes:{},reports:[],trend:null,att:[],prefs:{},tab:'solve',exam:'1차',subj:'focus',mode:'new',src:'all',kind:'all',cur:null,sel:null,done:null,t0:0,memoSubj:'all',open:{},msg:'',loading:true,ai:'',oxSubj:'all',oxMode:'new',oxCur:null,oxDone:null,oxShow:false,trendSubj:'segae'};
 let db=null,uid=null,attCol=null,prefRef=null;
 
 const allQ=()=>Object.values(S.qsets).flatMap(d=>(d.questions||[]).map(q=>({...q,subj:d.subject})));
+const allOX=()=>Object.values(S.oxsets).flatMap(d=>(d.items||[]).map(x=>({...x,subj:d.subject,year:d.year})));
+const qById=id=>allQ().find(q=>q.id===id);
+const isG=q=>q.type==='gichul';
+const okAns=(q,v)=>q.ans==='A'||(Array.isArray(q.ans)?q.ans.includes(v):v===q.ans);
+const ansText=q=>q.ans==='A'?'전항 정답(모두 정답 처리)':Array.isArray(q.ans)?q.ans.map(a=>NUM[a-1]).join(', ')+' 복수 정답':NUM[q.ans-1];
 function qstats(){
   const m={};
   [...S.att].sort((a,b)=>a.ts-b.ts).forEach(a=>{
@@ -128,153 +162,222 @@ function qstats(){
   for(const s of Object.values(m)){s.due=s.wrong>0&&s.streak<GAP.length?s.last.ts+GAP[s.streak]*864e5:Infinity;s.isDue=s.due<=now;s.open=s.wrong>0&&s.streak<3}
   return m;
 }
+const inSubj=(subj,sel)=>sel==='all'||(sel==='focus'?FOCUS.includes(subj):subj===sel);
 function pool(){
   const st=qstats(),stars=S.prefs.stars||[];
-  return allQ().filter(q=>SUBJ.find(s=>s.id===q.subj)?.exam===S.exam&&(S.subj==='all'||q.subj===S.subj)).filter(q=>{
+  return allQ().filter(q=>SUBJ.find(s=>s.id===q.subj)?.exam===S.exam&&inSubj(q.subj,S.subj)&&(S.src==='all'||(S.src==='g'?isG(q):!isG(q)))&&(S.kind==='all'||q.kind===S.kind)).filter(q=>{
     const s=st[q.id];
     if(S.mode==='new')return !s;if(S.mode==='review')return s&&s.isDue;if(S.mode==='wrong')return s&&s.open;if(S.mode==='star')return stars.includes(q.id);return true});
 }
-function next(){const p=pool().filter(q=>q.id!==S.cur?.id);S.cur=p.length?p[Math.floor(Math.random()*p.length)]:(pool()[0]||null);S.sel=null;S.done=null;S.t0=Date.now();S.essay='';S.keys={};render()}
+function next(){const p=pool().filter(q=>q.id!==S.cur?.id);S.cur=p.length?p[Math.floor(Math.random()*p.length)]:(pool()[0]||null);S.sel=null;S.done=null;S.t0=Date.now();S.essay='';S.keys={};S.ai='';render()}
 
 function dday(){
   const d1=S.prefs.d1||'2027-04-24',d2=S.prefs.d2||'2027-07-17';
   const left=d=>Math.ceil((new Date(d+'T00:00:00+09:00')-Date.now())/864e5);
   $('#dday').innerHTML=[['1차',d1],['2차',d2]].map(([k,d])=>`<div><b>D-${Math.max(0,left(d))}</b><span>${k} ${esc(d.slice(5).replace('-','/'))}${S.prefs.d1?'':' (예상)'}</span></div>`).join('');
 }
-
+const segBtns=(key,cur,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button data-f="${key}" data-v="${v}" aria-pressed="${cur===v}">${l}</button>`).join('')}</div>`;
 function rail(){
   const subs=SUBJ.filter(s=>s.exam===S.exam);const n=pool().length;
+  const so=S.exam==='1차'?[['focus','집중: 세법·회계'],['all','전체'],...subs.map(s=>[s.id,s.name])]:[['all','전체'],...subs.map(s=>[s.id,s.name])];
   return `<aside class="rail">
-  <div><h3>시험</h3><div class="seg">${['1차','2차'].map(e=>`<button data-exam="${e}" aria-pressed="${S.exam===e}">${e}</button>`).join('')}</div></div>
-  <div><h3>과목</h3><div class="seg"><button data-subj="all" aria-pressed="${S.subj==='all'}">전체</button>${subs.map(s=>`<button data-subj="${s.id}" aria-pressed="${S.subj===s.id}">${s.name}</button>`).join('')}</div></div>
-  <div><h3>출제 방식</h3><div class="seg">${MODES.map(([k,l])=>`<button data-mode="${k}" aria-pressed="${S.mode===k}">${l}</button>`).join('')}</div></div>
+  <div><h3>시험</h3>${segBtns('exam',S.exam,[['1차','1차'],['2차','2차']])}</div>
+  <div><h3>과목</h3>${segBtns('subj',S.subj,so)}</div>
+  ${S.exam==='1차'?`<div><h3>출처</h3>${segBtns('src',S.src,[['all','전체'],['g','실제 기출'],['ai','AI 예상']])}</div>`:''}
+  <div><h3>유형</h3>${segBtns('kind',S.kind,S.exam==='1차'?[['all','전체'],['말','말문제'],['계산','계산문제']]:[['all','전체'],['계산','계산'],['서술','서술']])}</div>
+  <div><h3>출제 방식</h3>${segBtns('mode',S.mode,MODES)}</div>
   <div class="count">조건에 맞는 문제 ${n}개 · 전체 ${allQ().length}개</div>
   ${uid?'':'<div class="note">로그인 정보를 불러오지 못해 풀이 기록이 저장되지 않습니다.</div>'}
   </aside>`;
 }
-
+function srcTag(q){return isG(q)?`<span class="src">${esc(q.src)}</span>`:`<span class="ai">${esc(q.src||'AI 예상')} · 검증 전</span>`}
 function sheet(){
   const q=S.cur;
   if(S.loading)return `<section class="sheet"><div class="empty"><b>문제를 불러오는 중</b>${S.msg?esc(S.msg):'잠시만 기다려 주세요.'}</div></section>`;
-  if(!q)return `<section class="sheet"><div class="empty"><b>${S.mode==='review'?'오늘 복습할 문제가 없어요':S.mode==='new'?'이 조건의 새 문제를 다 풀었어요':'조건에 맞는 문제가 없어요'}</b>다른 출제 방식을 고르거나, Claude에게 “${esc(S.subj==='all'?S.exam:SN[S.subj])} 문제 20개 추가해줘”라고 요청하세요.</div></section>`;
+  if(!q)return `<section class="sheet"><div class="empty"><b>${S.mode==='review'?'오늘 복습할 문제가 없어요':S.mode==='new'?'이 조건의 새 문제를 다 풀었어요':'조건에 맞는 문제가 없어요'}</b>다른 조건을 고르거나, Claude에게 문제 추가를 요청하세요.</div></section>`;
   const st=qstats()[q.id],star=(S.prefs.stars||[]).includes(q.id),d=S.done;
   let body='';
-  if(q.type==='mc'){
-    body=`<div class="opts">${q.choices.map((c,i)=>{const k=i+1;let cl='opt';if(d){if(k===q.ans)cl+=' right';else if(k===S.sel)cl+=' wrong'}else if(k===S.sel)cl+=' sel';return `<button class="${cl}" data-pick="${k}" ${d?'disabled':''}><span class="bub">${k}</span><span>${esc(c)}</span></button>`}).join('')}</div>
+  if(isG(q)){
+    body=`<div class="orig">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="${esc(q.src)} 원본 문제" loading="lazy">`).join('')}</div>
+    <div class="omr">${[1,2,3,4,5].map(k=>{let c='';if(d){if(okAns(q,k))c='right';else if(k===S.sel)c='wrong'}else if(k===S.sel)c='sel';return `<button class="${c}" data-pick="${k}" ${d?'disabled':''} aria-label="${k}번">${k}</button>`}).join('')}</div>
+    ${d?'':`<div class="row"><button class="btn" id="submit" ${S.sel?'':'disabled'}>답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
+  }else if(q.type==='mc'){
+    body=`<p class="qtext">${esc(q.q)}</p><div class="opts">${q.choices.map((c,i)=>{const k=i+1;let cl='opt';if(d){if(k===q.ans)cl+=' right';else if(k===S.sel)cl+=' wrong'}else if(k===S.sel)cl+=' sel';return `<button class="${cl}" data-pick="${k}" ${d?'disabled':''}><span class="bub">${k}</span><span>${esc(c)}</span></button>`}).join('')}</div>
     ${d?'':`<div class="row"><button class="btn" id="submit" ${S.sel?'':'disabled'}>답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
   }else if(q.type==='num'){
-    body=`<div class="row"><input id="numans" inputmode="decimal" placeholder="숫자만 입력" value="${esc(S.sel??'')}" ${d?'disabled':''} style="width:16em"> <span>${esc(q.unit||'')}</span></div>
+    body=`<p class="qtext">${esc(q.q)}</p><div class="row"><input id="numans" inputmode="decimal" placeholder="숫자만 입력" value="${esc(S.sel??'')}" ${d?'disabled':''} style="width:16em"> <span>${esc(q.unit||'')}</span></div>
     ${d?'':`<div class="row"><button class="btn" id="submit">답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
   }else{
-    body=`<textarea id="essay" placeholder="답안을 작성하세요. 제출하면 모범답안과 채점 키워드가 나옵니다." ${d?'disabled':''}>${esc(S.essay||'')}</textarea>
+    body=`<p class="qtext">${esc(q.q)}</p><textarea id="essay" placeholder="답안을 작성하세요. 제출하면 모범답안과 채점 키워드가 나옵니다." ${d?'disabled':''}>${esc(S.essay||'')}</textarea>
     ${d?'':`<div class="row"><button class="btn" id="submit">답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
   }
   return `<section class="sheet">
-   <div class="meta"><span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>${'★'.repeat(q.diff||1)}${'☆'.repeat(3-(q.diff||1))}</span><span>${esc(q.src||'예상')}</span>${st?`<span>${st.n}회 풀이 · 오답 ${st.wrong}</span>`:''}<button class="chip" id="star" aria-pressed="${star}">${star?'★ 별표됨':'☆ 별표'}</button></div>
-   <p class="qtext">${esc(q.q)}</p>${body}${d?result(q):''}</section>`;
+   <div class="meta">${srcTag(q)}<span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>${esc(q.kind||'')}</span>${st?`<span>${st.n}회 풀이 · 오답 ${st.wrong}</span>`:''}<button class="chip" id="star" aria-pressed="${star}">${star?'★ 별표됨':'☆ 별표'}</button></div>
+   ${body}${d?result(q):''}</section>`;
 }
+function aiBlock(){return S.ai?`<div class="aibox"><b>AI 해설 · 비공식 (공식 정답과 다르면 공식 정답이 우선)</b>${esc(S.ai)}</div>`:''}
 function result(q){
-  const d=S.done;let head='';
+  const d=S.done;
   if(q.type==='essay'&&!d.saved){
     return `<div class="res"><div class="verdict">모범답안</div><div class="exp">${esc(q.model)}</div>
     <h3 style="font-size:16px;margin:16px 0 8px">내 답안에 들어간 키워드를 체크하세요</h3>
     <div class="seg">${(q.keys||[]).map((k,i)=>`<button class="chip" data-key="${i}" aria-pressed="${!!S.keys[i]}">${esc(k)}</button>`).join('')}</div>
-    <div class="row"><button class="btn" id="essaysave">채점 저장 (${Object.values(S.keys).filter(Boolean).length}/${(q.keys||[]).length})</button>${S.sample?'<button class="btn ghost" id="aigrade">Claude에게 채점 받기</button>':''}</div>
-    ${S.ai?`<div class="memo"><b>Claude 채점</b>\n${esc(S.ai)}</div>`:''}</div>`;
+    <div class="row"><button class="btn" id="essaysave">채점 저장 (${Object.values(S.keys).filter(Boolean).length}/${(q.keys||[]).length})</button>${S.sample?'<button class="btn ghost" id="aigrade">Claude에게 채점 받기</button>':''}</div>${aiBlock()}</div>`;
   }
+  let head;
   if(q.type==='essay')head=`<div class="verdict ${d.correct?'ok':'no'}">키워드 ${Math.round(d.score*100)}% 반영</div>`;
+  else if(isG(q))head=`<div class="verdict ${d.correct?'ok':'no'}">${d.correct?'정답입니다':'오답입니다'}</div><div>공식 정답: <b>${ansText(q)}</b> <span class="count">(큐넷 최종정답 A형)</span></div>`;
   else head=`<div class="verdict ${d.correct?'ok':'no'}">${d.correct?'정답입니다':'오답입니다'}</div>${d.correct?'':`<div>정답: <b>${q.type==='mc'?NUM[q.ans-1]+' '+esc(q.choices[q.ans-1]):esc(Number(q.ans).toLocaleString('ko-KR'))+' '+esc(q.unit||'')}</b></div>`}`;
-  return `<div class="res">${head}
-   ${q.type==='essay'?`<div class="exp">${esc(q.model)}</div>${S.ai?`<div class="memo"><b>Claude 채점</b>\n${esc(S.ai)}</div>`:''}`:`<div class="exp">${esc(q.exp)}</div>`}
+  const body=isG(q)?`${q.subj==='segae'&&q.year<2026?'<div class="note">출제 당시 법령 기준입니다. 이후 세법 개정으로 현행과 다를 수 있어요.</div>':''}${S.sample?`<div class="row" style="margin-top:10px"><button class="btn ghost" id="aiexp">AI 해설 보기</button></div>`:''}${aiBlock()}`
+    :q.type==='essay'?`<div class="exp">${esc(q.model)}</div>${aiBlock()}`:`<div class="exp">${esc(q.exp)}</div>`;
+  return `<div class="res">${head}${body}
    ${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}
    ${d.correct?'':`<h3 style="font-size:16px;margin:16px 0 8px">왜 틀렸나요?</h3><div class="seg">${REASONS.map(r=>`<button class="chip" data-reason="${esc(r)}" aria-pressed="${d.reason===r}">${r}</button>`).join('')}</div>`}
-   <div class="row"><button class="btn" id="next">다음 문제</button><span class="toast">${esc(S.msg)}</span></div></div>`;
+   <div class="row"><button class="btn" id="next">다음 문제</button><span class="count">${esc(S.msg)}</span></div></div>`;
 }
 
+/* ---------- OX ---------- */
+function oxPool(){const st=qstats();return allOX().filter(x=>inSubj(x.subj,S.oxSubj)).filter(x=>{const s=st[x.id];return S.oxMode==='new'?!s:S.oxMode==='wrong'?s&&s.open:true})}
+function oxNext(){const p=oxPool().filter(x=>x.id!==S.oxCur?.id);S.oxCur=p.length?p[Math.floor(Math.random()*p.length)]:null;S.oxDone=null;S.oxShow=false;render()}
+function oxView(){
+  const x=S.oxCur,d=S.oxDone,all=allOX();
+  const so=[['all','전체'],['segae','세법학개론'],['haeng','행정소송법'],['jae','재정학'],['hoegae','회계(빈출 단원)']];
+  const cnt=Object.fromEntries(so.map(([k])=>[k,all.filter(o=>inSubj(o.subj,k)).length]));
+  let card;
+  if(S.loading)card='<div class="empty"><b>불러오는 중</b></div>';
+  else if(!x)card=`<div class="empty"><b>${S.oxMode==='wrong'?'틀린 OX가 없어요':'이 과목의 OX를 모두 풀었어요'}</b>다른 과목이나 ‘전체 랜덤’을 골라 보세요.</div>`;
+  else{
+    const q=qById(x.qid),yr=x.year;
+    card=`<div class="meta"><span class="src">${esc(q?.src||'')} 보기에서 추출</span><span>${esc(SN[x.subj])}</span><span>${esc(x.topic)}</span></div>
+    ${x.ctx?`<div class="ctx">${esc(x.ctx)}</div>`:''}<p class="oxs">${esc(x.s)}</p>
+    <div class="oxbtns">${[['O',true],['X',false]].map(([l,v])=>{let c='';if(d){if(v===x.ox)c='right';else if(d.given===v)c='wrong'}return `<button class="${c}" data-ox="${v}" ${d?'disabled':''}>${l}</button>`}).join('')}</div>
+    ${d?`<div class="res"><div class="verdict ${d.correct?'ok':'no'}">${d.correct?'맞았어요':'틀렸어요'} · 정답 ${x.ox?'O':'X'}</div>
+      <div class="note">근거: ${esc(x.why)} (큐넷 최종정답)${x.subj==='segae'&&yr<2026?' · 출제 당시 법령 기준이라 이후 개정으로 달라졌을 수 있어요.':''}</div>
+      <div class="row"><button class="btn" id="oxnext">다음</button><button class="btn ghost" id="oxorig">${S.oxShow?'원문 닫기':'원문 문제 보기'}</button></div>
+      ${S.oxShow&&q?`<div class="orig" style="margin-top:14px">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="원본 문제">`).join('')}</div><div class="note">원문 정답: ${ansText(q)}</div>`:''}</div>`:''}`;
+  }
+  return `<div class="seg" style="margin-bottom:10px">${so.map(([k,l])=>`<button data-f="oxSubj" data-v="${k}" aria-pressed="${S.oxSubj===k}">${l} ${cnt[k]}</button>`).join('')}</div>
+  ${segBtns('oxMode',S.oxMode,[['new','안 푼 것'],['wrong','틀린 것'],['all','전체 랜덤']])}
+  <p class="count">실제 기출(2023~2026) 보기 문장을 공식 정답으로 O/X 판정했어요. 회계는 4년간 말문제가 2번 이상 나온 단원만 담았어요.</p>
+  <section class="sheet oxcard">${card}</section>`;
+}
+
+/* ---------- 오답·암기 ---------- */
+function subjFilter(){return `<div class="seg" style="margin-bottom:14px"><button data-ms="all" aria-pressed="${S.memoSubj==='all'}">전체</button>${SUBJ.map(s=>`<button data-ms="${s.id}" aria-pressed="${S.memoSubj===s.id}">${s.exam} ${s.name}</button>`).join('')}</div>`}
 function wrongView(){
   const st=qstats(),qs=allQ().filter(q=>st[q.id]?.open&&(S.memoSubj==='all'||q.subj===S.memoSubj));
   qs.sort((a,b)=>st[b.id].wrong-st[a.id].wrong);
-  return `${subjFilter()}<p class="count">아직 3번 연속 맞히지 못한 문제 ${qs.length}개 · 1, 3, 7, 14, 30일 간격으로 ‘오늘 복습’에 다시 나옵니다.</p>
-  <div class="list">${qs.length?qs.map(q=>{const s=st[q.id],a=s.last;const mine=q.type==='mc'?NUM[(a.given|0)-1]||'-':esc(a.given??'-');
-   return `<article class="item"><div class="meta"><span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>오답 ${s.wrong}회</span>${a.reason?`<span>${esc(a.reason)}</span>`:''}<span>${s.isDue?'오늘 복습':'다음 복습 '+new Date(s.due).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</span></div>
-   <p class="qtext">${esc(q.q)}</p>${q.type==='mc'?`<div>내 답 ${mine} → 정답 <b>${NUM[q.ans-1]} ${esc(q.choices[q.ans-1])}</b></div>`:q.type==='num'?`<div>내 답 ${mine} → 정답 <b>${esc(Number(q.ans).toLocaleString('ko-KR'))} ${esc(q.unit||'')}</b></div>`:''}
-   <details><summary>해설 보기</summary><div class="exp">${esc(q.exp||q.model)}</div>${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}</details>
-   <div class="row"><button class="btn ghost" data-retry="${esc(q.id)}">다시 풀기</button></div></article>`}).join(''):'<div class="empty"><b>오답노트가 비어 있어요</b>문제를 풀다 틀리면 여기에 자동으로 쌓입니다.</div>'}</div>`;
+  const oxs=allOX().filter(x=>st[x.id]?.open&&(S.memoSubj==='all'||x.subj===S.memoSubj));
+  return `${subjFilter()}<p class="count">3번 연속 맞히기 전까지 남아요 · 1, 3, 7, 14, 30일 간격으로 ‘오늘 복습’에 다시 나옵니다.</p>
+  <h2 class="sec">문제 ${qs.length}</h2>
+  <div class="list">${qs.length?qs.map(q=>{const s=st[q.id],a=s.last;
+   const mine=(q.type==='mc'||isG(q))?NUM[(a.given|0)-1]||'-':esc(a.given??'-');
+   return `<article class="item"><div class="meta">${srcTag(q)}<span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>${esc(q.kind||'')}</span><span>오답 ${s.wrong}회</span>${a.reason?`<span>${esc(a.reason)}</span>`:''}<span>${s.isDue?'오늘 복습':'다음 복습 '+new Date(s.due).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</span></div>
+   ${isG(q)?`<details><summary>원문 보기 · 내 답 ${mine} → 공식 정답 <b>${ansText(q)}</b></summary><div class="orig" style="margin-top:10px">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="원본 문제" loading="lazy">`).join('')}</div></details>`
+   :`<p class="qtext">${esc(q.q)}</p>${q.type==='mc'?`<div>내 답 ${mine} → 정답 <b>${NUM[q.ans-1]} ${esc(q.choices[q.ans-1])}</b></div>`:q.type==='num'?`<div>내 답 ${mine} → 정답 <b>${esc(Number(q.ans).toLocaleString('ko-KR'))} ${esc(q.unit||'')}</b></div>`:''}
+   <details><summary>해설 보기</summary><div class="exp">${esc(q.exp||q.model)}</div>${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}</details>`}
+   <div class="row"><button class="btn ghost" data-retry="${esc(q.id)}">다시 풀기</button></div></article>`}).join(''):'<div class="item">틀린 문제가 없어요.</div>'}</div>
+  <h2 class="sec">OX ${oxs.length}</h2>
+  <div class="list">${oxs.length?oxs.map(x=>`<article class="item"><div class="meta"><span>${esc(SN[x.subj])}</span><span>${esc(x.topic)}</span><span>정답 ${x.ox?'O':'X'}</span><span>오답 ${st[x.id].wrong}회</span></div>${x.ctx?`<div class="ctx">${esc(x.ctx)}</div>`:''}<p class="qtext" style="margin:4px 0 0">${esc(x.s)}</p></article>`).join(''):'<div class="item">틀린 OX가 없어요.</div>'}</div>`;
 }
-function subjFilter(){return `<div class="seg" style="margin-bottom:14px"><button data-ms="all" aria-pressed="${S.memoSubj==='all'}">전체</button>${SUBJ.map(s=>`<button data-ms="${s.id}" aria-pressed="${S.memoSubj===s.id}">${s.exam} ${s.name}</button>`).join('')}</div>`}
 function memoView(){
   const st=qstats();
   const cards=Object.values(S.notes).flatMap(d=>(d.cards||[]).map(c=>({...c,subj:d.subject}))).filter(c=>S.memoSubj==='all'||c.subj===S.memoSubj);
   const mine=allQ().filter(q=>q.memo&&st[q.id]?.wrong&&(S.memoSubj==='all'||q.subj===S.memoSubj));
   const fc=(id,subj,front,back)=>`<button class="fc ${S.open[id]?'open':''}" data-fc="${esc(id)}"><div class="meta"><span>${esc(SN[subj])}</span></div><b>${esc(front)}</b><p>${S.open[id]?esc(back):'눌러서 답 보기'}</p></button>`;
   return `${subjFilter()}
-  ${mine.length?`<h2 style="font:800 22px 'Nanum Myeongjo',serif">내 오답에서 나온 암기 포인트 ${mine.length}</h2><div class="flip">${mine.map(q=>fc('m'+q.id,q.subj,q.topic,q.memo)).join('')}</div>`:''}
-  <h2 style="font:800 22px 'Nanum Myeongjo',serif;margin-top:28px">핵심 암기 카드 ${cards.length}</h2>
-  <div class="flip">${cards.length?cards.map(c=>fc(c.id,c.subj,c.front,c.back)).join(''):'<div class="empty">아직 카드가 없어요.</div>'}</div>`;
+  ${mine.length?`<h2 class="sec">내 오답에서 나온 암기 포인트 ${mine.length}</h2><div class="flip">${mine.map(q=>fc('m'+q.id,q.subj,q.topic,q.memo)).join('')}</div>`:''}
+  <h2 class="sec">핵심 암기 카드 ${cards.length}</h2>
+  <div class="flip">${cards.length?cards.map(c=>fc(c.id,c.subj,c.front,c.back)).join(''):'<div class="empty">아직 카드가 없어요.</div>'}</div>
+  <p class="note">암기 카드는 AI가 정리한 요약이에요. 세법 수치는 2026년 시행 법령 기준입니다.</p>`;
+}
+
+/* ---------- 분석 ---------- */
+function trendTable(){
+  const t=S.trend?.trend?.[S.trendSubj];if(!t)return '<p class="count">출제경향 데이터를 불러오는 중이에요.</p>';
+  const ys=(S.trend.years||[]).map(String);
+  const rows=Object.entries(t).map(([k,v])=>({k,v,tot:ys.reduce((a,y)=>a+(v[y]?v[y][0]+v[y][1]:0),0),m:ys.reduce((a,y)=>a+(v[y]?.[0]||0),0)})).sort((a,b)=>b.tot-a.tot);
+  const st=qstats();
+  const mine=k=>{const a=S.att.filter(x=>x.subj===S.trendSubj&&x.topic===k&&x.type!=='ox');return a.length?Math.round(a.filter(x=>x.correct).length/a.length*100)+'%':'-'};
+  return `<div class="scroll"><table><thead><tr><th>단원</th>${ys.map(y=>`<th>${y}</th>`).join('')}<th>4년 합</th><th>말문제</th><th>내 정답률</th></tr></thead><tbody>
+  ${rows.map(r=>`<tr><td>${esc(r.k)}</td>${ys.map(y=>{const v=r.v[y];return `<td>${v?`${v[0]+v[1]}${v[1]?` <i>(계${v[1]})</i>`:''}`:'-'}</td>`}).join('')}<td><b>${r.tot}</b></td><td>${r.m}</td><td>${mine(r.k)}</td></tr>`).join('')}
+  </tbody></table></div><p class="note">숫자는 문항 수, 괄호는 그중 계산문제. 큐넷 원본 문제지(제60~63회 A형)를 문항별로 분류했어요.</p>`;
 }
 function statView(){
-  const A=S.att,ok=A.filter(a=>a.correct).length,today=new Date().toDateString();
-  const st=qstats(),due=Object.values(st).filter(s=>s.isDue).length;
-  const bySub=SUBJ.map(s=>{const a=A.filter(x=>x.subj===s.id);const tot=(S.qsets[s.id]?.questions||[]).length;return {...s,n:a.length,r:a.length?a.filter(x=>x.correct).length/a.length:0,cov:tot?Object.keys(st).filter(id=>id.startsWith(s.id+'-')).length/tot:0,tot}});
+  const A=S.att.filter(a=>a.type!=='ox'),O=S.att.filter(a=>a.type==='ox'),ok=A.filter(a=>a.correct).length,today=new Date().toDateString();
+  const st=qstats(),due=allQ().filter(q=>st[q.id]?.isDue).length;
+  const pct=x=>Math.round(x*100)+'%';
+  const bySub=SUBJ.map(s=>{const a=A.filter(x=>x.subj===s.id);const qs=allQ().filter(q=>q.subj===s.id);return {...s,n:a.length,r:a.length?a.filter(x=>x.correct).length/a.length:0,done:qs.filter(q=>st[q.id]).length,tot:qs.length}});
+  const kindR=k=>{const a=A.filter(x=>(qById(x.qid)?.kind)===k);return a.length?pct(a.filter(x=>x.correct).length/a.length)+` · ${a.length}`:'-'};
   const tp={};A.forEach(a=>{const k=a.subj+'|'+a.topic;(tp[k]||(tp[k]={n:0,ok:0})).n++;if(a.correct)tp[k].ok++});
   const weak=Object.entries(tp).filter(([,v])=>v.n>=2).map(([k,v])=>({k,r:v.ok/v.n,n:v.n})).sort((a,b)=>a.r-b.r).slice(0,8);
   const rs={};A.filter(a=>a.reason).forEach(a=>rs[a.reason]=(rs[a.reason]||0)+1);const rmax=Math.max(1,...Object.values(rs));
-  const days=[...Array(84)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-83+i);const e=+d+864e5;return A.filter(a=>a.ts>=+d&&a.ts<e).length});
+  const days=[...Array(84)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-83+i);const e=+d+864e5;return S.att.filter(a=>a.ts>=+d&&a.ts<e).length});
   const hmax=Math.max(1,...days);
-  const pct=x=>Math.round(x*100)+'%';
-  return `<div class="kpis"><div class="kpi"><b>${A.length}</b><span>총 풀이</span></div><div class="kpi"><b>${A.length?pct(ok/A.length):'-'}</b><span>정답률</span></div><div class="kpi"><b>${A.filter(a=>new Date(a.ts).toDateString()===today).length}</b><span>오늘 푼 문제</span></div><div class="kpi"><b>${due}</b><span>복습 대기</span></div></div>
+  return `<div class="kpis"><div class="kpi"><b>${A.length}</b><span>문제 풀이</span></div><div class="kpi"><b>${A.length?pct(ok/A.length):'-'}</b><span>정답률</span></div><div class="kpi"><b>${O.length?pct(O.filter(a=>a.correct).length/O.length):'-'}</b><span>OX 정답률 · ${O.length}개</span></div><div class="kpi"><b>${S.att.filter(a=>new Date(a.ts).toDateString()===today).length}</b><span>오늘 푼 개수</span></div><div class="kpi"><b>${due}</b><span>복습 대기</span></div></div>
+  <div class="card" style="margin-bottom:24px"><h2>출제경향 · 2023~2026 실제 기출</h2>
+   ${segBtns('trendSubj',S.trendSubj,[['segae','세법학개론'],['hoegae','회계학개론'],['haeng','행정소송법'],['jae','재정학']])}<div style="margin-top:12px">${trendTable()}</div></div>
   <div class="two">
-   <div class="card"><h2>과목별 정답률</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.r*100}%"></div></div><em>${s.n?pct(s.r):'-'}</em></div>`).join('')}<p class="note">막대: 정답률 · 오른쪽 숫자는 풀이 ${A.length?'기록 기준':'기록이 쌓이면 표시'}</p></div>
-   <div class="card"><h2>문제은행 진도</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.cov*100}%;background:var(--ink)"></div></div><em>${Math.round(s.cov*s.tot)}/${s.tot}</em></div>`).join('')}</div>
+   <div class="card"><h2>과목별 정답률</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.r*100}%"></div></div><em>${s.n?pct(s.r):'-'}</em></div>`).join('')}
+    <p class="note">말문제 ${kindR('말')} · 계산문제 ${kindR('계산')}</p></div>
+   <div class="card"><h2>문제은행 진도</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.tot?s.done/s.tot*100:0}%;background:var(--ink)"></div></div><em>${s.done}/${s.tot}</em></div>`).join('')}</div>
    <div class="card"><h2>약한 단원</h2>${weak.length?weak.map(w=>{const [s,t]=w.k.split('|');return `<div class="bar"><span>${esc(t)}</span><div class="track"><div class="fill" style="width:${w.r*100}%"></div></div><em>${pct(w.r)} · ${w.n}</em></div><div class="note" style="margin:-6px 0 8px">${esc(SN[s])}</div>`}).join(''):'<p class="count">단원별로 2문제 이상 풀면 정답률이 낮은 순서로 보여요.</p>'}</div>
    <div class="card"><h2>오답 원인</h2>${Object.keys(rs).length?REASONS.map(r=>`<div class="bar"><span>${r}</span><div class="track"><div class="fill" style="width:${(rs[r]||0)/rmax*100}%"></div></div><em>${rs[r]||0}</em></div>`).join(''):'<p class="count">틀린 문제에서 ‘왜 틀렸나요?’를 고르면 집계돼요.</p>'}</div>
-   <div class="card"><h2>최근 12주 학습량</h2><div class="heat">${days.map(c=>`<i title="${c}문제" style="${c?`background:color-mix(in srgb,var(--omr) ${20+c/hmax*80}%,var(--bg))`:''}"></i>`).join('')}</div><p class="note">한 칸이 하루, 왼쪽 위가 12주 전 · 진할수록 많이 푼 날</p></div>
+   <div class="card"><h2>최근 12주 학습량</h2><div class="heat">${days.map(c=>`<i title="${c}개" style="${c?`background:color-mix(in srgb,var(--omr) ${20+c/hmax*80}%,var(--bg))`:''}"></i>`).join('')}</div><p class="note">한 칸이 하루, 왼쪽 위가 12주 전 · 진할수록 많이 푼 날</p></div>
    <div class="card"><h2>시험일 설정</h2><div class="row" style="margin-top:0"><label>1차 <input type="date" id="d1" value="${esc(S.prefs.d1||'2027-04-24')}"></label><label>2차 <input type="date" id="d2" value="${esc(S.prefs.d2||'2027-07-17')}"></label></div><p class="note">제64회(2027) 시행계획 공고 전이라 2026년 일정(4/25, 7/18)을 참고한 예상일입니다.</p></div>
   </div>
-  <h2 style="font:800 24px 'Nanum Myeongjo',serif;margin-top:32px">Claude 분석 리포트</h2>
+  <h2 class="sec">Claude 분석 리포트</h2>
   <div class="list">${S.reports.length?S.reports.map(r=>`<article class="item"><div class="meta"><span>${esc(r.date)}</span></div><h3 style="margin:0 0 8px;font:800 19px 'Nanum Myeongjo',serif">${esc(r.title)}</h3><div class="report">${esc(r.body)}</div></article>`).join(''):'<div class="item">문제를 어느 정도 푼 뒤 Claude에게 “내 풀이 기록 분석해줘”라고 하면 여기에 리포트가 올라옵니다.</div>'}</div>`;
 }
 
 function render(){
   document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===S.tab));
   dday();
-  const v=$('#view');
-  v.innerHTML=S.tab==='solve'?`<div class="grid">${rail()}${sheet()}</div>`:S.tab==='wrong'?wrongView():S.tab==='memo'?memoView():statView();
+  $('#view').innerHTML=S.tab==='solve'?`<div class="grid">${rail()}${sheet()}</div>`:S.tab==='ox'?oxView():S.tab==='wrong'?wrongView():S.tab==='memo'?memoView():statView();
 }
 
 async function savePrefs(p){S.prefs={...S.prefs,...p};render();if(!prefRef)return;try{await prefRef.set(S.prefs)}catch(e){S.msg='설정 저장 실패'}}
+async function save(a){
+  if(!attCol){S.msg='기록 저장 안 됨 (로그인 필요)';render();return null}
+  try{const ref=attCol.doc();await ref.set(a);return ref}catch(e){S.msg=e.code==='quota_exceeded'?'저장 공간이 가득 찼어요':'기록 저장에 실패했어요';render();return null}
+}
 async function record(q,given,correct,extra={}){
   const a={qid:q.id,subj:q.subj,topic:q.topic,type:q.type,given,correct,ts:Date.now(),sec:Math.round((Date.now()-S.t0)/1000),...extra};
   S.done={...a,saved:true};S.msg='';render();
-  if(!attCol){S.msg='기록 저장 안 됨 (로그인 필요)';render();return}
-  try{const ref=attCol.doc();S.done.ref=ref;await ref.set(a)}catch(e){S.msg=e.code==='quota_exceeded'?'저장 공간이 가득 찼어요':'기록 저장에 실패했어요';render()}
+  S.done.ref=await save(a);
+}
+async function blobOf(u){const r=await fetch(u);return r.blob()}
+async function askAI(prompt,imgs){
+  S.ai='해설을 만드는 중…';render();
+  try{const opts={onText:({text})=>{S.ai=text;render()}};if(imgs?.length)opts.images=await Promise.all(imgs.map(blobOf));const r=await S.sample(prompt,opts);S.ai=r.text}
+  catch(err){S.ai=err.code==='not_granted'?'AI 해설을 사용할 수 없어요.':err.code==='images_unavailable'?'이 화면에서는 이미지를 보낼 수 없어 해설을 만들 수 없어요.':'해설 요청에 실패했어요. 잠시 뒤 다시 시도하세요.'}
+  render();
 }
 
 document.addEventListener('click',async e=>{
   const t=e.target.closest('button');if(!t)return;const q=S.cur;
-  if(t.dataset.t){S.tab=t.dataset.t;render();return}
-  if(t.dataset.exam){S.exam=t.dataset.exam;S.subj='all';next();return}
-  if(t.dataset.subj){S.subj=t.dataset.subj;next();return}
-  if(t.dataset.mode){S.mode=t.dataset.mode;next();return}
+  if(t.dataset.t){S.tab=t.dataset.t;if(S.tab==='ox'&&!S.oxCur)oxNext();else render();return}
+  if(t.dataset.f){const k=t.dataset.f,v=t.dataset.v;S[k]=v;if(k==='exam'){S.subj=v==='1차'?'focus':'all';S.src='all';S.kind='all'}
+    if(k.startsWith('ox'))oxNext();else if(k==='trendSubj')render();else next();return}
   if(t.dataset.ms){S.memoSubj=t.dataset.ms;render();return}
   if(t.dataset.fc){S.open[t.dataset.fc]=!S.open[t.dataset.fc];render();return}
-  if(t.dataset.retry){const r=allQ().find(x=>x.id===t.dataset.retry);S.tab='solve';S.exam=SUBJ.find(s=>s.id===r.subj).exam;S.cur=r;S.sel=null;S.done=null;S.t0=Date.now();render();return}
+  if(t.dataset.retry){const r=qById(t.dataset.retry);S.tab='solve';S.exam=SUBJ.find(s=>s.id===r.subj).exam;S.cur=r;S.sel=null;S.done=null;S.ai='';S.t0=Date.now();render();return}
   if(t.dataset.pick&&!S.done){S.sel=+t.dataset.pick;render();return}
   if(t.dataset.key){S.keys[t.dataset.key]=!S.keys[t.dataset.key];render();return}
-  if(t.dataset.reason&&S.done){S.done.reason=t.dataset.reason;render();try{await S.done.ref?.update({reason:t.dataset.reason});const a=S.att.find(x=>x.ts===S.done.ts);if(a)a.reason=t.dataset.reason}catch(_){}return}
+  if(t.dataset.reason&&S.done){S.done.reason=t.dataset.reason;render();try{await S.done.ref?.update({reason:t.dataset.reason})}catch(_){}return}
+  if(t.dataset.ox&&S.oxCur&&!S.oxDone){const x=S.oxCur,v=t.dataset.ox==='true';const a={qid:x.id,subj:x.subj,topic:x.topic,type:'ox',given:v,correct:v===x.ox,ts:Date.now(),sec:0};S.oxDone=a;render();save(a);return}
+  if(t.id==='oxnext'){oxNext();return}
+  if(t.id==='oxorig'){S.oxShow=!S.oxShow;render();return}
   if(t.id==='skip'||t.id==='next'){next();return}
   if(t.id==='star'&&q){const s=new Set(S.prefs.stars||[]);s.has(q.id)?s.delete(q.id):s.add(q.id);savePrefs({stars:[...s]});return}
   if(t.id==='submit'&&q){
-    if(q.type==='mc'&&S.sel)record(q,S.sel,S.sel===q.ans);
+    if((q.type==='mc'||isG(q))&&S.sel)record(q,S.sel,isG(q)?okAns(q,S.sel):S.sel===q.ans);
     else if(q.type==='num'){const v=parseFloat(String($('#numans').value).replace(/[,\s원]/g,''));if(isNaN(v))return;S.sel=v;record(q,v,Math.abs(v-q.ans)<=(q.tol||0))}
     else if(q.type==='essay'){S.essay=$('#essay').value;if(!S.essay.trim())return;S.done={saved:false};S.ai='';render()}
     return}
   if(t.id==='essaysave'&&q){const n=(q.keys||[]).length,k=Object.values(S.keys).filter(Boolean).length,sc=n?k/n:0;record(q,S.essay.slice(0,4000),sc>=0.6,{score:sc});return}
-  if(t.id==='aigrade'&&q&&S.sample){
-    t.disabled=true;S.ai='채점 중…';render();
-    try{const r=await S.sample(`너는 세무사 2차 시험 채점위원이다. 아래 문제·모범답안·채점 키워드를 기준으로 수험생 답안을 채점하라. 한국어로, 100점 만점 점수 한 줄, 잘한 점 2줄, 빠진 논점과 보완 방법 3줄 이내로 답하라.\n\n[문제]\n${q.q}\n\n[모범답안]\n${q.model}\n\n[채점 키워드]\n${(q.keys||[]).join(', ')}\n\n[수험생 답안]\n${S.essay}`,{onText:({text})=>{S.ai=text;render()}});S.ai=r.text}
-    catch(err){S.ai=err.code==='not_granted'?'Claude 채점을 사용할 수 없어요.':'채점 요청에 실패했어요. 잠시 뒤 다시 시도하세요.'}
-    render();return}
+  if(t.id==='aigrade'&&q&&S.sample){t.disabled=true;askAI(`너는 세무사 2차 시험 채점위원이다. 아래 문제·모범답안·채점 키워드를 기준으로 수험생 답안을 채점하라. 한국어로, 100점 만점 점수 한 줄, 잘한 점 2줄, 빠진 논점과 보완 방법 3줄 이내로 답하라.\n\n[문제]\n${q.q}\n\n[모범답안]\n${q.model}\n\n[채점 키워드]\n${(q.keys||[]).join(', ')}\n\n[수험생 답안]\n${S.essay}`);return}
+  if(t.id==='aiexp'&&q&&S.sample){t.disabled=true;askAI(`첨부 이미지는 한국 세무사 1차 시험 ${q.src} (${SN[q.subj]}) 원본 문제다. 한국산업인력공단 공식 최종정답은 ${ansText(q)}이다. 공식 정답을 전제로 한국어로 해설하라: 1) 정답인 이유(관련 법조문·기준서·판례·이론을 구체적으로), 2) 나머지 보기가 틀리거나 맞는 이유를 보기별 한두 줄, 3) 계산문제면 풀이 과정. ${q.subj==='segae'?'출제 이후 세법 개정으로 현행과 달라졌을 수 있는 부분이 있으면 따로 표시하라. ':''}확실하지 않은 내용은 추측하지 말고 확실하지 않다고 밝혀라.`,q.img);return}
 });
 document.addEventListener('input',e=>{if(e.target.id==='essay')S.essay=e.target.value;if(e.target.id==='numans')S.sel=e.target.value});
 document.addEventListener('change',e=>{if(e.target.id==='d1'||e.target.id==='d2')savePrefs({[e.target.id]:e.target.value})});
@@ -284,18 +387,20 @@ render();
   const timer=setTimeout(()=>{if(S.loading){S.msg='데이터에 아직 연결되지 않았어요. 네트워크를 확인하세요.';render()}},10000);
   db=await window.claude?.use?.('db');
   const user=await window.claude?.use?.('user');
-  if(!db){clearTimeout(timer);S.loading=false;S.msg='';render();$('#view').innerHTML='<div class="empty"><b>학습 데이터를 쓸 수 없어요</b>claude.ai에 로그인한 상태로 이 페이지를 열어 주세요.</div>';return}
+  if(!db){clearTimeout(timer);S.loading=false;render();$('#view').innerHTML='<div class="empty"><b>학습 데이터를 쓸 수 없어요</b>claude.ai에 로그인한 상태로 이 페이지를 열어 주세요.</div>';return}
   uid=user?await user.id():null;
-  db.collection('qsets').onSnapshot(s=>{S.qsets=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(!s.metadata.fromCache){clearTimeout(timer)}const first=S.loading;S.loading=false;if(first||!S.cur)next();else render()},()=>{S.loading=false;S.msg='문제를 불러오지 못했어요';render()});
-  db.collection('notes').onSnapshot(s=>{S.notes=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(S.tab!=='solve')render()},()=>{});
+  db.collection('qsets').onSnapshot(s=>{S.qsets=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(!s.metadata.fromCache)clearTimeout(timer);const first=S.loading;S.loading=false;if(first||!S.cur)next();else render()},()=>{S.loading=false;S.msg='문제를 불러오지 못했어요';render()});
+  db.collection('ox').onSnapshot(s=>{S.oxsets=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(S.tab==='ox'&&!S.oxCur)oxNext();else if(S.tab!=='solve')render()},()=>{});
+  db.collection('notes').onSnapshot(s=>{S.notes=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(S.tab==='memo')render()},()=>{});
   db.collection('reports').onSnapshot(s=>{S.reports=s.docs.map(d=>d.data()).sort((a,b)=>String(b.date).localeCompare(String(a.date)));if(S.tab==='stat')render()},()=>{});
+  db.doc('meta/trend').onSnapshot(s=>{if(s.exists){S.trend=s.data();if(S.tab==='stat')render()}},()=>{});
   if(uid){
     prefRef=db.doc(`data/users/${uid}/prefs`);
     attCol=db.doc(`data/users/${uid}/study`).collection('attempts');
     prefRef.onSnapshot(s=>{if(s.exists){S.prefs=s.data();render()}},()=>{});
-    attCol.onSnapshot(s=>{S.att=s.docs.map(d=>d.data());if(!S.done)render()},()=>{});
+    attCol.onSnapshot(s=>{S.att=s.docs.map(d=>d.data());if(!S.done&&!S.oxDone)render()},()=>{});
   }
-  S.sample=await window.claude?.use?.('sample');if(S.done&&S.cur?.type==='essay')render();
+  S.sample=await window.claude?.use?.('sample');if(S.done)render();
 })();
 }
 </script>
