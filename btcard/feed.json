@@ -1,0 +1,86 @@
+{
+  "days": [
+    {
+      "date": "2026-11-27",
+      "sets": [
+        {
+          "series": "market",
+          "cards": [
+            "cards/2026-11-27/market/01.svg",
+            "cards/2026-11-27/market/02.svg",
+            "cards/2026-11-27/market/03.svg"
+          ]
+        },
+        {
+          "series": "morning",
+          "cards": [
+            "cards/2026-11-27/morning/01.svg",
+            "cards/2026-11-27/morning/02.svg",
+            "cards/2026-11-27/morning/03.svg",
+            "cards/2026-11-27/morning/04.svg",
+            "cards/2026-11-27/morning/05.svg",
+            "cards/2026-11-27/morning/06.svg",
+            "cards/2026-11-27/morning/07.svg",
+            "cards/2026-11-27/morning/08.svg",
+            "cards/2026-11-27/morning/09.svg"
+          ]
+        },
+        {
+          "series": "world",
+          "cards": [
+            "cards/2026-11-27/world/01.svg",
+            "cards/2026-11-27/world/02.svg",
+            "cards/2026-11-27/world/03.svg",
+            "cards/2026-11-27/world/04.svg",
+            "cards/2026-11-27/world/05.svg",
+            "cards/2026-11-27/world/06.svg",
+            "cards/2026-11-27/world/07.svg",
+            "cards/2026-11-27/world/08.svg",
+            "cards/2026-11-27/world/09.svg"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-11-26",
+      "sets": [
+        {
+          "series": "market",
+          "cards": [
+            "cards/2026-11-26/market/01.svg",
+            "cards/2026-11-26/market/02.svg",
+            "cards/2026-11-26/market/03.svg"
+          ]
+        },
+        {
+          "series": "morning",
+          "cards": [
+            "cards/2026-11-26/morning/01.svg",
+            "cards/2026-11-26/morning/02.svg",
+            "cards/2026-11-26/morning/03.svg",
+            "cards/2026-11-26/morning/04.svg",
+            "cards/2026-11-26/morning/05.svg",
+            "cards/2026-11-26/morning/06.svg",
+            "cards/2026-11-26/morning/07.svg",
+            "cards/2026-11-26/morning/08.svg",
+            "cards/2026-11-26/morning/09.svg"
+          ]
+        },
+        {
+          "series": "world",
+          "cards": [
+            "cards/2026-11-26/world/01.svg",
+            "cards/2026-11-26/world/02.svg",
+            "cards/2026-11-26/world/03.svg",
+            "cards/2026-11-26/world/04.svg",
+            "cards/2026-11-26/world/05.svg",
+            "cards/2026-11-26/world/06.svg",
+            "cards/2026-11-26/world/07.svg",
+            "cards/2026-11-26/world/08.svg",
+            "cards/2026-11-26/world/09.svg"
+          ]
+        }
+      ]
+    }
+  ]
+}

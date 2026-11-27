@@ -1,0 +1,13 @@
+{
+  "brand": "비티 카드",
+  "naverUrl": "https://contents.premium.naver.com/btnote/btpick",
+  "accessDays": 35,
+  "series": {
+    "morning": { "name": "모닝 인사이트", "color": "#1b3a72", "order": 1 },
+    "world": { "name": "5분 세상읽기", "color": "#6a2333", "order": 2 },
+    "market": { "name": "비티의 마켓", "color": "#0f4a3a", "order": 3 }
+  },
+  "keys": [
+    { "label": "시범 코드", "hash": "2fa33339d35422653649987d63f2822b089f94b091931484b1332a07cad9a2c3" }
+  ]
+}

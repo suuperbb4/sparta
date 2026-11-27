@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비티 카드 운영 도구</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<style>
+html,body{height:auto}
+.wrap{max-width:640px;margin:0 auto;padding:24px 20px 60px}
+textarea{width:100%;min-height:92px;font:13px/1.5 ui-monospace,Menlo,monospace;background:var(--panel);color:#fff;border:1px solid var(--edge);border-radius:10px;padding:10px}
+ol li{margin-bottom:10px;color:var(--soft)}
+code{color:var(--yel)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>이번 주 연동 코드 만들기</h1>
+  <p class="muted">이 화면은 코드만 계산하고, 어디에도 저장하거나 보내지 않아요.</p>
+
+  <label class="muted" for="code">연동 코드</label>
+  <input class="field" id="code" spellcheck="false" autocapitalize="characters">
+  <button class="btn ghost" id="rand" type="button">새 코드 만들기</button>
+
+  <h2>1. config.json의 keys에 이 줄을 추가</h2>
+  <p class="muted">지난주 코드 한 줄은 남겨 두고, 2주 전 코드는 지우세요. 그래야 바뀌는 날에도 끊기지 않아요.</p>
+  <textarea id="line" readonly></textarea>
+
+  <h2>2. 네이버 유료 글 버튼에 이 링크를 연결</h2>
+  <textarea id="link" readonly></textarea>
+  <p class="muted">글 하단에는 "홈 화면 앱에서는 연동 코드 <code id="c2"></code> 를 입력하세요"도 함께 적어 주세요.</p>
+
+  <h2>매일 카드 올리는 방법</h2>
+  <ol>
+    <li>GitHub 저장소에서 <code>btcard/cards/날짜/시리즈/</code> 폴더에 이미지를 올려요. 예: <code>btcard/cards/2026-11-28/morning/01.png</code></li>
+    <li>시리즈 폴더 이름은 <code>morning</code>(모닝 인사이트), <code>world</code>(5분 세상읽기), <code>market</code>(비티의 마켓)이에요.</li>
+    <li>파일 이름은 01, 02, 03… 순서대로. 올리면 1~2분 뒤 앱에 자동으로 나타나요.</li>
+  </ol>
+</div>
+<script>
+{
+  const $ = (id) => document.getElementById(id);
+  const base = location.href.replace(/admin\.html.*$/, '');
+  async function sha(t) {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+    return [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join('');
+  }
+  function fresh() {
+    const d = new Date(); const mmdd = String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+    const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const r = Array.from(crypto.getRandomValues(new Uint8Array(3)), (n) => abc[n % abc.length]).join('');
+    return `BT-${mmdd}-${r}`;
+  }
+  async function update() {
+    const code = $('code').value.trim().toUpperCase();
+    if (!code) return;
+    const d = new Date();
+    $('line').value = `{ "label": "${d.getMonth() + 1}월 ${d.getDate()}일 발급", "hash": "${await sha(code)}" },`;
+    $('link').value = `${base}?k=${encodeURIComponent(code)}`;
+    $('c2').textContent = code;
+  }
+  $('code').value = fresh();
+  $('code').addEventListener('input', update);
+  $('rand').addEventListener('click', () => { $('code').value = fresh(); update(); });
+  update();
+}
+</script>
+</body>
+</html>
