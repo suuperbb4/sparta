@@ -44,3 +44,15 @@ Accept: application/vnd.github+json
 | 모닝 카드뉴스 9장 | `morning` |
 | 5분 세상읽기 9장 | `world` |
 | 주간 비티 | `weekly` |
+
+## 더 간단한 방법: NAS에서 스크립트 실행
+
+NAS에 git과 이 저장소가 있다면, 승인 처리 뒤 **Execute Command** 노드 하나로 끝납니다.
+
+```
+cd /경로/sparta && bash scripts/btnote-publish.sh {{발행일}} morning /경로/렌더된_카드_폴더 /경로/캡션.txt
+```
+
+- 저장소는 한 번만 받아 둡니다: `git clone -b claude/youthful-hopper-tkvfr8 https://github.com/suuperbb4/sparta`
+- 푸시 권한: GitHub 토큰(Contents 읽기·쓰기)을 git 자격 증명으로 저장합니다.
+- 캡션 파일에는 승인 메시지의 인스타 캡션(해시태그 포함)을 넣습니다.
