@@ -16,8 +16,9 @@
 
 ## 매일 할 일: 카드 올리기
 
-- 위치: `btcard/cards/날짜/시리즈/01.png` (예: `btcard/cards/2026-11-28/morning/01.png`)
-- 시리즈 폴더: `morning` 모닝 인사이트, `world` 5분 세상읽기, `market` 비티의 마켓
+- 위치: `btcard/cards/날짜/시리즈/01.png` (예: `btcard/cards/2026-11-28/market/01.jpg`). 같은 폴더에 `text.txt`를 두면 카드 뒤에 "비티의 한마디"로 나옵니다.
+- 시리즈 폴더: `morning` 모닝 인사이트, `market` 비티의 마켓, `world` 5분 세상읽기, `weekly` 주간 비티
+- 텔레그램 승인과 연결하는 방법은 `N8N.md`를 보세요.
 - 올리면 GitHub Actions가 `feed.json`을 자동으로 갱신합니다. 직접 갱신하려면 `node scripts/build-feed.mjs`.
 - `cards/2026-11-26`, `cards/2026-11-27`은 샘플이므로 실제 운영 전에 지웁니다.
 

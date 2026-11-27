@@ -1,6 +1,6 @@
 // btcard/cards/날짜/시리즈/이미지 폴더 구조를 읽어 btcard/feed.json을 만듭니다.
 // 사용법: node scripts/build-feed.mjs
-import { readdirSync, statSync, writeFileSync, existsSync } from 'node:fs';
+import { readdirSync, statSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = new URL('../btcard/', import.meta.url).pathname;
@@ -18,11 +18,16 @@ const days = dirs(CARDS)
   .map((date) => ({
     date,
     sets: dirs(join(CARDS, date))
-      .map((series) => ({
-        series,
-        cards: readdirSync(join(CARDS, date, series)).filter((f) => IMG.test(f)).sort(byName)
-          .map((f) => `cards/${date}/${series}/${f}`),
-      }))
+      .map((series) => {
+        const dir = join(CARDS, date, series);
+        const txt = join(dir, 'text.txt');
+        return {
+          series,
+          cards: readdirSync(dir).filter((f) => IMG.test(f)).sort(byName).map((f) => `cards/${date}/${series}/${f}`),
+          // 함께 올리는 짧은 글(쓰레드 글 등). 없으면 생략
+          ...(existsSync(txt) ? { text: readFileSync(txt, 'utf-8').trim() } : {}),
+        };
+      })
       .filter((s) => s.cards.length),
   }))
   .filter((d) => d.sets.length);

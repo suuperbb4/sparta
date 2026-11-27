@@ -5,6 +5,7 @@
   const KEY = 'btcard.access';
   const S = { cfg: null, feed: { days: [] }, access: null, route: 'gate', date: null, open: null, idx: 0, os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '' };
   let installPrompt = null;
+  let lockUntil = 0;
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const store = {
@@ -104,7 +105,7 @@
         </div>
         ${day ? sortSets(day.sets).map((s) => `<button class="set" data-open="${esc(s.series)}" data-date="${esc(day.date)}">
           <img src="${esc(s.cards[0])}" alt="" loading="lazy">
-          <div><h3>${esc(seriesInfo(s.series).name)}</h3><div class="d">${s.cards.length}장</div></div></button>`).join('')
+          <div><h3>${esc(seriesInfo(s.series).name)}</h3><div class="d">${s.cards.length}장${s.text ? ' · 짧은 글' : ''}</div>${s.text ? `<div class="ex">${esc(s.text.split('\n')[0])}</div>` : ''}</div></button>`).join('')
           : '<div class="empty">아직 올라온 카드가 없어요.</div>'}
         ${standalone() ? '' : '<div class="box">홈 화면에 추가하면 앱처럼 바로 열 수 있어요. <button class="lnk" data-go="install">추가하는 방법</button></div>'}
       </div>${tabs()}`;
@@ -131,10 +132,10 @@
     const set = day && day.sets.find((s) => s.series === S.open.series);
     if (!set) return '';
     return `<div class="vw" role="dialog" aria-label="${esc(seriesInfo(set.series).name)}">
-      <div class="vbar"><button data-act="close">닫기</button><b>${esc(seriesInfo(set.series).name)}</b><span class="muted" style="min-width:56px;text-align:right" id="cnt">${S.idx + 1}/${set.cards.length}</span></div>
-      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false"></div>`).join('')}</div>
+      <div class="vbar"><button data-act="close">닫기</button><b>${esc(seriesInfo(set.series).name)}</b><span class="muted" style="min-width:56px;text-align:right" id="cnt">${S.idx + 1}/${set.cards.length + (set.text ? 1 : 0)}</span></div>
+      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false"></div>`).join('')}${set.text ? `<div class="slide"><div class="txt"><b>비티의 한마디</b>${esc(set.text)}</div></div>` : ''}</div>
       <div class="vfoot"><button data-act="prev" aria-label="이전 카드">‹</button>
-        <div class="dots">${set.cards.map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('')}</div>
+        <div class="dots">${set.cards.concat(set.text ? [''] : []).map((_, i) => `<i class="${i === S.idx ? 'on' : ''}"></i>`).join('')}</div>
         <button data-act="next" aria-label="다음 카드">›</button></div></div>`;
   }
 
@@ -148,7 +149,10 @@
     const t = document.getElementById('track');
     if (t) {
       t.scrollLeft = S.idx * t.clientWidth;
-      t.addEventListener('scroll', () => { const i = Math.round(t.scrollLeft / t.clientWidth); if (i !== S.idx) { S.idx = i; syncDots(); } }, { passive: true });
+      t.addEventListener('scroll', () => {
+        if (Date.now() < lockUntil) return; // 버튼으로 넘기는 중에는 중간 위치를 무시
+        const i = Math.round(t.scrollLeft / t.clientWidth); if (i !== S.idx) { S.idx = i; syncDots(); }
+      }, { passive: true });
     }
     const f = document.getElementById('codeForm');
     if (f) f.addEventListener('submit', onCode);
@@ -161,7 +165,9 @@
   function slide(to) {
     const t = document.getElementById('track'); if (!t) return;
     S.idx = Math.max(0, Math.min(t.children.length - 1, to));
-    t.scrollTo({ left: S.idx * t.clientWidth, behavior: 'smooth' }); syncDots();
+    const busy = Date.now() < lockUntil; // 연달아 누르면 애니메이션 없이 바로 이동
+    lockUntil = Date.now() + 500;
+    t.scrollTo({ left: S.idx * t.clientWidth, behavior: busy ? 'auto' : 'smooth' }); syncDots();
   }
   function openViewer(date, series) { S.open = { date, series }; S.idx = 0; history.pushState({ viewer: 1 }, ''); render(); }
   function closeViewer() { if (S.open) { S.open = null; render(); } }

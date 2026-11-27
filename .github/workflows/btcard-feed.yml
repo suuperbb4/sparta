@@ -9,6 +9,11 @@ on:
 permissions:
   contents: write
 
+# 카드 9장이 한 장씩 올라와도 마지막 한 번만 목록을 만들게 한다
+concurrency:
+  group: btcard-feed
+  cancel-in-progress: true
+
 jobs:
   feed:
     runs-on: ubuntu-latest
