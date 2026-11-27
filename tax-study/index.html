@@ -1,0 +1,301 @@
+<title>세무사 동차 학습실</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday study tool, calm and dense
+   IDEA a Korean exam paper with its red-lined OMR answer card
+   PICTURE the question sheet itself, large, with OMR bubbles you mark
+   COLOUR paper white, ink navy, OMR red as accent, pale pink fields
+   TYPE Nanum Myeongjo for questions + IBM Plex Sans KR for UI
+   LAYOUT laptop: header with D-day, filter rail left, sheet right; phone: header, sheet, filters below */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#12141c);--paper:light-dark(#fffdfb,#1a1d28);--ink:light-dark(#14213d,#e8ebf5);--mute:light-dark(#5b6478,#9aa3b8);--line:light-dark(#e9c9d1,#4a3540);--omr:light-dark(#c8264f,#ff6f8f);--pink:light-dark(#fdeef1,#2a1d24);--ok:light-dark(#1f7a4d,#5fd39a);--okbg:light-dark(#e7f5ed,#16291f);--bad:light-dark(#c8264f,#ff6f8f);--panel:light-dark(#f6f7fa,#1c1f2b);--edge:light-dark(#dfe3ea,#2e3344)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans KR",system-ui,sans-serif;margin:0;overflow-x:clip}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+header{background:var(--ink);color:var(--bg);margin-top:calc(-1*env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 22px);padding-bottom:0}
+.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between}
+h1{font:800 clamp(28px,4vw,40px)/1.05 "Nanum Myeongjo",serif;letter-spacing:-.02em;margin:0}
+.sub{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:14px;margin-top:6px}
+.dd{display:flex;gap:10px;flex-wrap:wrap}
+.dd div{border:1px solid color-mix(in srgb,var(--bg) 30%,transparent);border-radius:8px;padding:6px 14px;text-align:center}
+.dd b{display:block;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dd span{font-size:13px;opacity:.8}
+nav{display:flex;gap:4px;margin-top:18px;overflow-x:auto}
+nav button{background:none;border:0;color:inherit;opacity:.7;font:500 16px "IBM Plex Sans KR";padding:12px 16px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button[aria-selected=true]{opacity:1;border-color:var(--omr);font-weight:700}
+main{padding-block:24px 64px}
+.grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:start}
+.rail{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:16px;display:grid;gap:14px;position:sticky;top:12px}
+.rail h3{font-size:14px;margin:0 0 6px;color:var(--mute);font-weight:500}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button,.chip{font:14px "IBM Plex Sans KR";border:1px solid var(--edge);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed=true],.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.count{font-size:13px;color:var(--mute)}
+.sheet{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--omr);border-radius:4px 10px 10px 4px;padding:clamp(18px,3vw,36px);min-height:420px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--mute);margin-bottom:14px}
+.meta span{background:var(--pink);color:var(--omr);padding:2px 10px;border-radius:4px}
+.qtext{font:700 clamp(18px,2vw,21px)/1.7 "Nanum Myeongjo",serif;white-space:pre-wrap;margin:0 0 20px}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;text-align:left;font:17px/1.6 "Nanum Myeongjo",serif;color:var(--ink);background:none;border:1px solid transparent;border-radius:8px;padding:8px 10px;cursor:pointer;white-space:pre-wrap}
+.opt:hover{background:var(--pink)}
+.bub{width:30px;height:30px;border:2px solid var(--omr);border-radius:50%;display:grid;place-items:center;color:var(--omr);font:700 14px "IBM Plex Sans KR";margin-top:-1px}
+.opt.sel .bub{background:var(--omr);color:var(--paper)}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.right .bub{border-color:var(--ok);background:var(--ok);color:var(--paper)}
+.opt.wrong{background:var(--pink);border-color:var(--bad)}
+input,textarea,select{font:16px "IBM Plex Sans KR";color:var(--ink);background:var(--bg);border:1px solid var(--edge);border-radius:8px;padding:10px 12px}
+textarea{width:100%;min-height:200px;font-family:"Nanum Myeongjo",serif;line-height:1.7}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
+.btn{font:700 16px "IBM Plex Sans KR";background:var(--omr);color:#fff;border:0;border-radius:8px;padding:12px 22px;cursor:pointer;min-height:44px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--edge);font-weight:500}
+.btn:disabled{opacity:.4;cursor:default}
+.res{margin-top:22px;border-top:2px dashed var(--line);padding-top:18px}
+.verdict{font:800 22px "Nanum Myeongjo",serif}
+.verdict.ok{color:var(--ok)}.verdict.no{color:var(--bad)}
+.exp{white-space:pre-wrap;margin:10px 0}
+.memo{background:var(--pink);border-radius:8px;padding:12px 14px;margin-top:12px;white-space:pre-wrap}
+.memo b{color:var(--omr)}
+.empty{color:var(--mute);text-align:center;padding:60px 10px}
+.empty b{display:block;color:var(--ink);font:800 22px "Nanum Myeongjo",serif;margin-bottom:8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:12px;margin-bottom:24px}
+.kpi{border-top:3px solid var(--ink);padding-top:8px}
+.kpi b{display:block;font:800 clamp(28px,4vw,38px)/1.1 "Nanum Myeongjo",serif;font-variant-numeric:tabular-nums}
+.kpi span{font-size:14px;color:var(--mute)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:18px}
+.card h2{font:800 20px/1.3 "Nanum Myeongjo",serif;margin:0 0 14px}
+.bar{display:grid;grid-template-columns:7.5em minmax(0,1fr) 4.5em;gap:10px;align-items:center;font-size:14px;margin-bottom:8px}
+.track{height:14px;background:var(--bg);border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.fill{height:100%;background:var(--omr)}
+.bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.heat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px}
+.heat i{aspect-ratio:1;border-radius:2px;background:var(--bg);border:1px solid var(--edge)}
+.list{display:grid;gap:12px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.item .qtext{font-size:16px;margin-bottom:8px}
+.flip{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.fc{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--omr);border-radius:8px;padding:16px;text-align:left;cursor:pointer;color:var(--ink);font:16px/1.6 "IBM Plex Sans KR";min-height:140px}
+.fc b{display:block;font:700 17px/1.5 "Nanum Myeongjo",serif;margin-bottom:8px}
+.fc p{margin:0;white-space:pre-wrap;color:var(--mute)}
+.fc.open p{color:var(--ink)}
+.report{white-space:pre-wrap}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+.toast{font-size:14px;color:var(--mute)}
+@media(max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}.rail{position:static;order:2}.two{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.bar{grid-template-columns:5.5em minmax(0,1fr) 4em}.dd b{font-size:20px}}
+</style>
+
+<header><div class="wrap">
+  <div class="top">
+    <div><h1>세무사 동차 학습실</h1><div class="sub" id="who">2027년 동차 합격 · 1차 선택 행정소송법</div></div>
+    <div class="dd" id="dday"></div>
+  </div>
+  <nav role="tablist" id="tabs">
+    <button data-t="solve" aria-selected="true">문제 풀기</button>
+    <button data-t="wrong" aria-selected="false">오답노트</button>
+    <button data-t="memo" aria-selected="false">암기노트</button>
+    <button data-t="stat" aria-selected="false">분석</button>
+  </nav>
+</div></header>
+
+<main class="wrap" id="view"></main>
+
+<script>
+{
+const SUBJ=[
+ {id:'jae',exam:'1차',name:'재정학'},{id:'segae',exam:'1차',name:'세법학개론'},{id:'hoegae',exam:'1차',name:'회계학개론'},{id:'haeng',exam:'1차',name:'행정소송법'},
+ {id:'h1',exam:'2차',name:'회계학 1부'},{id:'h2',exam:'2차',name:'회계학 2부'},{id:'s1',exam:'2차',name:'세법학 1부'},{id:'s2',exam:'2차',name:'세법학 2부'}];
+const SN=Object.fromEntries(SUBJ.map(s=>[s.id,s.name]));
+const MODES=[['new','안 푼 문제'],['review','오늘 복습'],['wrong','틀린 문제'],['star','별표'],['all','전체 랜덤']];
+const REASONS=['개념 부족','암기 부족','계산 실수','문제 오독','찍음'];
+const GAP=[1,3,7,14,30];
+const NUM='①②③④⑤';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+const S={qsets:{},notes:{},reports:[],att:[],prefs:{},tab:'solve',exam:'1차',subj:'all',mode:'new',cur:null,sel:null,done:null,t0:0,memoSubj:'all',open:{},msg:'',loading:true};
+let db=null,uid=null,attCol=null,prefRef=null;
+
+const allQ=()=>Object.values(S.qsets).flatMap(d=>(d.questions||[]).map(q=>({...q,subj:d.subject})));
+function qstats(){
+  const m={};
+  [...S.att].sort((a,b)=>a.ts-b.ts).forEach(a=>{
+    const s=m[a.qid]||(m[a.qid]={n:0,wrong:0,streak:0,last:null});
+    s.n++;s.last=a;if(a.correct){s.streak++}else{s.wrong++;s.streak=0}
+  });
+  const now=Date.now();
+  for(const s of Object.values(m)){s.due=s.wrong>0&&s.streak<GAP.length?s.last.ts+GAP[s.streak]*864e5:Infinity;s.isDue=s.due<=now;s.open=s.wrong>0&&s.streak<3}
+  return m;
+}
+function pool(){
+  const st=qstats(),stars=S.prefs.stars||[];
+  return allQ().filter(q=>SUBJ.find(s=>s.id===q.subj)?.exam===S.exam&&(S.subj==='all'||q.subj===S.subj)).filter(q=>{
+    const s=st[q.id];
+    if(S.mode==='new')return !s;if(S.mode==='review')return s&&s.isDue;if(S.mode==='wrong')return s&&s.open;if(S.mode==='star')return stars.includes(q.id);return true});
+}
+function next(){const p=pool().filter(q=>q.id!==S.cur?.id);S.cur=p.length?p[Math.floor(Math.random()*p.length)]:(pool()[0]||null);S.sel=null;S.done=null;S.t0=Date.now();S.essay='';S.keys={};render()}
+
+function dday(){
+  const d1=S.prefs.d1||'2027-04-24',d2=S.prefs.d2||'2027-07-17';
+  const left=d=>Math.ceil((new Date(d+'T00:00:00+09:00')-Date.now())/864e5);
+  $('#dday').innerHTML=[['1차',d1],['2차',d2]].map(([k,d])=>`<div><b>D-${Math.max(0,left(d))}</b><span>${k} ${esc(d.slice(5).replace('-','/'))}${S.prefs.d1?'':' (예상)'}</span></div>`).join('');
+}
+
+function rail(){
+  const subs=SUBJ.filter(s=>s.exam===S.exam);const n=pool().length;
+  return `<aside class="rail">
+  <div><h3>시험</h3><div class="seg">${['1차','2차'].map(e=>`<button data-exam="${e}" aria-pressed="${S.exam===e}">${e}</button>`).join('')}</div></div>
+  <div><h3>과목</h3><div class="seg"><button data-subj="all" aria-pressed="${S.subj==='all'}">전체</button>${subs.map(s=>`<button data-subj="${s.id}" aria-pressed="${S.subj===s.id}">${s.name}</button>`).join('')}</div></div>
+  <div><h3>출제 방식</h3><div class="seg">${MODES.map(([k,l])=>`<button data-mode="${k}" aria-pressed="${S.mode===k}">${l}</button>`).join('')}</div></div>
+  <div class="count">조건에 맞는 문제 ${n}개 · 전체 ${allQ().length}개</div>
+  ${uid?'':'<div class="note">로그인 정보를 불러오지 못해 풀이 기록이 저장되지 않습니다.</div>'}
+  </aside>`;
+}
+
+function sheet(){
+  const q=S.cur;
+  if(S.loading)return `<section class="sheet"><div class="empty"><b>문제를 불러오는 중</b>${S.msg?esc(S.msg):'잠시만 기다려 주세요.'}</div></section>`;
+  if(!q)return `<section class="sheet"><div class="empty"><b>${S.mode==='review'?'오늘 복습할 문제가 없어요':S.mode==='new'?'이 조건의 새 문제를 다 풀었어요':'조건에 맞는 문제가 없어요'}</b>다른 출제 방식을 고르거나, Claude에게 “${esc(S.subj==='all'?S.exam:SN[S.subj])} 문제 20개 추가해줘”라고 요청하세요.</div></section>`;
+  const st=qstats()[q.id],star=(S.prefs.stars||[]).includes(q.id),d=S.done;
+  let body='';
+  if(q.type==='mc'){
+    body=`<div class="opts">${q.choices.map((c,i)=>{const k=i+1;let cl='opt';if(d){if(k===q.ans)cl+=' right';else if(k===S.sel)cl+=' wrong'}else if(k===S.sel)cl+=' sel';return `<button class="${cl}" data-pick="${k}" ${d?'disabled':''}><span class="bub">${k}</span><span>${esc(c)}</span></button>`}).join('')}</div>
+    ${d?'':`<div class="row"><button class="btn" id="submit" ${S.sel?'':'disabled'}>답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
+  }else if(q.type==='num'){
+    body=`<div class="row"><input id="numans" inputmode="decimal" placeholder="숫자만 입력" value="${esc(S.sel??'')}" ${d?'disabled':''} style="width:16em"> <span>${esc(q.unit||'')}</span></div>
+    ${d?'':`<div class="row"><button class="btn" id="submit">답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
+  }else{
+    body=`<textarea id="essay" placeholder="답안을 작성하세요. 제출하면 모범답안과 채점 키워드가 나옵니다." ${d?'disabled':''}>${esc(S.essay||'')}</textarea>
+    ${d?'':`<div class="row"><button class="btn" id="submit">답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
+  }
+  return `<section class="sheet">
+   <div class="meta"><span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>${'★'.repeat(q.diff||1)}${'☆'.repeat(3-(q.diff||1))}</span><span>${esc(q.src||'예상')}</span>${st?`<span>${st.n}회 풀이 · 오답 ${st.wrong}</span>`:''}<button class="chip" id="star" aria-pressed="${star}">${star?'★ 별표됨':'☆ 별표'}</button></div>
+   <p class="qtext">${esc(q.q)}</p>${body}${d?result(q):''}</section>`;
+}
+function result(q){
+  const d=S.done;let head='';
+  if(q.type==='essay'&&!d.saved){
+    return `<div class="res"><div class="verdict">모범답안</div><div class="exp">${esc(q.model)}</div>
+    <h3 style="font-size:16px;margin:16px 0 8px">내 답안에 들어간 키워드를 체크하세요</h3>
+    <div class="seg">${(q.keys||[]).map((k,i)=>`<button class="chip" data-key="${i}" aria-pressed="${!!S.keys[i]}">${esc(k)}</button>`).join('')}</div>
+    <div class="row"><button class="btn" id="essaysave">채점 저장 (${Object.values(S.keys).filter(Boolean).length}/${(q.keys||[]).length})</button>${S.sample?'<button class="btn ghost" id="aigrade">Claude에게 채점 받기</button>':''}</div>
+    ${S.ai?`<div class="memo"><b>Claude 채점</b>\n${esc(S.ai)}</div>`:''}</div>`;
+  }
+  if(q.type==='essay')head=`<div class="verdict ${d.correct?'ok':'no'}">키워드 ${Math.round(d.score*100)}% 반영</div>`;
+  else head=`<div class="verdict ${d.correct?'ok':'no'}">${d.correct?'정답입니다':'오답입니다'}</div>${d.correct?'':`<div>정답: <b>${q.type==='mc'?NUM[q.ans-1]+' '+esc(q.choices[q.ans-1]):esc(Number(q.ans).toLocaleString('ko-KR'))+' '+esc(q.unit||'')}</b></div>`}`;
+  return `<div class="res">${head}
+   ${q.type==='essay'?`<div class="exp">${esc(q.model)}</div>${S.ai?`<div class="memo"><b>Claude 채점</b>\n${esc(S.ai)}</div>`:''}`:`<div class="exp">${esc(q.exp)}</div>`}
+   ${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}
+   ${d.correct?'':`<h3 style="font-size:16px;margin:16px 0 8px">왜 틀렸나요?</h3><div class="seg">${REASONS.map(r=>`<button class="chip" data-reason="${esc(r)}" aria-pressed="${d.reason===r}">${r}</button>`).join('')}</div>`}
+   <div class="row"><button class="btn" id="next">다음 문제</button><span class="toast">${esc(S.msg)}</span></div></div>`;
+}
+
+function wrongView(){
+  const st=qstats(),qs=allQ().filter(q=>st[q.id]?.open&&(S.memoSubj==='all'||q.subj===S.memoSubj));
+  qs.sort((a,b)=>st[b.id].wrong-st[a.id].wrong);
+  return `${subjFilter()}<p class="count">아직 3번 연속 맞히지 못한 문제 ${qs.length}개 · 1, 3, 7, 14, 30일 간격으로 ‘오늘 복습’에 다시 나옵니다.</p>
+  <div class="list">${qs.length?qs.map(q=>{const s=st[q.id],a=s.last;const mine=q.type==='mc'?NUM[(a.given|0)-1]||'-':esc(a.given??'-');
+   return `<article class="item"><div class="meta"><span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>오답 ${s.wrong}회</span>${a.reason?`<span>${esc(a.reason)}</span>`:''}<span>${s.isDue?'오늘 복습':'다음 복습 '+new Date(s.due).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</span></div>
+   <p class="qtext">${esc(q.q)}</p>${q.type==='mc'?`<div>내 답 ${mine} → 정답 <b>${NUM[q.ans-1]} ${esc(q.choices[q.ans-1])}</b></div>`:q.type==='num'?`<div>내 답 ${mine} → 정답 <b>${esc(Number(q.ans).toLocaleString('ko-KR'))} ${esc(q.unit||'')}</b></div>`:''}
+   <details><summary>해설 보기</summary><div class="exp">${esc(q.exp||q.model)}</div>${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}</details>
+   <div class="row"><button class="btn ghost" data-retry="${esc(q.id)}">다시 풀기</button></div></article>`}).join(''):'<div class="empty"><b>오답노트가 비어 있어요</b>문제를 풀다 틀리면 여기에 자동으로 쌓입니다.</div>'}</div>`;
+}
+function subjFilter(){return `<div class="seg" style="margin-bottom:14px"><button data-ms="all" aria-pressed="${S.memoSubj==='all'}">전체</button>${SUBJ.map(s=>`<button data-ms="${s.id}" aria-pressed="${S.memoSubj===s.id}">${s.exam} ${s.name}</button>`).join('')}</div>`}
+function memoView(){
+  const st=qstats();
+  const cards=Object.values(S.notes).flatMap(d=>(d.cards||[]).map(c=>({...c,subj:d.subject}))).filter(c=>S.memoSubj==='all'||c.subj===S.memoSubj);
+  const mine=allQ().filter(q=>q.memo&&st[q.id]?.wrong&&(S.memoSubj==='all'||q.subj===S.memoSubj));
+  const fc=(id,subj,front,back)=>`<button class="fc ${S.open[id]?'open':''}" data-fc="${esc(id)}"><div class="meta"><span>${esc(SN[subj])}</span></div><b>${esc(front)}</b><p>${S.open[id]?esc(back):'눌러서 답 보기'}</p></button>`;
+  return `${subjFilter()}
+  ${mine.length?`<h2 style="font:800 22px 'Nanum Myeongjo',serif">내 오답에서 나온 암기 포인트 ${mine.length}</h2><div class="flip">${mine.map(q=>fc('m'+q.id,q.subj,q.topic,q.memo)).join('')}</div>`:''}
+  <h2 style="font:800 22px 'Nanum Myeongjo',serif;margin-top:28px">핵심 암기 카드 ${cards.length}</h2>
+  <div class="flip">${cards.length?cards.map(c=>fc(c.id,c.subj,c.front,c.back)).join(''):'<div class="empty">아직 카드가 없어요.</div>'}</div>`;
+}
+function statView(){
+  const A=S.att,ok=A.filter(a=>a.correct).length,today=new Date().toDateString();
+  const st=qstats(),due=Object.values(st).filter(s=>s.isDue).length;
+  const bySub=SUBJ.map(s=>{const a=A.filter(x=>x.subj===s.id);const tot=(S.qsets[s.id]?.questions||[]).length;return {...s,n:a.length,r:a.length?a.filter(x=>x.correct).length/a.length:0,cov:tot?Object.keys(st).filter(id=>id.startsWith(s.id+'-')).length/tot:0,tot}});
+  const tp={};A.forEach(a=>{const k=a.subj+'|'+a.topic;(tp[k]||(tp[k]={n:0,ok:0})).n++;if(a.correct)tp[k].ok++});
+  const weak=Object.entries(tp).filter(([,v])=>v.n>=2).map(([k,v])=>({k,r:v.ok/v.n,n:v.n})).sort((a,b)=>a.r-b.r).slice(0,8);
+  const rs={};A.filter(a=>a.reason).forEach(a=>rs[a.reason]=(rs[a.reason]||0)+1);const rmax=Math.max(1,...Object.values(rs));
+  const days=[...Array(84)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-83+i);const e=+d+864e5;return A.filter(a=>a.ts>=+d&&a.ts<e).length});
+  const hmax=Math.max(1,...days);
+  const pct=x=>Math.round(x*100)+'%';
+  return `<div class="kpis"><div class="kpi"><b>${A.length}</b><span>총 풀이</span></div><div class="kpi"><b>${A.length?pct(ok/A.length):'-'}</b><span>정답률</span></div><div class="kpi"><b>${A.filter(a=>new Date(a.ts).toDateString()===today).length}</b><span>오늘 푼 문제</span></div><div class="kpi"><b>${due}</b><span>복습 대기</span></div></div>
+  <div class="two">
+   <div class="card"><h2>과목별 정답률</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.r*100}%"></div></div><em>${s.n?pct(s.r):'-'}</em></div>`).join('')}<p class="note">막대: 정답률 · 오른쪽 숫자는 풀이 ${A.length?'기록 기준':'기록이 쌓이면 표시'}</p></div>
+   <div class="card"><h2>문제은행 진도</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.cov*100}%;background:var(--ink)"></div></div><em>${Math.round(s.cov*s.tot)}/${s.tot}</em></div>`).join('')}</div>
+   <div class="card"><h2>약한 단원</h2>${weak.length?weak.map(w=>{const [s,t]=w.k.split('|');return `<div class="bar"><span>${esc(t)}</span><div class="track"><div class="fill" style="width:${w.r*100}%"></div></div><em>${pct(w.r)} · ${w.n}</em></div><div class="note" style="margin:-6px 0 8px">${esc(SN[s])}</div>`}).join(''):'<p class="count">단원별로 2문제 이상 풀면 정답률이 낮은 순서로 보여요.</p>'}</div>
+   <div class="card"><h2>오답 원인</h2>${Object.keys(rs).length?REASONS.map(r=>`<div class="bar"><span>${r}</span><div class="track"><div class="fill" style="width:${(rs[r]||0)/rmax*100}%"></div></div><em>${rs[r]||0}</em></div>`).join(''):'<p class="count">틀린 문제에서 ‘왜 틀렸나요?’를 고르면 집계돼요.</p>'}</div>
+   <div class="card"><h2>최근 12주 학습량</h2><div class="heat">${days.map(c=>`<i title="${c}문제" style="${c?`background:color-mix(in srgb,var(--omr) ${20+c/hmax*80}%,var(--bg))`:''}"></i>`).join('')}</div><p class="note">한 칸이 하루, 왼쪽 위가 12주 전 · 진할수록 많이 푼 날</p></div>
+   <div class="card"><h2>시험일 설정</h2><div class="row" style="margin-top:0"><label>1차 <input type="date" id="d1" value="${esc(S.prefs.d1||'2027-04-24')}"></label><label>2차 <input type="date" id="d2" value="${esc(S.prefs.d2||'2027-07-17')}"></label></div><p class="note">제64회(2027) 시행계획 공고 전이라 2026년 일정(4/25, 7/18)을 참고한 예상일입니다.</p></div>
+  </div>
+  <h2 style="font:800 24px 'Nanum Myeongjo',serif;margin-top:32px">Claude 분석 리포트</h2>
+  <div class="list">${S.reports.length?S.reports.map(r=>`<article class="item"><div class="meta"><span>${esc(r.date)}</span></div><h3 style="margin:0 0 8px;font:800 19px 'Nanum Myeongjo',serif">${esc(r.title)}</h3><div class="report">${esc(r.body)}</div></article>`).join(''):'<div class="item">문제를 어느 정도 푼 뒤 Claude에게 “내 풀이 기록 분석해줘”라고 하면 여기에 리포트가 올라옵니다.</div>'}</div>`;
+}
+
+function render(){
+  document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===S.tab));
+  dday();
+  const v=$('#view');
+  v.innerHTML=S.tab==='solve'?`<div class="grid">${rail()}${sheet()}</div>`:S.tab==='wrong'?wrongView():S.tab==='memo'?memoView():statView();
+}
+
+async function savePrefs(p){S.prefs={...S.prefs,...p};render();if(!prefRef)return;try{await prefRef.set(S.prefs)}catch(e){S.msg='설정 저장 실패'}}
+async function record(q,given,correct,extra={}){
+  const a={qid:q.id,subj:q.subj,topic:q.topic,type:q.type,given,correct,ts:Date.now(),sec:Math.round((Date.now()-S.t0)/1000),...extra};
+  S.done={...a,saved:true};S.msg='';render();
+  if(!attCol){S.msg='기록 저장 안 됨 (로그인 필요)';render();return}
+  try{const ref=attCol.doc();S.done.ref=ref;await ref.set(a)}catch(e){S.msg=e.code==='quota_exceeded'?'저장 공간이 가득 찼어요':'기록 저장에 실패했어요';render()}
+}
+
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('button');if(!t)return;const q=S.cur;
+  if(t.dataset.t){S.tab=t.dataset.t;render();return}
+  if(t.dataset.exam){S.exam=t.dataset.exam;S.subj='all';next();return}
+  if(t.dataset.subj){S.subj=t.dataset.subj;next();return}
+  if(t.dataset.mode){S.mode=t.dataset.mode;next();return}
+  if(t.dataset.ms){S.memoSubj=t.dataset.ms;render();return}
+  if(t.dataset.fc){S.open[t.dataset.fc]=!S.open[t.dataset.fc];render();return}
+  if(t.dataset.retry){const r=allQ().find(x=>x.id===t.dataset.retry);S.tab='solve';S.exam=SUBJ.find(s=>s.id===r.subj).exam;S.cur=r;S.sel=null;S.done=null;S.t0=Date.now();render();return}
+  if(t.dataset.pick&&!S.done){S.sel=+t.dataset.pick;render();return}
+  if(t.dataset.key){S.keys[t.dataset.key]=!S.keys[t.dataset.key];render();return}
+  if(t.dataset.reason&&S.done){S.done.reason=t.dataset.reason;render();try{await S.done.ref?.update({reason:t.dataset.reason});const a=S.att.find(x=>x.ts===S.done.ts);if(a)a.reason=t.dataset.reason}catch(_){}return}
+  if(t.id==='skip'||t.id==='next'){next();return}
+  if(t.id==='star'&&q){const s=new Set(S.prefs.stars||[]);s.has(q.id)?s.delete(q.id):s.add(q.id);savePrefs({stars:[...s]});return}
+  if(t.id==='submit'&&q){
+    if(q.type==='mc'&&S.sel)record(q,S.sel,S.sel===q.ans);
+    else if(q.type==='num'){const v=parseFloat(String($('#numans').value).replace(/[,\s원]/g,''));if(isNaN(v))return;S.sel=v;record(q,v,Math.abs(v-q.ans)<=(q.tol||0))}
+    else if(q.type==='essay'){S.essay=$('#essay').value;if(!S.essay.trim())return;S.done={saved:false};S.ai='';render()}
+    return}
+  if(t.id==='essaysave'&&q){const n=(q.keys||[]).length,k=Object.values(S.keys).filter(Boolean).length,sc=n?k/n:0;record(q,S.essay.slice(0,4000),sc>=0.6,{score:sc});return}
+  if(t.id==='aigrade'&&q&&S.sample){
+    t.disabled=true;S.ai='채점 중…';render();
+    try{const r=await S.sample(`너는 세무사 2차 시험 채점위원이다. 아래 문제·모범답안·채점 키워드를 기준으로 수험생 답안을 채점하라. 한국어로, 100점 만점 점수 한 줄, 잘한 점 2줄, 빠진 논점과 보완 방법 3줄 이내로 답하라.\n\n[문제]\n${q.q}\n\n[모범답안]\n${q.model}\n\n[채점 키워드]\n${(q.keys||[]).join(', ')}\n\n[수험생 답안]\n${S.essay}`,{onText:({text})=>{S.ai=text;render()}});S.ai=r.text}
+    catch(err){S.ai=err.code==='not_granted'?'Claude 채점을 사용할 수 없어요.':'채점 요청에 실패했어요. 잠시 뒤 다시 시도하세요.'}
+    render();return}
+});
+document.addEventListener('input',e=>{if(e.target.id==='essay')S.essay=e.target.value;if(e.target.id==='numans')S.sel=e.target.value});
+document.addEventListener('change',e=>{if(e.target.id==='d1'||e.target.id==='d2')savePrefs({[e.target.id]:e.target.value})});
+
+render();
+(async()=>{
+  const timer=setTimeout(()=>{if(S.loading){S.msg='데이터에 아직 연결되지 않았어요. 네트워크를 확인하세요.';render()}},10000);
+  db=await window.claude?.use?.('db');
+  const user=await window.claude?.use?.('user');
+  if(!db){clearTimeout(timer);S.loading=false;S.msg='';render();$('#view').innerHTML='<div class="empty"><b>학습 데이터를 쓸 수 없어요</b>claude.ai에 로그인한 상태로 이 페이지를 열어 주세요.</div>';return}
+  uid=user?await user.id():null;
+  db.collection('qsets').onSnapshot(s=>{S.qsets=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(!s.metadata.fromCache){clearTimeout(timer)}const first=S.loading;S.loading=false;if(first||!S.cur)next();else render()},()=>{S.loading=false;S.msg='문제를 불러오지 못했어요';render()});
+  db.collection('notes').onSnapshot(s=>{S.notes=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));if(S.tab!=='solve')render()},()=>{});
+  db.collection('reports').onSnapshot(s=>{S.reports=s.docs.map(d=>d.data()).sort((a,b)=>String(b.date).localeCompare(String(a.date)));if(S.tab==='stat')render()},()=>{});
+  if(uid){
+    prefRef=db.doc(`data/users/${uid}/prefs`);
+    attCol=db.doc(`data/users/${uid}/study`).collection('attempts');
+    prefRef.onSnapshot(s=>{if(s.exists){S.prefs=s.data();render()}},()=>{});
+    attCol.onSnapshot(s=>{S.att=s.docs.map(d=>d.data());if(!S.done)render()},()=>{});
+  }
+  S.sample=await window.claude?.use?.('sample');if(S.done&&S.cur?.type==='essay')render();
+})();
+}
+</script>
