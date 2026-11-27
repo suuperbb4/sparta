@@ -68,7 +68,7 @@
         <li><b>보관함</b>지난 카드를 날짜별로 다시 보기</li>
         <li><b>이용 기간 ${untilLabel(S.access.until)}까지</b>네이버 유료 글의 버튼을 누를 때마다 자동 연장</li>
       </ul>
-      ${standalone() ? '' : '<div class="box">지금 이 화면에서 바로 홈 화면에 추가하면, 아이콘을 눌렀을 때 코드 입력 없이 열려요.</div>'}
+      ${standalone() ? '' : '<div class="box">지금 이 화면에서 바로 홈 화면에 추가하면, 아이콘을 눌렀을 때 코드 입력 없이 열려요. 추가할 때 <b>"웹 앱으로 열기"</b>를 꼭 켜 주세요.</div>'}
       ${standalone() ? '' : '<button class="btn" data-go="install">홈 화면에 추가하기</button>'}
       <button class="btn ghost" data-go="home">${standalone() ? '카드 보러 가기' : '나중에'}</button>
     </div>`,
@@ -76,17 +76,27 @@
     install: () => {
       if (standalone()) return `<div class="body pad"><h1>이미 앱으로 쓰고 있어요</h1><p class="muted">홈 화면의 비티 카드 아이콘으로 열면 돼요.</p><button class="btn" data-go="home">카드 보러 가기</button></div>`;
       const ios = S.os === 'ios';
-      const steps = ios
-        ? ['주소창 옆의 <b>⋯</b> 버튼을 누르고 <b>공유</b>를 눌러요 (공유 버튼 □↑이 바로 보이면 그걸 눌러요)', '아래쪽 <b>더 보기</b>를 누르고 <b>홈 화면에 추가</b>를 눌러요', '<b>웹 앱으로 열기</b>는 켠 채로 두고 오른쪽 위 <b>추가</b>를 눌러요', '홈 화면의 비티 카드 아이콘을 누르면 바로 열려요']
-        : ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', '설치된 비티 카드를 누르면 바로 열려요'];
+      const back = `<button class="back" data-go="${valid() ? 'home' : 'gate'}">‹ 뒤로</button>`;
+      const iosSteps = [
+        ['guide/ios-1.jpg', '<b>①</b> Safari 주소창 왼쪽의 메뉴 버튼을 눌러요'],
+        ['guide/ios-2.jpg', '<b>②</b> <b>공유</b>를 눌러요'],
+        ['guide/ios-3.jpg', '<b>③</b> 아래쪽 <b>더 보기</b>를 눌러요'],
+        ['guide/ios-4.jpg', '<b>④</b> <b>홈 화면에 추가</b>를 눌러요'],
+        ['guide/ios-5.jpg', '<b>⑤</b> <b>웹 앱으로 열기</b>를 꼭 켜고 <b>⑥</b> 오른쪽 위 <b>추가</b>를 눌러요'],
+      ];
+      const andSteps = ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', '설치된 비티 카드를 누르면 바로 열려요'];
       return `<div class="body pad">
+        ${back}
         <h1>홈 화면에 추가하기</h1>
-        <p class="muted">앱스토어 설치 없이 30초면 끝나요.</p>
+        <p class="muted">앱스토어 설치 없이 30초면 끝나요. 처음 한 번만 하면 돼요.</p>
         ${inApp() ? `<div class="box warn">지금은 네이버·카카오톡 같은 앱 안의 브라우저예요. 오른쪽 위 메뉴에서 <b>${ios ? '"Safari로 열기"' : '"다른 브라우저로 열기"'}</b>를 누른 뒤 진행해 주세요.</div>` : ''}
         <div class="seg"><button data-os="ios" class="${ios ? 'on' : ''}">아이폰</button><button data-os="and" class="${ios ? '' : 'on'}">안드로이드</button></div>
-        <ol class="ist">${steps.map((t, i) => `<li><span>${i + 1}</span><div>${t}</div></li>`).join('')}</ol>
-        ${!ios && installPrompt ? '<button class="btn" data-act="install">지금 설치하기</button>' : ''}
-        ${S.access ? `<div class="box">혹시 아이콘으로 열었을 때 코드를 물으면 이 코드를 넣어 주세요 <span class="code">${esc(S.access.code)}</span></div>` : ''}
+        ${ios ? `<div class="box must"><b>"웹 앱으로 열기"를 꼭 켜 주세요.</b> 그래야 주소창 없는 전체 화면과 새 카드 알림까지, 최적의 상태로 이용할 수 있어요.</div>
+          <ol class="gsteps">${iosSteps.map(([img, t]) => `<li><p>${t}</p><img src="${img}" alt="" loading="lazy"></li>`).join('')}</ol>
+          <div class="box">이제 홈 화면의 <b>비티 카드</b> 아이콘을 누르면 바로 열려요.</div>`
+        : `<ol class="ist">${andSteps.map((t, i) => `<li><span>${i + 1}</span><div>${t}</div></li>`).join('')}</ol>
+          ${installPrompt ? '<button class="btn" data-act="install">지금 설치하기</button>' : ''}`}
+        ${S.access ? `<p class="muted">혹시 아이콘으로 열었을 때 코드를 물으면 이 코드를 넣어 주세요 <span class="code">${esc(S.access.code)}</span></p>` : ''}
         <button class="btn ghost" data-go="${valid() ? 'home' : 'gate'}">돌아가기</button>
       </div>`;
     },
@@ -98,7 +108,7 @@
       const isLatest = day && latest && day.date === latest.date;
       return `<div class="body pad">
         <div class="hd">
-          ${isLatest ? '' : '<button class="lnk" data-act="latest">‹ 최신 카드로</button>'}
+          ${isLatest ? '' : '<button class="back" data-act="toArchive">‹ 보관함</button>'}
           <div class="muted">${day ? dayLabel(day.date) : ''}</div>
           <h1 style="margin:2px 0 6px">${isLatest ? '오늘의 카드' : '지난 카드'}</h1>
           <span class="badge">인사이트 노트 구독자 · ${untilLabel(S.access.until)}까지</span>
@@ -194,6 +204,7 @@
     if (d.act === 'prev') slide(S.idx - 1);
     if (d.act === 'next') slide(S.idx + 1);
     if (d.act === 'latest') { S.date = null; render(); }
+    if (d.act === 'toArchive') { S.date = null; go('archive'); }
     if (d.act === 'install' && installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; render(); }); }
   });
   addEventListener('popstate', closeViewer);
