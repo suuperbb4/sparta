@@ -58,6 +58,7 @@
         <p class="err" id="err">${esc(S.err)}</p>
         <button class="btn" type="submit">열기</button>
       </form>
+      ${standalone() ? '' : '<button class="btn ghost" data-go="install">홈 화면에 추가하는 방법 보기</button>'}
       <h2>아직 구독 전이라면</h2>
       <a class="btn nv" href="${esc(S.cfg.naverUrl)}">네이버에서 구독하기 · 월 5,900원</a>
       <p class="muted" style="margin-top:10px">카드만 보는 비티 카드 멤버십(월 4,900원)은 준비 중이에요.</p>
