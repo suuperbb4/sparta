@@ -45,7 +45,7 @@ const SCENES: Scene[] = [
   },
   {
     bg: FOOTAGE.redChart,
-    bgDim: 1,
+    bgDim: 1.35,
     id: 'o3',
     part: 0,
     cinematic: true,
@@ -217,7 +217,7 @@ const SCENES: Scene[] = [
   {bg: FOOTAGE.emptyHall, bgDim: 0.8, id: 'ch3', part: 3, narration: '', visual: {type: 'chapter', index: 3}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
     bg: FOOTAGE.traderPhone,
-    bgDim: 1,
+    bgDim: 1.3,
     id: 'p3a',
     part: 3,
     narration: '예를 들어 보겠습니다. 내 돈 1,000만 원에 증권사에서 1,000만 원을 빌려, 2,000만 원어치 주식을 샀다고 해 보죠. 증권사는 주식 가치가 빌린 돈의 일정 비율 아래로 떨어지면, 주식을 강제로 팔아 돈을 회수합니다. 이게 반대매매입니다.',
@@ -225,7 +225,7 @@ const SCENES: Scene[] = [
   },
   {
     bg: FOOTAGE.traderPhone,
-    bgDim: 1,
+    bgDim: 1.3,
     id: 'p3b',
     part: 3,
     narration: '기준이 140%라면, 주가가 30% 떨어지는 순간 기준에 닿습니다. 주가는 30% 떨어졌는데, 내 돈은 1,000만 원에서 400만 원, 60%가 사라진 겁니다.',
@@ -325,7 +325,7 @@ const SCENES: Scene[] = [
   {bg: FOOTAGE.clock, bgDim: 0.8, id: 'ch5', part: 5, narration: '', visual: {type: 'chapter', index: 5}, sfx: [{file: 'tick.wav', at: 0.1, volume: 0.4}]},
   {
     bg: FOOTAGE.tokyo,
-    bgDim: 0.95,
+    bgDim: 1.2,
     id: 'p5a',
     part: 5,
     narration: '그렇다면 이전 고점을 되찾기까지는 얼마나 걸렸을까요. 나스닥은 2000년 고점을 2015년에야 넘었습니다. 15년. 다우지수는 1954년, 25년이 걸렸습니다. 일본 닛케이는 1989년 고점을 2024년 2월에야 넘어섰습니다. 34년입니다.', // [D4][D5][D6]
