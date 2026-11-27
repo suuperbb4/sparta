@@ -1,6 +1,25 @@
 {
   "days": [
     {
+      "date": "2026-11-27",
+      "sets": [
+        {
+          "series": "morning",
+          "cards": [
+            "cards/2026-11-27/morning/01.jpg",
+            "cards/2026-11-27/morning/02.jpg",
+            "cards/2026-11-27/morning/03.jpg",
+            "cards/2026-11-27/morning/04.jpg",
+            "cards/2026-11-27/morning/05.jpg",
+            "cards/2026-11-27/morning/06.jpg",
+            "cards/2026-11-27/morning/07.jpg",
+            "cards/2026-11-27/morning/08.jpg",
+            "cards/2026-11-27/morning/09.jpg"
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-26",
       "sets": [
         {
