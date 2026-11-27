@@ -1,0 +1,767 @@
+{
+"subject": "jae",
+"year": 2021,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2021-jae-01",
+"topic": "소비·재산·기타세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 1,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문1",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 0,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-02",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 2,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문2",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 220,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-03",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 3,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문3",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 500,
+"h": 395,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-04",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 4,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문4",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 899,
+"h": 172,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-05",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 5,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문5",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 1075,
+"h": 311,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-06",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 6,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문6",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 1390,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-07",
+"topic": "소득세",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 7,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문7",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 1670,
+"h": 204,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-08",
+"topic": "기타",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 8,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문8",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 1878,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-09",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 9,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문9",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 2158,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-10",
+"topic": "기타",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 10,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문10",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 2378,
+"h": 128,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-11",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 11,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문11",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 2510,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-12",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 12,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문12",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 2730,
+"h": 272,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-13",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 13,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문13",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 3006,
+"h": 212,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-14",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 14,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문14",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 3222,
+"h": 299,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-15",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 15,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문15",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 3525,
+"h": 241,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-16",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 16,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문16",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 3770,
+"h": 270,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-17",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 17,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문17",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 4044,
+"h": 386,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-18",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 18,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문18",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 4434,
+"h": 152,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-19",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 19,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문19",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 4590,
+"h": 213,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-20",
+"topic": "공기업·가격",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 20,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문20",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 4807,
+"h": 299,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-21",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 21,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문21",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 5110,
+"h": 339,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-22",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 22,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문22",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 5453,
+"h": 178,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-23",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 23,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문23",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 5635,
+"h": 212,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-24",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 24,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문24",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 5851,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-25",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 25,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문25",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 6101,
+"h": 247,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-26",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 26,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문26",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 6352,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-27",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 27,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문27",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 6572,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-28",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 28,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문28",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 6852,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-29",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 29,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문29",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 7102,
+"h": 253,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-30",
+"topic": "비용편익분석",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 30,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문30",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 7359,
+"h": 242,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-31",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 31,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문31",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 7605,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-32",
+"topic": "재정정책·공채",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 32,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문32",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 7885,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-33",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 33,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문33",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 8135,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-34",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 34,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문34",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 8505,
+"h": 241,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-35",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 35,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문35",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 8750,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-36",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 36,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문36",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 9060,
+"h": 105,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-37",
+"topic": "외부성",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 37,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문37",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 9169,
+"h": 243,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-38",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 38,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문38",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 9416,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-39",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 39,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문39",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 9636,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-jae-40",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 40,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문40",
+"img": [
+{
+"s": "img/sprite/2021-jae.png",
+"y": 9916,
+"h": 306,
+"w": 819
+}
+]
+}
+]
+}

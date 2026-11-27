@@ -1,0 +1,767 @@
+{
+"subject": "segae",
+"year": 2022,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2022-segae-41",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 41,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문41",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 0,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-42",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 42,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문42",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 400,
+"h": 462,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-43",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 43,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문43",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 866,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-44",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 44,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문44",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 1206,
+"h": 313,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-45",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 45,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문45",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 1523,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-46",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 46,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문46",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 1863,
+"h": 351,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-47",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 47,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문47",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 2218,
+"h": 378,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-48",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 48,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문48",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 2600,
+"h": 350,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-49",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 49,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문49",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 2954,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-50",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 50,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문50",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 3324,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-51",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 51,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문51",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 3694,
+"h": 357,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-52",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 52,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문52",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 4055,
+"h": 610,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-53",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 53,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문53",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 4669,
+"h": 405,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-54",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 54,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문54",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 5078,
+"h": 664,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-55",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 55,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문55",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 5746,
+"h": 300,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-56",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 56,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문56",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 6050,
+"h": 328,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-57",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 57,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문57",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 6382,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-58",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 58,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문58",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 6722,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-59",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 59,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문59",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 7062,
+"h": 244,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-60",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 60,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문60",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 7310,
+"h": 405,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-61",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 61,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문61",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 7719,
+"h": 406,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-62",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 62,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문62",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 8129,
+"h": 576,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-63",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 63,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문63",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 8709,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-64",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 64,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문64",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 9169,
+"h": 497,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-65",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 65,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문65",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 9670,
+"h": 606,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-66",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 66,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문66",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 10280,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-67",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 67,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문67",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 10560,
+"h": 749,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-68",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 68,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문68",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 11313,
+"h": 576,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-69",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 69,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문69",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 11893,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-70",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 70,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문70",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 12323,
+"h": 516,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-71",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 71,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문71",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 12843,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-72",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 72,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문72",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 13273,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-73",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 73,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문73",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 13553,
+"h": 559,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-74",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 74,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문74",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 14116,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-75",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 75,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문75",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 14486,
+"h": 529,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-76",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 76,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문76",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 15019,
+"h": 411,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-77",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 77,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문77",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 15434,
+"h": 486,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-78",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 78,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문78",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 15924,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-79",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 79,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문79",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 16384,
+"h": 576,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-segae-80",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 80,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문80",
+"img": [
+{
+"s": "img/sprite/2022-segae.png",
+"y": 16964,
+"h": 516,
+"w": 819
+}
+]
+}
+]
+}

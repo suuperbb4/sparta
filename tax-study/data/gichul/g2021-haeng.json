@@ -1,0 +1,767 @@
+{
+"subject": "haeng",
+"year": 2021,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2021-haeng-41",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 41,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문41",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 0,
+"h": 105,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-42",
+"topic": "민중·기관소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 42,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문42",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 109,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-43",
+"topic": "당사자소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 43,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문43",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 449,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-44",
+"topic": "부작위위법확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 44,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문44",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 789,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-45",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 45,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문45",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 1099,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-46",
+"topic": "부작위위법확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 46,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문46",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 1349,
+"h": 171,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-47",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 47,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문47",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 1524,
+"h": 223,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-48",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 48,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문48",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 1751,
+"h": 128,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-49",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 49,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문49",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 1883,
+"h": 158,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-50",
+"topic": "부작위위법확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 50,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문50",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 2045,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-51",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 51,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문51",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 2325,
+"h": 165,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-52",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 52,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문52",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 2494,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-53",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 53,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문53",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 2834,
+"h": 335,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-54",
+"topic": "행정심판 전치",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 54,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문54",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 3173,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-55",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 55,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문55",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 3483,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-56",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 56,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문56",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 3883,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-57",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 57,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문57",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 4283,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-58",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 58,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문58",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 4533,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-59",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 59,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문59",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 4843,
+"h": 365,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-60",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 60,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문60",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 5212,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-61",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 61,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문61",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 5582,
+"h": 457,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-62",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 62,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문62",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 6043,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-63",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 63,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문63",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 6353,
+"h": 158,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-64",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 64,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문64",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 6515,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-65",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 65,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문65",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 6795,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-66",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 66,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문66",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 7105,
+"h": 335,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-67",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 67,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문67",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 7444,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-68",
+"topic": "대상적격(처분성)",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 68,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문68",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 7664,
+"h": 312,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-69",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 69,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문69",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 7980,
+"h": 425,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-70",
+"topic": "집행정지·가처분",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 70,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문70",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 8409,
+"h": 156,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-71",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 71,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문71",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 8569,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-72",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 72,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문72",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 8999,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-73",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 73,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문73",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 9309,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-74",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 74,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문74",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 9679,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-75",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 75,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문75",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 10049,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-76",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 76,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문76",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 10359,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-77",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 77,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문77",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 10669,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-78",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 78,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문78",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 11069,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-79",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 79,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문79",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 11409,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-haeng-80",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 80,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문80",
+"img": [
+{
+"s": "img/sprite/2021-haeng.png",
+"y": 11809,
+"h": 276,
+"w": 819
+}
+]
+}
+]
+}

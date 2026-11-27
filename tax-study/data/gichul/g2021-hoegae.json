@@ -1,0 +1,767 @@
+{
+"subject": "hoegae",
+"year": 2021,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2021-hoegae-01",
+"topic": "재고자산",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 1,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문1",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 0,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-02",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 2,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문2",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 400,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-03",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 3,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문3",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 740,
+"h": 379,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-04",
+"topic": "차입원가",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 4,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문4",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 1123,
+"h": 593,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-05",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 5,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문5",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 1720,
+"h": 279,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-06",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 6,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문6",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 2003,
+"h": 279,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-07",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 7,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문7",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 2286,
+"h": 279,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-08",
+"topic": "재고자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 8,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문8",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 2569,
+"h": 480,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-09",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 9,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문9",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 3053,
+"h": 486,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-10",
+"topic": "재무제표 표시",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 10,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문10",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 3543,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-11",
+"topic": "관계기업·사업결합",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 11,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문11",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 3883,
+"h": 361,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-12",
+"topic": "투자부동산",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 12,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문12",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 4248,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-13",
+"topic": "개념체계",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 13,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문13",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 4648,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-14",
+"topic": "개념체계",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 14,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문14",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 5018,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-15",
+"topic": "종업원급여",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 15,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문15",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 5418,
+"h": 495,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-16",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 16,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문16",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 5917,
+"h": 450,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-17",
+"topic": "주식기준보상",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 17,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문17",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 6371,
+"h": 475,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-18",
+"topic": "리스",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 18,
+"ans": "A",
+"diff": 2,
+"src": "제58회(2021) 1차 문18",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 6850,
+"h": 423,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-19",
+"topic": "현금흐름표",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 19,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문19",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 7277,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-20",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 20,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문20",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 7647,
+"h": 368,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-21",
+"topic": "수익",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 21,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문21",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 8019,
+"h": 435,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-22",
+"topic": "수익",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 22,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문22",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 8458,
+"h": 423,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-23",
+"topic": "주당이익",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 23,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문23",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 8885,
+"h": 394,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-24",
+"topic": "리스",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 24,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문24",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 9283,
+"h": 423,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-25",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 25,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문25",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 9710,
+"h": 500,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-26",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 26,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문26",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 10214,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-27",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 27,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문27",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 10614,
+"h": 189,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-28",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 28,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문28",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 10807,
+"h": 425,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-29",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 29,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문29",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 11236,
+"h": 330,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-30",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 30,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문30",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 11570,
+"h": 352,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-31",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 31,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문31",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 11926,
+"h": 451,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-32",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 32,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문32",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 12381,
+"h": 375,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-33",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 33,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문33",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 12760,
+"h": 561,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-34",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 34,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문34",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 13325,
+"h": 338,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-35",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 35,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문35",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 13667,
+"h": 281,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-36",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 36,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문36",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 13952,
+"h": 368,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-37",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 37,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문37",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 14324,
+"h": 621,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-38",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 38,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문38",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 14949,
+"h": 380,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-39",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 39,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문39",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 15333,
+"h": 676,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-hoegae-40",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 40,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문40",
+"img": [
+{
+"s": "img/sprite/2021-hoegae.png",
+"y": 16013,
+"h": 279,
+"w": 819
+}
+]
+}
+]
+}

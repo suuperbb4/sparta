@@ -1,0 +1,767 @@
+{
+"subject": "jae",
+"year": 2022,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2022-jae-01",
+"topic": "소비·재산·기타세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 1,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문1",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 0,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-02",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 2,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문2",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 220,
+"h": 199,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-03",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 3,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문3",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 423,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-04",
+"topic": "지방재정",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 4,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문4",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 673,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-05",
+"topic": "법인세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 5,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문5",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 953,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-06",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 6,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문6",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 1173,
+"h": 215,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-07",
+"topic": "초과부담·최적과세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 7,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문7",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 1392,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-08",
+"topic": "재정정책·공채",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 8,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문8",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 1612,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-09",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 9,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문9",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 1922,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-10",
+"topic": "탈세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 10,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문10",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 2142,
+"h": 305,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-11",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 11,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문11",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 2451,
+"h": 429,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-12",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 12,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문12",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 2884,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-13",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 13,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문13",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 3134,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-14",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 14,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문14",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 3354,
+"h": 304,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-15",
+"topic": "기타",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 15,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문15",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 3662,
+"h": 245,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-16",
+"topic": "조세 일반·귀착",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 16,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문16",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 3911,
+"h": 439,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-17",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 17,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문17",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 4354,
+"h": 312,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-18",
+"topic": "소득세",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 18,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문18",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 4670,
+"h": 328,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-19",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 19,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문19",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 5002,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-20",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 20,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문20",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 5282,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-21",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 21,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문21",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 5592,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-22",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 22,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문22",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 5902,
+"h": 348,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-23",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 23,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문23",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 6254,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-24",
+"topic": "외부성",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 24,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문24",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 6534,
+"h": 255,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-25",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 25,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문25",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 6793,
+"h": 171,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-26",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 26,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문26",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 6968,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-27",
+"topic": "공공재",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 27,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문27",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 7218,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-28",
+"topic": "공공선택",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 28,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문28",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 7498,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-29",
+"topic": "외부성",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 29,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문29",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 7748,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-30",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 30,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문30",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 7998,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-31",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 31,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문31",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 8278,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-32",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 32,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문32",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 8558,
+"h": 198,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-33",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 33,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문33",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 8760,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-34",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 34,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문34",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 9040,
+"h": 161,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-35",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 35,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문35",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 9205,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-36",
+"topic": "후생·효율",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 36,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문36",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 9575,
+"h": 275,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-37",
+"topic": "소득분배",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 37,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문37",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 9854,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-38",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 38,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문38",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 10104,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-39",
+"topic": "비용편익분석",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 39,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문39",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 10474,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-jae-40",
+"topic": "사회보장",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 40,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문40",
+"img": [
+{
+"s": "img/sprite/2022-jae.png",
+"y": 10784,
+"h": 245,
+"w": 819
+}
+]
+}
+]
+}

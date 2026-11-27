@@ -1,0 +1,767 @@
+{
+"subject": "haeng",
+"year": 2022,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2022-haeng-41",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 41,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문41",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 0,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-42",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 42,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문42",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 340,
+"h": 172,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-43",
+"topic": "민중·기관소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 43,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문43",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 516,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-44",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 44,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문44",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 856,
+"h": 223,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-45",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 45,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문45",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 1083,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-46",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 46,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문46",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 1303,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-47",
+"topic": "민중·기관소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 47,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문47",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 1613,
+"h": 247,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-48",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 48,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문48",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 1864,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-49",
+"topic": "대상적격(처분성)",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 49,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문49",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 2144,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-50",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 50,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문50",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 2424,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-51",
+"topic": "행정심판 전치",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 51,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문51",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 2764,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-52",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 52,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문52",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 3224,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-53",
+"topic": "제소기간",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 53,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문53",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 3684,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-54",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 54,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문54",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 4054,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-55",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 55,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문55",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 4454,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-56",
+"topic": "대상적격(처분성)",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 56,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문56",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 4914,
+"h": 216,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-57",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 57,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문57",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 5134,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-58",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 58,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문58",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 5444,
+"h": 354,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-59",
+"topic": "원고적격·소의 이익",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 59,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문59",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 5802,
+"h": 410,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-60",
+"topic": "집행정지·가처분",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 60,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문60",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 6216,
+"h": 327,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-61",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 61,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문61",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 6547,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-62",
+"topic": "소의 변경·관련청구",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 62,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문62",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 6917,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-63",
+"topic": "무효등확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 63,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문63",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 7167,
+"h": 305,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-64",
+"topic": "피고적격",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 64,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문64",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 7476,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-65",
+"topic": "집행정지·가처분",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 65,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문65",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 7816,
+"h": 186,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-66",
+"topic": "당사자소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 66,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문66",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 8006,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-67",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 67,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문67",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 8256,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-68",
+"topic": "부작위위법확인소송",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 68,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문68",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 8536,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-69",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 69,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문69",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 8846,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-70",
+"topic": "심리·증명책임",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 70,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문70",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 9186,
+"h": 335,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-71",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 71,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문71",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 9525,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-72",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 72,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문72",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 9835,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-73",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 73,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문73",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 10175,
+"h": 305,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-74",
+"topic": "기타",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 74,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문74",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 10484,
+"h": 356,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-75",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 75,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문75",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 10844,
+"h": 384,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-76",
+"topic": "행정심판 전치",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 76,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문76",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 11232,
+"h": 321,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-77",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 77,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문77",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 11557,
+"h": 212,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-78",
+"topic": "소송참가",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 78,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문78",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 11773,
+"h": 244,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-79",
+"topic": "관할·총론",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 79,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문79",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 12021,
+"h": 303,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-haeng-80",
+"topic": "판결·효력",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 80,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문80",
+"img": [
+{
+"s": "img/sprite/2022-haeng.png",
+"y": 12328,
+"h": 216,
+"w": 819
+}
+]
+}
+]
+}

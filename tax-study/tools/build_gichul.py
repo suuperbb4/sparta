@@ -4,12 +4,14 @@ import re, os, sys, json, subprocess, glob
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'data'))
 from answers import ANS
 SRC, OUT = sys.argv[1], sys.argv[2]
-ROUND = {2023: 60, 2024: 61, 2025: 62, 2026: 63}
+ROUND = {2021: 58, 2022: 59, 2023: 60, 2024: 61, 2025: 62, 2026: 63}
 CH = '①②③④⑤'
 SUBJ = {'jae': ('1교시', 1, 40), 'segae': ('1교시', 41, 80), 'hoegae': ('행정소송법', 1, 40), 'haeng': ('행정소송법', 41, 80)}
 CORPUS = ''
 # 아티팩트 파일 수 한도(511) 때문에 일부 이미지는 asset 저장소에 올림: '연도/파일명 asset_id'
 _am = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), '..', 'data', 'asset_map.txt')
+_sp = os.path.join(os.path.dirname(_am), 'sprites.json')
+SPR = json.load(open(_sp)) if os.path.exists(_sp) else {}
 AMAP = dict(l.split() for l in open(_am)) if os.path.exists(_am) else {}
 SOLO = set('및등수그것각이또중후전때안뒤외더못잘곧즉단총약본당동해위매새옛온갖저와과의를을은는가에도로나')
 
@@ -84,9 +86,12 @@ JAE = [('공공재', r'공공재|린달|사무엘슨'), ('외부성', r'외부|�
  ('소비·재산·기타세', r'부가가치세|소비세|재산세|물품세|관세'), ('소득분배', r'로렌츠|지니|앳킨슨|분배|빈곤'), ('비용편익분석', r'비용-?편익|현재가치|내부수익률|할인율'),
  ('사회보장', r'사회보험|연금|실업|건강보험|복지'), ('지방재정', r'지방|티부|교부금|보조금'), ('재정정책·공채', r'공채|국채|재정적자|리카도|재정정책'), ('공기업·가격', r'공기업|가격설정|평균비용'),
  ('탈세', r'탈세'), ('경비팽창', r'바그너|팽창|전위')]
-HOE_FIX = {(2023, 1): '개념체계', (2023, 2): '유형자산', (2023, 19): '현금흐름표', (2024, 1): '회계변경·오류수정', (2024, 3): '현금흐름표',
+HOE_FIX = {(2021, 4): '차입원가', (2021, 6): '금융상품', (2021, 7): '유형자산', (2021, 16): '금융상품',
+ (2022, 1): '개념체계', (2022, 5): '유형자산', (2022, 8): '농림어업', (2022, 19): '금융상품', (2022, 22): '현금흐름표',
+ (2023, 1): '개념체계', (2023, 2): '유형자산', (2023, 19): '현금흐름표', (2024, 1): '회계변경·오류수정', (2024, 3): '현금흐름표',
  (2024, 11): '매각예정', (2024, 14): '유형자산', (2024, 20): '재무제표 표시', (2025, 3): '재고자산', (2025, 15): '금융상품',
  (2026, 6): '공정가치 측정', (2026, 11): '차입원가', (2026, 13): '무형자산', (2026, 15): '농림어업', (2026, 24): '금융상품'}
+KIND_FIX = {('hoegae', 2022, 9): '말'}
 TEXTUAL = re.compile(r'설명|모두 고른|옳은 것|옳지 않은 것|해당하는|해당하지|아닌 것|적절한|틀린|않는 것')
 def topic(subj, stem, y=0, n=0):
     if subj == 'hoegae':
@@ -144,10 +149,11 @@ def main():
                 ch = p[1] if p else []
                 kind = '계산' if p and subj != 'haeng' and is_calc(stem, ch) and not re.search(r'몇 개|개수|모두 몇', stem) else '말'
                 if subj == 'hoegae' and (n >= 25 or not TEXTUAL.search(stem)): kind = '계산'
+                if (subj, y, n) in KIND_FIX: kind = KIND_FIX[(subj, y, n)]
                 tp = topic(subj, stem or (bl[0] if bl else ''), y, n)
                 imgs = sorted(os.path.basename(f) for f in glob.glob(os.path.join(OUT, '..', '..', 'img', str(y), f'{subj}-{n:02d}*.png')))
                 q = dict(id=qid, topic=tp, type='gichul', kind=kind, year=y, no=n, ans=ans, diff=2,
-                         src=f'제{ROUND[y]}회({y}) 1차 문{n}', img=[('/_blob/' + AMAP[f'{y}/{f[:-4]}']) if f'{y}/{f[:-4]}' in AMAP else f'img/{y}/{f}' for f in imgs])
+                         src=f'제{ROUND[y]}회({y}) 1차 문{n}', img=[SPR[f'{y}/{f[:-4]}'] if f'{y}/{f[:-4]}' in SPR else ('/_blob/' + AMAP[f'{y}/{f[:-4]}']) if f'{y}/{f[:-4]}' in AMAP else f'img/{y}/{f}' for f in imgs])
                 if not imgs: q['missing_img'] = True
                 qs_all.setdefault((y, subj), []).append(q)
                 t = trend.setdefault(subj, {}).setdefault(tp, {}); t[str(y)] = t.get(str(y), [0, 0]); t[str(y)][0 if kind == '말' else 1] += 1

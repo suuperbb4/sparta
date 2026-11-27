@@ -1,0 +1,767 @@
+{
+"subject": "hoegae",
+"year": 2022,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2022-hoegae-01",
+"topic": "개념체계",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 1,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문1",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 0,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-02",
+"topic": "무형자산",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 2,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문2",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 310,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-03",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 3,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문3",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 680,
+"h": 503,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-04",
+"topic": "투자부동산",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 4,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문4",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 1187,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-05",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 5,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문5",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 1587,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-06",
+"topic": "차입원가",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 6,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문6",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 1987,
+"h": 321,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-07",
+"topic": "재무제표 표시",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 7,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문7",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 2312,
+"h": 360,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-08",
+"topic": "농림어업",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 8,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문8",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 2676,
+"h": 346,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-09",
+"topic": "충당부채",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 9,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문9",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 3026,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-10",
+"topic": "유형자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 10,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문10",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 3456,
+"h": 406,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-11",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 11,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문11",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 3866,
+"h": 331,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-12",
+"topic": "재고자산",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 12,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문12",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 4201,
+"h": 338,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-13",
+"topic": "관계기업·사업결합",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 13,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문13",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 4543,
+"h": 873,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-14",
+"topic": "주식기준보상",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 14,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문14",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 5420,
+"h": 339,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-15",
+"topic": "자본",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 15,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문15",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 5763,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-16",
+"topic": "수익",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 16,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문16",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 6163,
+"h": 547,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-17",
+"topic": "리스",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 17,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문17",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 6714,
+"h": 486,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-18",
+"topic": "주당이익",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 18,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문18",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 7204,
+"h": 454,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-19",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "말",
+"year": 2022,
+"no": 19,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문19",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 7662,
+"h": 576,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-20",
+"topic": "금융상품",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 20,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문20",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 8242,
+"h": 619,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-21",
+"topic": "회계변경·오류수정",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 21,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문21",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 8865,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-22",
+"topic": "현금흐름표",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 22,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문22",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 9295,
+"h": 625,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-23",
+"topic": "법인세회계",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 23,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문23",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 9924,
+"h": 456,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-24",
+"topic": "종업원급여",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 24,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문24",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 10384,
+"h": 433,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-25",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 25,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문25",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 10821,
+"h": 288,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-26",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 26,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문26",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 11113,
+"h": 318,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-27",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 27,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문27",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 11435,
+"h": 391,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-28",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 28,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문28",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 11830,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-29",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 29,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문29",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 12200,
+"h": 279,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-30",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 30,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문30",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 12483,
+"h": 564,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-31",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 31,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문31",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 13051,
+"h": 561,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-32",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 32,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문32",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 13616,
+"h": 447,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-33",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 33,
+"ans": 5,
+"diff": 2,
+"src": "제59회(2022) 1차 문33",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 14067,
+"h": 568,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-34",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 34,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문34",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 14639,
+"h": 441,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-35",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 35,
+"ans": 1,
+"diff": 2,
+"src": "제59회(2022) 1차 문35",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 15084,
+"h": 285,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-36",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 36,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문36",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 15373,
+"h": 158,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-37",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 37,
+"ans": 3,
+"diff": 2,
+"src": "제59회(2022) 1차 문37",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 15535,
+"h": 432,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-38",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 38,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문38",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 15971,
+"h": 375,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-39",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 39,
+"ans": 4,
+"diff": 2,
+"src": "제59회(2022) 1차 문39",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 16350,
+"h": 490,
+"w": 819
+}
+]
+},
+{
+"id": "g2022-hoegae-40",
+"topic": "원가관리",
+"type": "gichul",
+"kind": "계산",
+"year": 2022,
+"no": 40,
+"ans": 2,
+"diff": 2,
+"src": "제59회(2022) 1차 문40",
+"img": [
+{
+"s": "img/sprite/2022-hoegae.png",
+"y": 16844,
+"h": 355,
+"w": 819
+}
+]
+}
+]
+}

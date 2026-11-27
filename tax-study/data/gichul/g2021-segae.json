@@ -1,0 +1,770 @@
+{
+"subject": "segae",
+"year": 2021,
+"source": "Q-Net 공개 원본 문제지·최종정답(A형), 공공누리 제1유형",
+"questions": [
+{
+"id": "g2021-segae-41",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 41,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문41",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 0,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-42",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 42,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문42",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 430,
+"h": 486,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-43",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 43,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문43",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 920,
+"h": 546,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-44",
+"topic": "국세기본법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 44,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문44",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 1470,
+"h": 516,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-45",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 45,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문45",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 1990,
+"h": 377,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-46",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 46,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문46",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 2371,
+"h": 321,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-47",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 47,
+"ans": [
+1,
+2
+],
+"diff": 2,
+"src": "제58회(2021) 1차 문47",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 2696,
+"h": 348,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-48",
+"topic": "국세징수법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 48,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문48",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 3048,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-49",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 49,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문49",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 3418,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-50",
+"topic": "조세범처벌법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 50,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문50",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 3818,
+"h": 394,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-51",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 51,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문51",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 4216,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-52",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 52,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문52",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 4616,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-53",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 53,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문53",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 5046,
+"h": 551,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-54",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 54,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문54",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 5601,
+"h": 420,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-55",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 55,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문55",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 6025,
+"h": 439,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-56",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 56,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문56",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 6468,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-57",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 57,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문57",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 6838,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-58",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 58,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문58",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 7208,
+"h": 396,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-59",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 59,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문59",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 7608,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-60",
+"topic": "소득세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 60,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문60",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 7858,
+"h": 335,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-61",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 61,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문61",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 8197,
+"h": 805,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-62",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 62,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문62",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 9006,
+"h": 589,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-63",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 63,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문63",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 9599,
+"h": 248,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-64",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 64,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문64",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 9851,
+"h": 733,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-65",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 65,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문65",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 10588,
+"h": 379,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-66",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 66,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문66",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 10971,
+"h": 555,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-67",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 67,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문67",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 11530,
+"h": 439,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-68",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 68,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문68",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 11973,
+"h": 246,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-69",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 69,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문69",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 12223,
+"h": 276,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-70",
+"topic": "법인세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 70,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문70",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 12503,
+"h": 348,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-71",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 71,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문71",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 12855,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-72",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 72,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문72",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 13225,
+"h": 336,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-73",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 73,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문73",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 13565,
+"h": 559,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-74",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 74,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문74",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 14128,
+"h": 351,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-75",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 75,
+"ans": 5,
+"diff": 2,
+"src": "제58회(2021) 1차 문75",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 14483,
+"h": 306,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-76",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 76,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문76",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 14793,
+"h": 426,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-77",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "계산",
+"year": 2021,
+"no": 77,
+"ans": 2,
+"diff": 2,
+"src": "제58회(2021) 1차 문77",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 15223,
+"h": 545,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-78",
+"topic": "부가가치세법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 78,
+"ans": 1,
+"diff": 2,
+"src": "제58회(2021) 1차 문78",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 15772,
+"h": 469,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-79",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 79,
+"ans": 3,
+"diff": 2,
+"src": "제58회(2021) 1차 문79",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 16245,
+"h": 366,
+"w": 819
+}
+]
+},
+{
+"id": "g2021-segae-80",
+"topic": "국제조세조정법",
+"type": "gichul",
+"kind": "말",
+"year": 2021,
+"no": 80,
+"ans": 4,
+"diff": 2,
+"src": "제58회(2021) 1차 문80",
+"img": [
+{
+"s": "img/sprite/2021-segae.png",
+"y": 16615,
+"h": 456,
+"w": 819
+}
+]
+}
+]
+}

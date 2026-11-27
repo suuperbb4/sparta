@@ -41,6 +41,7 @@ main{padding-block:24px 64px}
 .qtext{font:700 clamp(18px,2vw,21px)/1.7 "Nanum Myeongjo",serif;white-space:pre-wrap;margin:0 0 20px}
 .orig{display:grid;gap:4px;margin-bottom:18px;background:#fff;border:1px solid var(--edge);border-radius:6px;padding:8px}
 .orig img{width:100%;height:auto;display:block}
+.spr{overflow:hidden;width:100%}
 :root[data-theme=dark] .orig img{filter:invert(.9) hue-rotate(180deg)}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .orig img{filter:invert(.9) hue-rotate(180deg)}:root:not([data-theme=light]) .orig{background:#161616}}
 :root[data-theme=dark] .orig{background:#161616}
@@ -150,6 +151,7 @@ const allQ=()=>Object.values(S.qsets).flatMap(d=>(d.questions||[]).map(q=>({...q
 const allOX=()=>Object.values(S.oxsets).flatMap(d=>(d.items||[]).map(x=>({...x,subj:d.subject,year:d.year})));
 const qById=id=>allQ().find(q=>q.id===id);
 const isG=q=>q.type==='gichul';
+const imgTag=(u,alt)=>typeof u==='string'?`<img src="${esc(u)}" alt="${esc(alt)}" loading="lazy">`:`<div class="spr" style="aspect-ratio:${+u.w}/${+u.h}"><img src="${esc(u.s)}" alt="${esc(alt)}" style="margin-top:-${(+u.y/+u.w*100).toFixed(4)}%"></div>`;
 const okAns=(q,v)=>q.ans==='A'||(Array.isArray(q.ans)?q.ans.includes(v):v===q.ans);
 const ansText=q=>q.ans==='A'?'전항 정답(모두 정답 처리)':Array.isArray(q.ans)?q.ans.map(a=>NUM[a-1]).join(', ')+' 복수 정답':NUM[q.ans-1];
 function qstats(){
@@ -198,7 +200,7 @@ function sheet(){
   const st=qstats()[q.id],star=(S.prefs.stars||[]).includes(q.id),d=S.done;
   let body='';
   if(isG(q)){
-    body=`<div class="orig">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="${esc(q.src)} 원본 문제" loading="lazy">`).join('')}</div>
+    body=`<div class="orig">${(q.img||[]).map(u=>imgTag(u,q.src+' 원본 문제')).join('')}</div>
     <div class="omr">${[1,2,3,4,5].map(k=>{let c='';if(d){if(okAns(q,k))c='right';else if(k===S.sel)c='wrong'}else if(k===S.sel)c='sel';return `<button class="${c}" data-pick="${k}" ${d?'disabled':''} aria-label="${k}번">${k}</button>`}).join('')}</div>
     ${d?'':`<div class="row"><button class="btn" id="submit" ${S.sel?'':'disabled'}>답안 제출</button><button class="btn ghost" id="skip">건너뛰기</button></div>`}`;
   }else if(q.type==='mc'){
@@ -254,11 +256,11 @@ function oxView(){
     ${d?`<div class="res"><div class="verdict ${d.correct?'ok':'no'}">${d.correct?'맞았어요':'틀렸어요'} · 정답 ${x.ox?'O':'X'}</div>
       <div class="note">근거: ${esc(x.why)} (큐넷 최종정답)${x.subj==='segae'&&yr<2026?' · 출제 당시 법령 기준이라 이후 개정으로 달라졌을 수 있어요.':''}</div>
       <div class="row"><button class="btn" id="oxnext">다음</button><button class="btn ghost" id="oxorig">${S.oxShow?'원문 닫기':'원문 문제 보기'}</button></div>
-      ${S.oxShow&&q?`<div class="orig" style="margin-top:14px">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="원본 문제">`).join('')}</div><div class="note">원문 정답: ${ansText(q)}</div>`:''}</div>`:''}`;
+      ${S.oxShow&&q?`<div class="orig" style="margin-top:14px">${(q.img||[]).map(u=>imgTag(u,'원본 문제')).join('')}</div><div class="note">원문 정답: ${ansText(q)}</div>`:''}</div>`:''}`;
   }
   return `<div class="seg" style="margin-bottom:10px">${so.map(([k,l])=>`<button data-f="oxSubj" data-v="${k}" aria-pressed="${S.oxSubj===k}">${l} ${cnt[k]}</button>`).join('')}</div>
   ${segBtns('oxMode',S.oxMode,[['new','안 푼 것'],['wrong','틀린 것'],['all','전체 랜덤']])}
-  <p class="count">실제 기출(2023~2026) 보기 문장을 공식 정답으로 O/X 판정했어요. 회계는 4년간 말문제가 2번 이상 나온 단원만 담았어요.</p>
+  <p class="count">실제 기출(2021~2026) 보기 문장을 공식 정답으로 O/X 판정했어요. 회계는 기출 기간 동안 말문제가 2번 이상 나온 단원만 담았어요.</p>
   <section class="sheet oxcard">${card}</section>`;
 }
 
@@ -273,7 +275,7 @@ function wrongView(){
   <div class="list">${qs.length?qs.map(q=>{const s=st[q.id],a=s.last;
    const mine=(q.type==='mc'||isG(q))?NUM[(a.given|0)-1]||'-':esc(a.given??'-');
    return `<article class="item"><div class="meta">${srcTag(q)}<span>${esc(SN[q.subj])}</span><span>${esc(q.topic)}</span><span>${esc(q.kind||'')}</span><span>오답 ${s.wrong}회</span>${a.reason?`<span>${esc(a.reason)}</span>`:''}<span>${s.isDue?'오늘 복습':'다음 복습 '+new Date(s.due).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</span></div>
-   ${isG(q)?`<details><summary>원문 보기 · 내 답 ${mine} → 공식 정답 <b>${ansText(q)}</b></summary><div class="orig" style="margin-top:10px">${(q.img||[]).map(u=>`<img src="${esc(u)}" alt="원본 문제" loading="lazy">`).join('')}</div></details>`
+   ${isG(q)?`<details><summary>원문 보기 · 내 답 ${mine} → 공식 정답 <b>${ansText(q)}</b></summary><div class="orig" style="margin-top:10px">${(q.img||[]).map(u=>imgTag(u,'원본 문제')).join('')}</div></details>`
    :`<p class="qtext">${esc(q.q)}</p>${q.type==='mc'?`<div>내 답 ${mine} → 정답 <b>${NUM[q.ans-1]} ${esc(q.choices[q.ans-1])}</b></div>`:q.type==='num'?`<div>내 답 ${mine} → 정답 <b>${esc(Number(q.ans).toLocaleString('ko-KR'))} ${esc(q.unit||'')}</b></div>`:''}
    <details><summary>해설 보기</summary><div class="exp">${esc(q.exp||q.model)}</div>${q.memo?`<div class="memo"><b>암기 포인트</b>\n${esc(q.memo)}</div>`:''}</details>`}
    <div class="row"><button class="btn ghost" data-retry="${esc(q.id)}">다시 풀기</button></div></article>`}).join(''):'<div class="item">틀린 문제가 없어요.</div>'}</div>
@@ -301,7 +303,7 @@ function trendTable(){
   const mine=k=>{const a=S.att.filter(x=>x.subj===S.trendSubj&&x.topic===k&&x.type!=='ox');return a.length?Math.round(a.filter(x=>x.correct).length/a.length*100)+'%':'-'};
   return `<div class="scroll"><table><thead><tr><th>단원</th>${ys.map(y=>`<th>${y}</th>`).join('')}<th>4년 합</th><th>말문제</th><th>내 정답률</th></tr></thead><tbody>
   ${rows.map(r=>`<tr><td>${esc(r.k)}</td>${ys.map(y=>{const v=r.v[y];return `<td>${v?`${v[0]+v[1]}${v[1]?` <i>(계${v[1]})</i>`:''}`:'-'}</td>`}).join('')}<td><b>${r.tot}</b></td><td>${r.m}</td><td>${mine(r.k)}</td></tr>`).join('')}
-  </tbody></table></div><p class="note">숫자는 문항 수, 괄호는 그중 계산문제. 큐넷 원본 문제지(제60~63회 A형)를 문항별로 분류했어요.</p>`;
+  </tbody></table></div><p class="note">숫자는 문항 수, 괄호는 그중 계산문제. 큐넷 원본 문제지(제58~63회 A형)를 문항별로 분류했어요.</p>`;
 }
 function statView(){
   const A=S.att.filter(a=>a.type!=='ox'),O=S.att.filter(a=>a.type==='ox'),ok=A.filter(a=>a.correct).length,today=new Date().toDateString();
@@ -315,7 +317,7 @@ function statView(){
   const days=[...Array(84)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-83+i);const e=+d+864e5;return S.att.filter(a=>a.ts>=+d&&a.ts<e).length});
   const hmax=Math.max(1,...days);
   return `<div class="kpis"><div class="kpi"><b>${A.length}</b><span>문제 풀이</span></div><div class="kpi"><b>${A.length?pct(ok/A.length):'-'}</b><span>정답률</span></div><div class="kpi"><b>${O.length?pct(O.filter(a=>a.correct).length/O.length):'-'}</b><span>OX 정답률 · ${O.length}개</span></div><div class="kpi"><b>${S.att.filter(a=>new Date(a.ts).toDateString()===today).length}</b><span>오늘 푼 개수</span></div><div class="kpi"><b>${due}</b><span>복습 대기</span></div></div>
-  <div class="card" style="margin-bottom:24px"><h2>출제경향 · 2023~2026 실제 기출</h2>
+  <div class="card" style="margin-bottom:24px"><h2>출제경향 · 2021~2026 실제 기출</h2>
    ${segBtns('trendSubj',S.trendSubj,[['segae','세법학개론'],['hoegae','회계학개론'],['haeng','행정소송법'],['jae','재정학']])}<div style="margin-top:12px">${trendTable()}</div></div>
   <div class="two">
    <div class="card"><h2>과목별 정답률</h2>${bySub.map(s=>`<div class="bar"><span>${s.exam} ${s.name}</span><div class="track"><div class="fill" style="width:${s.r*100}%"></div></div><em>${s.n?pct(s.r):'-'}</em></div>`).join('')}
@@ -346,7 +348,11 @@ async function record(q,given,correct,extra={}){
   S.done={...a,saved:true};S.msg='';render();
   S.done.ref=await save(a);
 }
-async function blobOf(u){const r=await fetch(u);return r.blob()}
+async function blobOf(u){
+  if(typeof u==='string'){const r=await fetch(u);return r.blob()}
+  const im=new Image();im.src=u.s;await im.decode();const c=document.createElement('canvas');c.width=u.w;c.height=u.h;
+  const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,u.w,u.h);g.drawImage(im,0,u.y,u.w,u.h,0,0,u.w,u.h);
+  return new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error('crop')),'image/png'))}
 async function askAI(prompt,imgs){
   S.ai='해설을 만드는 중…';render();
   try{const opts={onText:({text})=>{S.ai=text;render()}};if(imgs?.length)opts.images=await Promise.all(imgs.map(blobOf));const r=await S.sample(prompt,opts);S.ai=r.text}
