@@ -225,3 +225,16 @@ h2{font-size:18px;letter-spacing:-.01em;margin:26px 0 10px}
 .vbar{padding-top:calc(18px + env(safe-area-inset-top,0px))}
 .rail .feat,.grid .tile{content-visibility:auto;contain-intrinsic-size:auto 420px}
 .body,.track,.rail{will-change:scroll-position}
+
+/* 캡션 마지막 장 */
+.txt{width:100%;max-height:100%;overflow-y:auto;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:22px 20px 24px;color:var(--soft)}
+.txt .tag{margin-bottom:14px}
+.txt .tb{white-space:pre-line;font-size:16px;line-height:1.8;color:var(--ink)}
+.txt .tg{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.txt .tg span{font-size:13px;color:var(--gold);background:#1d1a10;border-radius:99px;padding:3px 10px}
+/* 보관함: 하루 한 줄에 3칸, 모든 칸 같은 4:5 비율 */
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tile .ph{border-radius:10px}
+.tile img{object-position:center}
+.tile .tag{font-size:11px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tile .tag::before{width:6px;height:6px;flex:none}

@@ -9,7 +9,7 @@
     cfg: null, feed: { days: [] }, notices: [], access: null, route: 'gate', date: null, open: null, idx: 0,
     os: /android/i.test(navigator.userAgent) ? 'and' : 'ios', err: '', toast: '', cat: 'all', capOpen: false, seen: '', member: null, plan: 'monthly', method: 'card', agree: {}, phone: '', busy: false,
   };
-  const VERSION = 'v15';
+  const VERSION = 'v16';
   const B = () => esc(S.cfg.brand); // 앱 이름은 config.json의 brand 한 곳에서 바꾼다
   let installPrompt = null;
   let lockUntil = 0;
@@ -314,12 +314,20 @@
     const day = S.feed.days.find((d) => d.date === S.open.date);
     const set = day && day.sets.find((x) => x.series === S.open.series);
     if (!set) return '';
+    const n = set.cards.length + (set.text ? 1 : 0);
+    // 캡션은 카드 뒤 마지막 장으로
+    const tags = set.text ? (set.text.match(/#[^\s#]+/g) || []) : [];
+    const body = set.text ? set.text.replace(/(^|\s)#[^\s#]+/g, '').trim() : '';
+    const capSlide = set.text ? `<div class="slide"><article class="txt" style="--c:${info(set.series).color}">
+        <span class="tag">${esc(info(set.series).short)} · ${dayLabel(day.date)}</span>
+        <div class="tb">${esc(body)}</div>
+        ${tags.length ? `<div class="tg">${tags.map((t) => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
+      </article></div>` : '';
     return `<div class="vw" role="dialog" aria-label="${esc(info(set.series).name)}">
-      <div class="vbar"><button data-act="close">닫기</button><div class="vt"><b>${esc(info(set.series).short)}</b><small>${dayLabel(day.date)}</small></div><span id="cnt">${S.idx + 1}/${set.cards.length}</span></div>
-      <div class="prog">${set.cards.map((_, i) => `<i class="${i <= S.idx ? 'on' : ''}"></i>`).join('')}</div>
-      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}></div>`).join('')}</div>
-      ${set.text ? `<div class="cap ${S.capOpen ? 'open' : ''}"><div class="short">${esc(set.text.replace(/\s*\n\s*/g, ' '))}</div><div class="full">${esc(set.text)}</div><button class="lnk" data-act="cap">${S.capOpen ? '접기' : '더 보기'}</button></div>` : ''}
-      <div class="vfoot"><button data-act="prev" aria-label="이전 카드">‹</button><span>옆으로 밀어서 넘기기</span><button data-act="next" aria-label="다음 카드">›</button></div></div>`;
+      <div class="vbar"><button data-act="close">닫기</button><div class="vt"><b>${esc(info(set.series).short)}</b><small>${dayLabel(day.date)}</small></div><span id="cnt">${S.idx + 1}/${n}</span></div>
+      <div class="prog">${Array.from({ length: n }, (_, i) => `<i class="${i <= S.idx ? 'on' : ''}"></i>`).join('')}</div>
+      <div class="track" id="track">${set.cards.map((c, i) => `<div class="slide"><img src="${esc(c)}" alt="${i + 1}번째 카드" draggable="false" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}></div>`).join('')}${capSlide}</div>
+      <div class="vfoot"><button data-act="prev" aria-label="이전 카드">‹</button><span>${set.text ? '마지막 장에 캡션이 있어요' : '옆으로 밀어서 넘기기'}</span><button data-act="next" aria-label="다음 카드">›</button></div></div>`;
   }
 
   function render() {
