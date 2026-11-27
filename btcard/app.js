@@ -68,7 +68,7 @@
         <li><b>보관함</b>지난 카드를 날짜별로 다시 보기</li>
         <li><b>이용 기간 ${untilLabel(S.access.until)}까지</b>네이버 유료 글의 버튼을 누를 때마다 자동 연장</li>
       </ul>
-      ${standalone() ? '' : `<div class="box">홈 화면에 추가한 앱을 처음 열 때 아래 코드를 한 번 입력해 주세요. 아이폰은 홈 화면 앱과 브라우저가 저장 공간을 따로 써요.<div class="code" style="margin-top:6px">${esc(S.access.code)}</div></div>`}
+      ${standalone() ? '' : '<div class="box">지금 이 화면에서 바로 홈 화면에 추가하면, 아이콘을 눌렀을 때 코드 입력 없이 열려요.</div>'}
       ${standalone() ? '' : '<button class="btn" data-go="install">홈 화면에 추가하기</button>'}
       <button class="btn ghost" data-go="home">${standalone() ? '카드 보러 가기' : '나중에'}</button>
     </div>`,
@@ -77,8 +77,8 @@
       if (standalone()) return `<div class="body pad"><h1>이미 앱으로 쓰고 있어요</h1><p class="muted">홈 화면의 비티 카드 아이콘으로 열면 돼요.</p><button class="btn" data-go="home">카드 보러 가기</button></div>`;
       const ios = S.os === 'ios';
       const steps = ios
-        ? ['Safari 아래쪽(또는 위쪽)의 공유 버튼을 눌러요', '"홈 화면에 추가"를 골라요', '홈 화면의 비티 카드를 열고 연동 코드를 한 번 입력해요']
-        : ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', '설치된 비티 카드를 열고 연동 코드를 한 번 입력해요'];
+        ? ['Safari 아래쪽(또는 위쪽)의 공유 버튼을 눌러요', '"홈 화면에 추가"를 골라요', '홈 화면의 비티 카드 아이콘을 누르면 바로 열려요']
+        : ['크롬 오른쪽 위 메뉴(점 세 개)를 눌러요', '"앱 설치" 또는 "홈 화면에 추가"를 골라요', '설치된 비티 카드를 누르면 바로 열려요'];
       return `<div class="body pad">
         <h1>홈 화면에 추가하기</h1>
         <p class="muted">앱스토어 설치 없이 30초면 끝나요.</p>
@@ -86,7 +86,7 @@
         <div class="seg"><button data-os="ios" class="${ios ? 'on' : ''}">아이폰</button><button data-os="and" class="${ios ? '' : 'on'}">안드로이드</button></div>
         <ol class="ist">${steps.map((t, i) => `<li><span>${i + 1}</span><div>${t}</div></li>`).join('')}</ol>
         ${!ios && installPrompt ? '<button class="btn" data-act="install">지금 설치하기</button>' : ''}
-        ${S.access ? `<div class="box">연동 코드 <span class="code">${esc(S.access.code)}</span></div>` : ''}
+        ${S.access ? `<div class="box">혹시 아이콘으로 열었을 때 코드를 물으면 이 코드를 넣어 주세요 <span class="code">${esc(S.access.code)}</span></div>` : ''}
         <button class="btn ghost" data-go="${valid() ? 'home' : 'gate'}">돌아가기</button>
       </div>`;
     },
@@ -220,8 +220,9 @@
     const params = new URLSearchParams(location.search);
     const k = params.get('k');
     if (k) {
-      history.replaceState(null, '', location.pathname); // 주소창과 홈 화면 바로가기에 코드가 남지 않게
       const code = await checkCode(k);
+      // 맞는 코드는 주소에 남겨 둔다: 홈 화면에 추가하면 이 주소가 아이콘에 저장돼 다시 입력할 필요가 없다
+      history.replaceState(null, '', code ? `${location.pathname}?k=${encodeURIComponent(code)}` : location.pathname);
       if (code) {
         const first = grant(code);
         S.route = first ? 'welcome' : 'home';
