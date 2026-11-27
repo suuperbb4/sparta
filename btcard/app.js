@@ -166,8 +166,8 @@
             <div class="ring ${isNew ? 'new' : ''}"><i ${l ? `style="background-image:url('${esc(l.s.cards[0])}')"` : ''}>${l ? '' : '+'}</i></div>${esc(c.name)}</button>`;
         }).join('')}</div>`}
         ${pin && !S.date ? `<button class="pin" data-go="news"><b>공지</b><span>${esc(pin.title)}</span>›</button>` : ''}
-        <div class="sec"><h2>${S.date ? '이날 발행' : '오늘 발행'}</h2><span class="muted">${sets.length}개 시리즈</span></div>
-        ${sets.length ? sets.map((s) => feat(s, day.date)).join('') : '<div class="empty">아직 올라온 카드가 없어요.</div>'}
+        <div class="sec"><h2>${S.date ? '이날 발행' : '오늘 발행'}</h2><span class="muted">${sets.length > 1 ? '옆으로 넘겨 보기 ›' : ''}</span></div>
+        ${sets.length ? `<div class="rail">${sets.map((s) => feat(s, day.date)).join('')}</div>` : '<div class="empty">아직 올라온 카드가 없어요.</div>'}
         ${!S.date && days.length > 1 ? '<button class="btn ghost" data-go="archive">지난 카드 보기</button>' : ''}
         ${standalone() || S.date ? '' : '<div class="box">홈 화면에 추가하면 앱처럼 바로 열 수 있어요. <button class="lnk" data-go="install">추가하는 방법</button></div>'}
       </div>${tabs()}`;
