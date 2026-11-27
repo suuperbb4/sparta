@@ -119,7 +119,7 @@ export const Crash: React.FC<Extract<Visual, {type: 'crash'}>> = ({points, note,
         <div style={{fontFamily: HAND, fontSize: 170, color: INK.red, lineHeight: 1, textShadow: '0 4px 16px rgba(0,0,0,0.8)'}}>{dropLabel}</div>
         <HandUnderline w={260} progress={clamp01(frame, 10 + Math.min(110, durationInFrames * 0.55) + 10, 10 + Math.min(110, durationInFrames * 0.55) + 22)} seed={7} color={INK.red} stroke={8} style={{left: 10, bottom: -6}} />
       </div>
-      <div style={{position: 'absolute', right: 60, top: 140, fontSize: 22, color: C.dim, fontWeight: 600}}>※ {note}</div>
+      <div style={{position: 'absolute', right: 50, top: 176, fontSize: 21, color: 'rgba(200,210,230,0.7)', fontWeight: 600}}>※ {note}</div>
     </AbsoluteFill>
   );
 };

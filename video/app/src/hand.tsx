@@ -22,7 +22,7 @@ export const Marker: React.FC<{children: React.ReactNode; progress: number; seed
   const d = `M2 ${y1} C 25 ${y1 + j(seed + 2, 8)}, 60 ${y2 + j(seed + 3, 8)}, 98 ${y2}`;
   return (
     <span style={{position: 'relative', display: 'inline-block', whiteSpace: 'nowrap'}}>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{position: 'absolute', left: '-3%', top: '-5%', width: '106%', height: '110%', zIndex: 0, overflow: 'visible'}}>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{position: 'absolute', left: 0, top: '-5%', width: '100%', height: '110%', zIndex: 0, overflow: 'hidden'}}>
         <path d={d} stroke={color} strokeWidth={62} strokeLinecap="round" fill="none" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - progress} style={{mixBlendMode: 'multiply'}} />
       </svg>
       <span style={{position: 'relative', zIndex: 1}}>{children}</span>

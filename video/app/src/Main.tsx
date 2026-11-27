@@ -116,7 +116,7 @@ const Ticker: React.FC<{items: string[]}> = ({items: base}) => {
 };
 
 // ── 배경 영상: 남색으로 덮어 그래픽이 잘 보이게 ──────────
-const Backdrop: React.FC<{f: Footage; dim?: number; soft?: boolean}> = ({f, dim = 1, soft = false}) => {
+const Backdrop: React.FC<{f: Footage; dim?: number; soft?: boolean; creditTop?: number}> = ({f, dim = 1, soft = false, creditTop = 40}) => {
   const frame = useCurrentFrame();
   const zoom = 1.05 + frame * 0.0004; // 느린 줌인
   return (
@@ -126,7 +126,7 @@ const Backdrop: React.FC<{f: Footage; dim?: number; soft?: boolean}> = ({f, dim 
       </Loop>
       <AbsoluteFill style={{background: `linear-gradient(rgba(10,15,28,${Math.min(0.9, 0.34 * dim)}), rgba(10,15,28,${Math.min(0.92, 0.5 * dim)}))`}} />
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10,15,28,0.5) 100%)'}} />
-      <div style={{position: 'absolute', right: 40, bottom: 70, fontSize: 20, fontWeight: 600, color: 'rgba(230,237,247,0.75)', fontFamily: "'Pretendard'"}}>{f.credit}</div>
+      <div style={{position: 'absolute', right: 50, top: creditTop, fontSize: 19, fontWeight: 600, color: 'rgba(230,237,247,0.7)', fontFamily: "'Pretendard'", textShadow: '0 1px 6px rgba(0,0,0,0.8)'}}>{f.credit}</div>
     </AbsoluteFill>
   );
 };
@@ -164,7 +164,7 @@ const SceneView: React.FC<{ep: Episode; scene: Scene; dur: number}> = ({ep, scen
     <AbsoluteFill>
       {scene.bg ? (
         <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut)}}>
-          <Backdrop f={scene.bg} dim={(scene.bgDim ?? 1) + (DATA_SCENES.includes(scene.visual.type) ? 0.15 : 0)} soft={DATA_SCENES.includes(scene.visual.type)} />
+          <Backdrop f={scene.bg} dim={(scene.bgDim ?? 1) + (DATA_SCENES.includes(scene.visual.type) ? 0.15 : 0)} soft={DATA_SCENES.includes(scene.visual.type)} creditTop={scene.cinematic ? 140 : 40} />
         </AbsoluteFill>
       ) : null}
       <AbsoluteFill style={{opacity: Math.min(fadeIn, fadeOut), transform: 'translateY(-10px)'}}>
