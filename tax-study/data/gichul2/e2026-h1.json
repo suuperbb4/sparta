@@ -1,0 +1,130 @@
+{
+"subject": "h1",
+"year": 2026,
+"preamble": "",
+"source": "Q-Net 공개 2차 원본 문제지 (공식 모범답안 없음)",
+"questions": [
+{
+"id": "s2026-h1-1",
+"type": "set",
+"kind": "계산",
+"year": 2026,
+"no": 1,
+"topic": "문제 1",
+"points": 30,
+"src": "제63회(2026) 2차 회계학 1부 문제1",
+"img": [
+"img/2cha/2026-h1-1.png"
+],
+"px": 3613785,
+"parts": [
+{
+"q": "물음 1",
+"label": "",
+"points": null,
+"kind": "calc"
+},
+{
+"q": "물음 2",
+"label": "",
+"points": null,
+"kind": "calc"
+},
+{
+"q": "물음 3",
+"label": "",
+"points": null,
+"kind": "calc"
+}
+],
+"text": ""
+},
+{
+"id": "s2026-h1-2",
+"type": "set",
+"kind": "계산",
+"year": 2026,
+"no": 2,
+"topic": "문제 2",
+"points": 30,
+"src": "제63회(2026) 2차 회계학 1부 문제2",
+"img": [
+"img/2cha/2026-h1-2.png"
+],
+"px": 2882898,
+"parts": [
+{
+"q": "물음 1",
+"label": "",
+"points": null,
+"kind": "calc"
+},
+{
+"q": "물음 2",
+"label": "",
+"points": null,
+"kind": "calc"
+}
+],
+"text": ""
+},
+{
+"id": "s2026-h1-3",
+"type": "set",
+"kind": "계산",
+"year": 2026,
+"no": 3,
+"topic": "문제 3",
+"points": 20,
+"src": "제63회(2026) 2차 회계학 1부 문제3",
+"img": [
+"img/2cha/2026-h1-3.png"
+],
+"px": 1921932,
+"parts": [
+{
+"q": "물음 1",
+"label": "",
+"points": null,
+"kind": "calc"
+},
+{
+"q": "물음 2",
+"label": "",
+"points": null,
+"kind": "calc"
+}
+],
+"text": ""
+},
+{
+"id": "s2026-h1-4",
+"type": "set",
+"kind": "계산",
+"year": 2026,
+"no": 4,
+"topic": "문제 4",
+"points": 20,
+"src": "제63회(2026) 2차 회계학 1부 문제4",
+"img": [
+"img/2cha/2026-h1-4.png"
+],
+"px": 1921932,
+"parts": [
+{
+"q": "물음 1",
+"label": "",
+"points": null,
+"kind": "calc"
+},
+{
+"q": "물음 2",
+"label": "",
+"points": null,
+"kind": "calc"
+}
+],
+"text": ""
+}
+]
+}
