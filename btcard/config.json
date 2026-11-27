@@ -27,8 +27,8 @@
     "weekly": {
       "name": "주간 비티",
       "short": "주간 비티",
-      "cat": "etc",
-      "color": "#7C8BA1",
+      "cat": "world",
+      "color": "#C9A227",
       "order": 4
     },
     "etc": {
